@@ -1,0 +1,11 @@
+# TO-DO
+-   A switch parameter for auditing only specifically on the CIS Benchmark of Microsoft 365 and Azure
+-	A switch parameter that allows you to choose if you want to audit all Microsoft 365 modules, or only specific modules
+-	Merging multiple inspector modules to remove duplicates
+-	Add more PowerShell compatibility
+-	AIPService Connector Implementation
+-	Migration where possible to Microsoft Graph scripting for better PowerShell 7 compatibility
+-	Adding a Docker-Container so the application could be used within a Dockerized Container
+-	Add a WebPortal or C# Application to execute the audit via the portal
+-   Phasing out MSOLService, AzureAD & AzureADPreview and replacing it with AzureADPreview for now and then later to Microsoft Graph 
+- Migrate SharePoint Online to SharePoint PnP
