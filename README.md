@@ -9,6 +9,8 @@ Written in PowerShell 5.x and soon PowerShell 7.x as well!
   </p>
 </div>
 
+<b>Next Scheduled Release: April 2023</b>
+
 [![OS](https://img.shields.io/badge/OS-Windows-blue?style=flat&logo=Windows)](https://www.microsoft.com/en-gb/windows/?r=1)
 [![made-with-powershell](https://img.shields.io/badge/Made%20with-Powershell-1f425f.svg?logo=Powershell)](https://github.com/powershell/powershell)
 [![Docker](https://img.shields.io/badge/Docker-Coming_Soon-red.svg?style=flat&logo=docker)](https://github.com/asterictnl-lvdw/365Inspect)
