@@ -9,7 +9,8 @@ Written in PowerShell 5.x and soon PowerShell 7.x as well!
   </p>
 </div>
 
-<b>Next Scheduled Release: April 2023</b>
+<b>Next Scheduled Release: May/June 2023</b>
+Due to the huge changes in CIS v2.0.0 I will try to release the improved version of the tool near May/June. I will include a document with things that are going to be done for the next release. I thank you for your patience.
 
 [![OS](https://img.shields.io/badge/OS-Windows-blue?style=flat&logo=Windows)](https://www.microsoft.com/en-gb/windows/?r=1)
 [![made-with-powershell](https://img.shields.io/badge/Made%20with-Powershell-1f425f.svg?logo=Powershell)](https://github.com/powershell/powershell)
