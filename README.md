@@ -61,6 +61,7 @@ The following modules need to be installed in order to make M365SAT work:
 - Microsoft.Online.SharePoint.PowerShell
 - Microsoft.Graph
 - MicrosoftTeams
+- PoShLog
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement
@@ -68,7 +69,9 @@ Install-Module -Name Microsoft.Online.SharePoint.PowerShell
 Install-Module -Name Microsoft.Graph
 Install-Module -Name Microsoft.Graph.Beta
 Install-Module -Name MicrosoftTeams
+Install-Module -Name PoShLog
 ```
+PoShLog is required in order to make logging work.
 
 ### 4.2 Method 1: Install-Module
 This method is coming in the next major release
