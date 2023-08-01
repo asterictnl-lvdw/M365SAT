@@ -1,0 +1,7 @@
+#Microsoft Office 365 (Admin Portal)
+##
+
+##Store
+/admin/api/settings/apps/store
+/admin/api/settings/apps/store
+/admin/api/storesettings/iwpurchasefeatureenabled

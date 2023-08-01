@@ -1,0 +1,97 @@
+#ExchangeOnline
+## ConfigAnalyzerPolicyRecommendation Standard & Strict instead of only Strict
+
+## HostedConnectionFilterPolicy
+Desired Config
+IncreaseScoreWithImageLinks          : Off
+IncreaseScoreWithNumericIps          : Off
+IncreaseScoreWithRedirectToOtherPort : On
+IncreaseScoreWithBizOrInfoUrls       : On
+MarkAsSpamEmptyMessages              : On
+MarkAsSpamJavaScriptInHtml           : On
+MarkAsSpamFramesInHtml               : On
+MarkAsSpamObjectTagsInHtml           : On
+MarkAsSpamEmbedTagsInHtml            : On
+MarkAsSpamFormTagsInHtml             : Off
+MarkAsSpamWebBugsInHtml              : Off
+MarkAsSpamSensitiveWordList          : Off
+MarkAsSpamSpfRecordHardFail          : On
+MarkAsSpamFromAddressAuthFail        : On
+MarkAsSpamBulkMail                   : On
+MarkAsSpamNdrBackscatter             : Off
+InlineSafetyTipsEnabled              : True
+SpamZapEnabled                       : True
+PhishZapEnabled                      : True	
+
+##HostedOutboundSpamFilterPolicy:
+BccSuspiciousOutboundMail                 : True
+NotifyOutboundSpam                        : True
+Enabled :True
+
+## Make sure there are no TrustedSenderAndDomains who are suspicious
+Get-ExoMailbox | Get-MailboxJunkEmailConfiguration
+
+## Make sure Malware is not spread internally and externally (Get-MalwareFilterPolicy)
+CustomNotifications                    : True
+EnableExternalSenderAdminNotifications : True
+EnableFileFilter                       : True
+EnableInternalSenderAdminNotifications : True
+ExternalSenderAdminAddress             :
+FileTypeAction                         : Reject
+ZapEnabled: True
+
+#OWA Settings
+Get-EXOMailbox | Get-MailboxMessageConfiguration | Select-Object
+AlwaysShowBcc                          : True
+AlwaysShowFrom                         : True
+CheckForForgottenAttachments           : True
+ReadReceiptResponse                    : AlwaysSend
+SmimeEncrypt                           : False
+SmimeSign                              : False
+ReportJunkSelected                     : False
+CheckForReportJunkDialog               : False
+MailSendUndoInterval                   : 30
+
+Remediation: Get-EXOMailbox -RecipientTypeDetails UserMailbox -ResultSize Unlimited | Set-MailboxMessageConfiguration -MailSendUndoInterval 30 -AlwaysShowBcc $true -AlwaysShowFrom $true -CheckForForgottenAttachments $true -ReadReceiptResponse AlwaysSend 
+
+#OWASettings Get-OwaMailboxPolicy
+ThirdPartyFileProvidersEnabled                       : False
+MessagePreviewsDisabled                              : True
+SilverlightEnabled                                   : False
+FacebookEnabled                                      : False
+LinkedInEnabled                                      : False
+AllowOfflineOn                                       : NoComputers
+
+#AntiPhishPolicy
+ImpersonationProtectionState                  : Automatic
+EnableTargetedUserProtection                  : True
+EnableMailboxIntelligenceProtection           : True
+EnableTargetedDomainsProtection               : True
+EnableOrganizationDomainsProtection           : True
+EnableMailboxIntelligence                     : True
+EnableFirstContactSafetyTips                  : True
+EnableSimilarUsersSafetyTips                  : True
+EnableSimilarDomainsSafetyTips                : True
+EnableUnusualCharactersSafetyTips             : True
+EnableSpoofIntelligence                       : True
+EnableViaTag                                  : True
+EnableUnauthenticatedSender                   : True
+EnableSuspiciousSafetyTip                     : True
+HonorDmarcPolicy                              : True
+
+## Check if SafeLinks is enabled per Mailbox
+(Get-EXOMailbox).UserPrincipalName | Get-MailboxLocation | Select-Object OwnerId, SafeLinksEnabled
+
+## Check is AntispamBypass is not enabled and the Audit is enabled onto MailboxPlans.
+Get-MailboxPlan | Select-Object AntispamBypassEnabled, AuditEnabled
+
+## Get-OrganizationConfig
+MailTipsAllTipsEnabled                                    : True
+MailTipsExternalRecipientsTipsEnabled                     : True
+MailTipsGroupMetricsEnabled                               : True
+MailTipsLargeAudienceThreshold                            : 25
+MailTipsMailboxSourcedTipsEnabled                         : True
+EwsEnabled: False
+LinkPreviewEnabled: False
+MapiHttpEnabled: False
+UnblockUnsafeSenderPromptEnabled: False

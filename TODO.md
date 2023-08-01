@@ -1,27 +1,18 @@
 # TO-DO
-
-## Things that are need to be done before the improved release:
-
-- Implement checks voor CIS v2.0.0 (Azure + Microsoft 365)
-- AIPService Connector Implementation
-- Implement custom checks for newly implemented security features within both Azure and Microsoft 365 suite.
-- Remove MSOnline (MSOnline) completely and migrate it to Azure CloudShell (Az) / Azure PowerShell (AzAccount) and Microsoft Graph
-- Migrate all AzureAD and AzureADPreview to Azure CloudShell (Az) / Azure PowerShell (AzAccount) and Microsoft Graph
-- Removing old powershell scripts that are not supported anymore
-- Adding support to PowerShell 7 to make the program cross-platform supporting
-- Implement Exchange V3 Module
-- Implement PnP PowerShell Module
-- Improve the HTML/CSS from the report
-- Replace the Errorlogging with PoShLogger for better support of logging instead of pointing each time to a file. Users are then required to install PoShLogger
-- Fixing some bugs within the report template such as HealthScore, and some buggy
-- Fixing and improving the update checker, duplicate checker and powershell module existing scripts
-- A switch parameter for auditing only specifically on the CIS Benchmark of Microsoft 365 and Azure
--	A switch parameter that allows you to choose if you want to audit all Microsoft 365 modules, or only specific modules
-
-## Things for in the future:
-
-- Aquire Token Authentication so MFA accounts do not have to prompt where possible for modules by using default enterprise applications within Azure to connect through
-- Configure a SaaS solution / a GUI that enables an even simpler overview for end-users and a possible better experience.
-- Enable multiple export possibilities for users who do not want their findings in HTML-style.
-- Add a WebPortal or C# Application to execute the audit via the portal
-- Adding a Docker-Container so the application could be used within a Dockerized Container
+- Change CVS to CWE with a custom score based by Aster calculated with the CVSS V4.0
+- A brand new remediation schema with brand new priorities based on professional advice. 
+- Add the new scripts that enable remediation via Microsoft Graph and the other endpoints
+- Add the posibility for 1-click remediation as you execute the PowerShell command via the browser
+- Take the Exception part into a core module to eliminate the stuff out of the Powershell script
+- Migrate all the Information parts to a different powershell script
+- Impact will be removed / redefined based on the remediation and not on the risk
+- Risk will be based on the CWE and calculated by Aster in combination with the CVSS and a (generic) Risk-Analysis method
+- RemediationScript will be added in the object
+- Directory will be created earlier to get the new path name so the logfiles will be stored in the correct folder and pointed to the correct folder
+- We are seperating some functions as they are serving as a core module in the future which will be a seperate .ps1 file for better managability
+- Powershell 7 Compatibility
+- Make a risk distribution Chart en make the other chart responsive instead of a static chart
+- Every check will be required to give some output (if something is found of course!) and save this to the findings folder within the reports folder
+- We are looking to implement NIST or another framework as well in the future
+- Testing a network connection script that allows only this scrip to be run when user is actually online. Get-NetRoute | ? DestinationPrefix -eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState -eq 'Connected' (Which is for checking Network Connection)
+- Fully cross-platform compatibility by removing as many platform dependencies and replacing them by initiating them via API connections.

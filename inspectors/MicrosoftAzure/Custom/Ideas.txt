@@ -1,0 +1,11 @@
+#AZURE ACTIVE DIRECTORY
+
+##Authentication Methods
+https://graph.microsoft.com/beta/$batch
+reportSuspiciousActivitySettings.state
+systemCredentialPreferences.state
+
+##Policies
+$Policies = https://graph.windows.net/$tenantid/policies?api-version=1.6-internal
+User Risk and MFA Registration Policy
+Sign-In Risk Policy
