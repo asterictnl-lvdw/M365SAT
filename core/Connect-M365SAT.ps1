@@ -10,7 +10,10 @@ function Connect-M365SAT
 	. $PSScriptRoot\m365connectors\Connect-MicrosoftSharepoint.ps1
 	. $PSScriptRoot\m365connectors\Connect-MicrosoftTeams.ps1
 	
-	
+	if ($PSVersionTable.PSVersion.Major -igt 5)
+		{
+			Import-Module Microsoft.Online.SharePoint.PowerShell -UseWindowsPowershell
+		}
 	
 	if (![string]::IsNullOrEmpty($Username) -and ![string]::IsNullOrEmpty($Password))
 	{
