@@ -77,14 +77,18 @@ function Get-M365SATHTMLReport
             min-height: 100%;
         }
 
-                .tooltip {
-        position: relative;
-        display: contents;
+        .accordion-button{
+            border: 2px solid #dee2e63b;
+        }
+
+        .tooltip {
+            position: relative;
+            display: contents;
         }
 
         pre[class*=""language-""] button {
             position: absolute;
-            right: 1px;
+            right: 37px;
         }
 
         @media (min-width: 576px)
@@ -221,9 +225,7 @@ function Get-M365SATHTMLReport
         }
         .bd-callout {
             padding: 1.25rem;
-            margin-top: 1.25rem;
-            margin-bottom: 1.25rem;
-            border: 1px solid #eee;
+            border: 1px solid #f8f9fa;
             border-left-width: .25rem;
             border-radius: .25rem;
         }
@@ -572,11 +574,11 @@ function Get-M365SATHTMLReport
             <td width='20'><i class='fa-solid fa-check'></i>
             <td><strong>All Solutions</strong></td>
             <td align='right'>
-                <span class='badge card-prio-info' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($InformationalCount)</span>
-                <span class='badge card-prio-low' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($LowCount)</span>
-                <span class='badge card-prio-medium' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($MediumCount)</span>
-				<span class='badge card-prio-high' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($HighCount)</span>
-				<span class='badge card-prio-critical' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($CriticalCount)</span>
+                <span title='Informational' class='badge card-prio-info' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($InformationalCount)</span>
+                <span title='Low' class='badge card-prio-low' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($LowCount)</span>
+                <span title='Medium' class='badge card-prio-medium' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($MediumCount)</span>
+				<span title='High' class='badge card-prio-high' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($HighCount)</span>
+				<span title='Critical' class='badge card-prio-critical' style='padding:15px;text-align:center;width:40px;"; $Output += "'>$($CriticalCount)</span>
             </td>
         </tr>
         "
@@ -643,11 +645,11 @@ function Get-M365SATHTMLReport
 	#Legenda Information
 	$Output += "
     <tr><td colspan='3' style='text-align:right'> 
-        <span class='badge card-prio-info'style='padding:5px;text-align:center'> </span>&nbsp;Informational
-        <span class='badge card-prio-low'style='padding:5px;text-align:center'> </span>&nbsp;Low
-        <span class='badge card-prio-medium' style='padding:5px;text-align:center'> </span>&nbsp;Medium
-        <span class='badge card-prio-high' style='padding:5px;text-align:center'> </span>&nbsp;High
-        <span class='badge card-prio-critical' style='padding:5px;text-align:center'> </span>&nbsp;Critical
+        <span title='Informational' class='badge card-prio-info'style='padding:5px;text-align:center'> </span>Informational
+        <span title='Low' class='badge card-prio-low'style='padding:5px;text-align:center'> </span>Low
+        <span title='Medium' class='badge card-prio-medium' style='padding:5px;text-align:center'> </span>Medium
+        <span title='High' class='badge card-prio-high' style='padding:5px;text-align:center'> </span>High
+        <span title='Critical' class='badge card-prio-critical' style='padding:5px;text-align:center'> </span>Critical
     </td></tr></table>"
 	$Output += "
             </div>"
@@ -679,15 +681,13 @@ function Get-M365SATHTMLReport
 		$Output += "<a name='$($Productfamily)'></a> 
         <div class='card m-3'>
             <div class='accordion' id='$($ProductFamily)_Acd'>
-            <button class='accordion-button btn-align-left collapsed' type='button' id='$($CollapseId)' data-bs-toggle='collapse' data-bs-target='#$($CollapseId)_body' aria-controls='Microsoft_Teams_body'>$($Productfamily)</button>
+            <button class='accordion-button btn-align-left collapsed' type='button' id='$($CollapseId)' data-bs-toggle='collapse' data-bs-target='#$($CollapseId)_body' aria-controls='#$($CollapseId)_body'>$($Productfamily)</button>
             
             <div class='card-body accordion-collapse collapse' id='$($CollapseId)_body'>"
-		$i = 0
 		
 		ForEach ($Result in $Products)
 		{
 			$RemediationActionsExist = $false
-			$CheckCollapseId = $($Productfamily).Replace(" ", "_") + $i.ToString()
 			# Validation if result corresponds with severity
 			If ($Result.Impact -eq "Informational")
 			{
@@ -736,18 +736,12 @@ function Get-M365SATHTMLReport
 			}
 			#Write Collapse Object that contains the info
 			$Output += "        
-                    <div class='header-bar border-bottom' style='padding:5px; vertical-align:middle;'>
-                    <div class='col-sm-10' style='text-align:left; margin-top:auto; margin-bottom:auto;'><h6>[$($Result.CVS)]: $($Result.FindingName)</h6></div>
-                    <div class='col' style='text-align:right;padding-right:10px;'> 
-                    <h6>
-                    <span class='badge $($BadgeType)'>$($BadgeName)</span>&nbsp;&nbsp;
-                    <i class='fas fa-chevron-right' data-bs-toggle='collapse' data-bs-target='#$($CheckCollapseId)' aria-expanded='false' aria-controls='$($CheckCollapseId)'></i>
-                    </h6>
-                    </div>  
-                    </div>"
+                    <div class='accordion' id='$($ProductFamily)_Acd'>
+                    <button class='accordion-button btn-align-left collapsed' type='button' id='$($Result.ID)' data-bs-toggle='collapse' data-bs-target='#$($Result.ID)_body' aria-expanded='false' aria-controls='$($Result.ID)_body'><span class='badge $($BadgeType)'>$($BadgeName)</span><h6>[$($Result.CVS)]: $($Result.FindingName)</h6></button></div> 
+                    "
 			#Start of Container Generation Within group object (FindingName)
 			$Output += "  
-                    <div class='row collapse' id='$($CheckCollapseId)'>
+                    <div class='card-body accordion-collapse collapse' id='$($Result.ID)_body'>
                         <div class='bd-callout $($CalloutType) b-t-1 b-r-1 b-b-1 p-3' >
                             <div class='container-fluid'>
                                 <div class='header-bar'>
@@ -781,123 +775,80 @@ function Get-M365SATHTMLReport
 			#Table information that should contain default value, expected value, returned value
 			# We should expand the results by showing a table of Config Data and Items
 			$Output += "
-                            <div class='row pl-2 pt-3'>"
-			
-			$Output += "  <table class='table'>
-                                    <thead class='border-bottom'>
-                                        <tr>"
-			
-			# Object, property, value checks need three columns (Table Headers)
-			$Output += "
-                            <th align='center' text-align='center'>Returned Value</th>
-                            <th align='center' text-align='center'>Default Value</th>
-                            <th align='center' text-align='center'>Expected Value</th>
-                            <th align='center' text-align='center'>Impact</th>
-                           "
-			$Output += "
-                            <th style='width:50px'></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            "
-			
-			
-			# Table Body Fill (put info of Default,Expected and Current value here below!!!)
-			
-			$Output += "
-                                <tr>
-                                "
-			#Checks if remedation is possible (returning value from object
+                            <div class='row p-3'>
+                            <b>Returned Value:</b>
+                        "
+
+            #Checks if remedation is possible (returning value from object
 			
 			if ($Result.ReturnedValue.Count -GT 10)
 			{
                 $fname = $Result.ID
 				$Output += "
-                                    <td><a href='$($fname).txt'>$($Result.ReturnedValue.Count) Affected Objects Identified<a/>.
-                                    <td style='word-wrap:break-word;' width = '35%'>$($Result.DefaultValue)</td>
-                                    <td style='word-wrap:break-word;' width = '30%'>$($Result.ExpectedValue)</td>
-
+                                    <div><a href='$($fname).txt'>$($Result.ReturnedValue.Count) Affected Objects Identified<a/>.</div>
+                                    </div>
                                     "
 				
 				$Result.ReturnedValue | Out-File -FilePath $OutPath\$fname.txt
 			}
 			else
 			{
-				$Output += "
-                                <td>"
 				ForEach ($Values in $Result.ReturnedValue)
 				{
-					$Output += "$($Values)</br>"
+					$Output += "<div>$($Values)</div>"
 				}
-				$Output += "</td>
-                                <td style='word-wrap:break-word;' width = '35%'>$($Result.DefaultValue)</td>
-                                <td style='word-wrap:break-word;' width = '30%'>$($Result.ExpectedValue)</td>
-                                "
+                $Output += "</div>"
 			}
-			
-			# Last Row (Status)
+
 			$Output += "
-                                    <td style='text-align:left'>
-                                        <div class='badge $($BadgeType) badge-pill badge-light'>"
-			$Output += "<span>$($Result.Impact)</span><br/></div>"
-			
-			
-			$Output += " 
-                                    </td>
-                                </tr>
-                                "
-			
-			# Recommendation segment
-			if (($null -ne $($Result.InfoText)) -and ($($Result.InfoText) -ne ""))
-			{
-				
-				$Output += "
-                                    <tr>"
-				If ($Check.CheckType -eq [CheckType]::ObjectPropertyValue)
+                            <div class='row p-3'>
+                            <b>Default Value:</b>
+                        "
+
+				ForEach ($DefaultValues in $Result.DefaultValue)
 				{
-					$Output += "<td colspan='4' style='border: 0;'>"
+					$Output += "<div>$($DefaultValues)</div>"
 				}
-				
-				
-				$Output += "
-                                    <div class='alert alert-light' role='alert' style='text-align: left;'>
-                                    <span class='fas fa-info-circle text-muted' style='vertical-align: left; padding-right:5px'></span>
-                                    <span style='vertical-align: middle;'>$($Result.InfoText)</span>
-                                    </div>
-                                    "
-				
-				$Output += "</td></tr>
-                                    
-                                    "
-			}
-			
+            
+            $Output += "</div>"
+
+
+            $Output += "
+                            <div class='row p-3'>
+                            <b>Expected Value:</b>
+                        "
+
+				ForEach ($ExpectedValues in $Result.ExpectedValue)
+				{
+					$Output += "<div>$($ExpectedValues)</div>"
+				}
+            
+            $Output += "</div>"
+
 			$Output += "
-                                    </tbody>
-                                </table>"
+                            <div>
+                            <b>Impact:</b>
+                            <div class='badge $($BadgeType) badge-pill badge-light'><span>$($Result.Impact)</span></div>
+                            </div>
+                        "
 			
 			
-			$Output += "<span style='vertical-align: left;'><b>References:</b></span><br>"
+			$Output += "<br><div><div><span style='vertical-align: left;'><b>References:</b></span></div>"
 			
 			# Last line for the References to put there
 			
-			$Output += "
-                                <table class='table'>"
 			Foreach ($Reference in $Result.References)
 			{
 				$Output += "
-                                    <tr><td style='padding-top:20px;'><i class='fas fa-external-link-square-alt'></i>&nbsp;<a href='$($Reference.URL)' target=""blank"">$($Reference.Name)</a></td></tr>"
+                                    <div><i class='fas fa-external-link-square-alt'></i>&nbsp;<a href='$($Reference.URL)' target=""blank"">$($Reference.Name)</a></div>"
 			}
 			
+            <#
 			$Output += "
                             
                                     <td><a class='btn btn-primary' href='$($RemediationReportFileName)' target='_blank' role='button'>Remediation Script</a></td>"
-			$Output += "
-                            </table>
-                            "
-			$Output += "
-                            </table>
-                            "
-			
+			#>
+
 			#END OF THE REPORT OBJECT
 			
 			
@@ -945,6 +896,10 @@ function Get-M365SATHTMLReport
     #>
 	
 	$Output += "
+            <div class='collapsebuttons'>
+                <button class='btn btn-primary' onClick='expand();'>Expand All</button>
+                <button class='btn btn-primary' onClick='collapse();'>Collapse All</button>
+            </div> 
             </main>
             <center>Found a bug? Report it! <a href='https://github.com/karmakstylez/M365SAT'>GitHub</a></center>
             </div>
@@ -958,6 +913,15 @@ function Get-M365SATHTMLReport
                 window.addEventListener('DOMContentLoaded', function () {
                 Prism.highlightAll();
             });
+            </script>
+
+            <script>
+                function expand() {
+                `$('.collapse').collapse('show');
+                }
+                function collapse() {
+                `$('.collapse').collapse('hide');
+                }   
             </script>
 
             <script>
