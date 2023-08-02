@@ -37,11 +37,19 @@ function Audit-CISAz300
 {
 	try
 	{
-		$Settings = Get-AzStorageAccount | Select-Object * -ExpandProperty Encryption | Select-Object * -ExpandProperty NetworkRuleSet | Select-Object KeySource, StorageAccountName, ResourceGroupName, MinimumTLSVersion, EnableHttpsTrafficOnly, PublicNetworkAccess, DefaultAction, Bypass
+		$settingsobject = @()
+		$subscriptionId = (Get-AzContext).Subscription.ID
+		$Settings = ((Invoke-AzRestMethod -SubscriptionId $subscriptionId  -ResourceProviderName Microsoft.Storage -ResourceType storageAccounts -ApiVersion 2022-09-01 -Method GET).content | ConvertFrom-Json).value
 		
-		if ($Settings.enabled -eq $False)
+		Foreach ($Setting in $Settings){
+			if ($Setting.properties.encryption.services.file.enabled) -eq $False)
 		{
-			$finalobject = Build-CISAz300($Settings.enabled)
+			$settingsobject += $Setting.name
+		}
+		}
+
+		if ($settingsobject.count -igt 0){
+			$finalobject = Build-CISAz300($settingsobject.count)
 			return $finalobject
 		}
 		return $null
