@@ -42,7 +42,7 @@ function Audit-CISAz300
 		$Settings = ((Invoke-AzRestMethod -SubscriptionId $subscriptionId  -ResourceProviderName Microsoft.Storage -ResourceType storageAccounts -ApiVersion 2022-09-01 -Method GET).content | ConvertFrom-Json).value
 		
 		Foreach ($Setting in $Settings){
-			if ($Setting.properties.encryption.services.file.enabled) -eq $False)
+			if ($Setting.properties.encryption.services.file.enabled -eq $False)
 		{
 			$settingsobject += $Setting.name
 		}
