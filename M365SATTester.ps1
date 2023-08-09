@@ -13,8 +13,7 @@ function CheckAdminPrivBeta
 	$IsAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 	if (-not $IsAdmin)
 	{
-		Write-Warning "[!] Program needs Administrator Rights! Trying to Elevate to Admin..."
-		Start-Process powershell -Verb runas -ArgumentList "-NoExit -c cd '$pwd'; .\M365SATTester.ps1"
+		Write-Warning "[!] Program needs Administrator Rights! Please elevate PowerShell and try again..."
 	}
 	else
 	{
