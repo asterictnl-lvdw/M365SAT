@@ -133,7 +133,6 @@ function Get-M365SATReport
 	. $PSScriptRoot\core\Check-M365SATModuleDuplicates.ps1
 	. $PSScriptRoot\core\Check-M365SATModules.ps1
 	. $PSScriptRoot\core\Update-M365SATModules.ps1
-	. $PSScriptRoot\core\Check-M365SATUpdates.ps1
 	
 	# Import the PoShLog Module
 	Import-Module PoShLog
