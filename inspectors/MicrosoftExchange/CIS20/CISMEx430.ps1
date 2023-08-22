@@ -16,7 +16,7 @@ function Build-CISMEx430($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx430"
-		FindingName	     = "CIS MEx 4.3 - Forms of mail forwarding are blocked and/or disabled"
+		FindingName	     = "CIS MEx 4.3 - Forms of mail forwarding are not blocked and/or not disabled"
 		ProductFamily    = "Microsoft Exchange"
 		CVS			     = "9.1"
 		Description	     = "Attackers often create these rules to exfiltrate data from your tenancy, this could be accomplished via access to an end-user account or otherwise. An insider could also use one of these methods as an secondary channel to exfiltrate sensitive data."

@@ -17,7 +17,7 @@ function Build-CISAz150($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz150"
-		FindingName	     = "CIS Az 1.5.0 - Ensure Access Review is Set Up for External Users in Azure AD Privileged Identity Management"
+		FindingName	     = "CIS Az 1.5.0 - Ensure Access Review is Set Up for Guest Users in Azure AD Privileged Identity Management"
 		ProductFamily    = "Microsoft Azure"
 		CVS			     = "6.4"
 		Description	     = "Guest users in the Azure AD are generally required for collaboration purposes in Office 365, and may also be required for Azure functions in enterprises with multiple Azure tenants. Guest users are typically added outside your employee on-boarding/off-boarding process and could potentially be overlooked indefinitely, leading to a potential vulnerability. To prevent this, guest users should be reviewed on a regular basis. During this audit, guest users should also be determined to not have administrative privileges."

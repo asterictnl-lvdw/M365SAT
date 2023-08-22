@@ -13,7 +13,7 @@ function Build-CISMAz1113($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMAz1113"
-		FindingName	     = "CIS MAz 1.1.13 - Verify if you have an Azure AD Identity Proteciton sign-in risk policy enabled"
+		FindingName	     = "CIS MAz 1.1.13 - Verify if you have an Azure AD Identity Protection sign-in risk policy enabled"
 		ProductFamily    = "Microsoft Azure"
 		CVS			     = "0.0"
 		Description	     = "Turning on the sign-in risk policy ensures that suspicious sign-ins are challenged for multi-factor authentication. "

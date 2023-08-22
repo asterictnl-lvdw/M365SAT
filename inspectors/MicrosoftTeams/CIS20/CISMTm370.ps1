@@ -16,7 +16,7 @@ function Build-CISMTm370($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMTm370"
-		FindingName	     = "External file sharing in Teams is not enabled for only approved cloud storage services"
+		FindingName	     = "CISM Tm 3.7 - External file sharing in Teams is not enabled for only approved cloud storage services"
 		ProductFamily    = "Microsoft Teams"
 		CVS			     = "6.5"
 		Description	     = "Ensuring that only authorized cloud storage providers are accessible from Teams will help to dissuade the use of non-approved storage providers."

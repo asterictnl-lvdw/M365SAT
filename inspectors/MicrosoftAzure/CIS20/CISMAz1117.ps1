@@ -17,7 +17,7 @@ function Build-CISMAz1117($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMAz1117"
-		FindingName	     = "CIS MAz 1.1.17 - collaboration invitations are not sent to allowed domains only"
+		FindingName	     = "CIS MAz 1.1.17 - Collaboration invitations are not sent to allowed domains only"
 		ProductFamily    = "Microsoft Azure"
 		CVS			     = "7.8"
 		Description	     = "Azure Active Directory (Azure AD) B2B collaboration is a feature within External Identities allows for guest invitations to an organization. Ensure users can only send invitations to specified domains. By specifying allowed domains for collaborations, external users companies are explicitly identified. Also, this prevents internal users from inviting unknown external users such as personal accounts and give them access to resources."

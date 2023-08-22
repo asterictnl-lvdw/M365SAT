@@ -16,7 +16,7 @@ function Build-CISMEx340($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx340"
-		FindingName	     = "CIS MEx 3.4 - DLP Policy is not configured/enabled!!"
+		FindingName	     = "CIS MEx 3.4 - DLP Policy is not configured/enabled!"
 		ProductFamily    = "Microsoft Exchange"
 		CVS			     = "6.8"
 		Description	     = "Enabling DLP policies alerts users and administrators that specific types of data should not be exposed, helping to protect the data from accidental exposure."
