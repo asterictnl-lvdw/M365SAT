@@ -1,11 +1,10 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v2.0.0
 # Product Family: Microsoft Azure
-# Purpose: Checks if 'Number of methods required to reset' is set to '2'
+# Purpose: Checks if a banned password list is used
 # Author: Leonardo van de Weteringh
-# This control also applies to CIS Microsoft 365 MAz 1.1.10 - Ensure password protection is enabled for on-prem Active Directory
 
 # New Error Handler Will be Called here
 Import-Module PoShLog
@@ -17,8 +16,8 @@ function Build-CISAz170($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISAz170"
-		FindingName	     = "CIS Az 1.7 - No Custom Bad Password List is set to 'Enforce' for your Organization"
+		ID			     = "CISMAz119"
+		FindingName	     = "CISM Az 1.19 - No Custom Bad Password List is used within your organization"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "5"
 		Description	     = "Enabling a Custom Bad Password List gives your organization further customization on what secure passwords are allowed. Setting a bad password list enables your organization to fine-tune its password policy further, depending on your needs. Removing easy-to-guess passwords increases the security of access to your Azure resources. This control also checks on CIS Microsoft 365 1.1.10 which is for OnPremise Checks"

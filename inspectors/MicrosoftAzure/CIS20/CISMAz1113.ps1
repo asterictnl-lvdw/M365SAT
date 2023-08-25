@@ -15,15 +15,17 @@ function Build-CISMAz1113($findings)
 		ID			     = "CISMAz1113"
 		FindingName	     = "CIS MAz 1.1.13 - Verify if you have an Azure AD Identity Protection sign-in risk policy enabled"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "10"
 		Description	     = "Turning on the sign-in risk policy ensures that suspicious sign-ins are challenged for multi-factor authentication. "
 		Remediation	     = "Unfortunately we cannot accurately detect if a sign-in risk policy is enabled. If you have a sign-in risk policy. Please verify if the settings are configured correctly."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "A Correctly Configured Policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'How To: Give risk feedback in Azure AD Identity Protection'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-risk-feedback' })
 	}
 	return $inspectorobject

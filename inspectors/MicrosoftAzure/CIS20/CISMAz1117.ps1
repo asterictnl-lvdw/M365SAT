@@ -19,15 +19,17 @@ function Build-CISMAz1117($findings)
 		ID			     = "CISMAz1117"
 		FindingName	     = "CIS MAz 1.1.17 - Collaboration invitations are not sent to allowed domains only"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.8"
+		RiskScore	     = "10"
 		Description	     = "Azure Active Directory (Azure AD) B2B collaboration is a feature within External Identities allows for guest invitations to an organization. Ensure users can only send invitations to specified domains. By specifying allowed domains for collaborations, external users companies are explicitly identified. Also, this prevents internal users from inviting unknown external users such as personal accounts and give them access to resources."
 		Remediation	     = "Change the value to most-restrictive. In the portal itself and add only the desired tenants to the list."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AllowlistPolicyBlade'
 		DefaultValue	 = "Allow invitations to be sent to any domain (most inclusive) (False)"
 		ExpectedValue    = "Allow invitations only to the specified domains (most restrictive) (True)"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "2"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Allow or block invitations to B2B users from specific organizations'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/external-identities/allow-deny-list' })
 	}
 	return $inspectorobject

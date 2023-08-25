@@ -18,15 +18,17 @@ function Build-CISMAz5130($findings)
 		ID			     = "CISMAz5130"
 		FindingName	     = "CIS MAz 5.13 - Some Microsoft Defender Subscriptions are not Active or Enabled"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "5"
 		Description	     = "Security teams can receive notifications of triggered alerts for atypical or suspicious activities, see how the organization's data in Microsoft 365 is accessed and used, suspend user accounts exhibiting suspicious activity, and require users to log back in to Microsoft 365 apps after an alert has been triggered"
 		Remediation	     = "Use the PowerShell script to enable the Standard Pricing Tier for Microsoft Defender Subscriptions in Azure"
 		PowerShellScript = 'Set-AzSecurityPricing -Name "{MicrosoftDefenderSubscriptionHERE}" -PricingTier "Standard"'
 		DefaultValue	 = "Disabled"
 		ExpectedValue    = "Enabled"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'Quickstart: Enable enhanced security features'; 'URL' = 'https://docs.microsoft.com/en-us/azure/defender-for-cloud/enable-enhanced-security' })
 	}
 	return $inspectorobject

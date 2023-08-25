@@ -15,18 +15,20 @@ function Build-CISAz114($findings)
 		ID			     = "CISAz114"
 		FindingName	     = "CIS Az 1.1.4 - Check the Allow users to remember multi-factor authentication on devices they trust setting"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "4"
 		Description	     = "Remembering Multi-Factor Authentication (MFA) for devices and browsers allows users to have the option to bypass MFA for a set number of days after performing a successful sign-in using MFA. This can enhance usability by minimizing the number of times a user may need to perform two-step verification on the same device. However, if an account or device is compromised, remembering MFA for trusted devices may affect security. Hence, it is recommended that users not be allowed to bypass MFA."
 		Remediation	     = "Check via the link "
 		PowerShellScript = 'https://account.activedirectory.windowsazure.com/UserManagement/MfaSettings.aspx'
 		DefaultValue	 = "Disabled"
 		ExpectedValue    = "Disabled"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "4"
+		Likelihood	     = "1"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Security defaults in Azure AD'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults' },
 			@{ 'Name' = 'Introducing security defaults'; 'URL' = 'https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/introducing-security-defaults/ba-p/1061414' },
-		@{ 'Name' = 'IM-2: Protect identity and authentication systems'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-2-protect-identity-and-authentication-systems' })
+			@{ 'Name' = 'IM-2: Protect identity and authentication systems'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-2-protect-identity-and-authentication-systems' })
 	}
 	return $inspectorobject
 }
@@ -36,8 +38,8 @@ function Audit-CISAz114
 	try
 	{
 		
-			$finalobject = Build-CISAz114("Check the value here: https://account.activedirectory.windowsazure.com/UserManagement/MfaSettings.aspx")
-			return $finalobject
+		$finalobject = Build-CISAz114("Check the value here: https://account.activedirectory.windowsazure.com/UserManagement/MfaSettings.aspx")
+		return $finalobject
 	}
 	catch
 	{

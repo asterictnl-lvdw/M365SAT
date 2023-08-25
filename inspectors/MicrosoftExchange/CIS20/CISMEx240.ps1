@@ -18,15 +18,17 @@ function Build-CISMEx240($findings)
 		ID			     = "CISMEx240"
 		FindingName	     = "CIS MEx 2.4 - Safe Links for Office Applications is not Enabled!"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.1"
+		RiskScore	     = "12"
 		Description	     = "Enabling Safe Links policy for Office applications allows URL's that exist inside of Office documents and email applications opened by Office, Office Online and Office mobile to be processed against Defender for Office time-of-click verification and rewritten if required. Safe Links for Office applications extends phishing protection to documents and emails that contain hyperlinks, even after they have been delivered to a user."
 		Remediation	     = "Use the PowerShell Script to create and apply the policy within your organization."
 		PowerShellScript = '$params = @{ Name = "CIS SafeLinks Policy" EnableSafeLinksForEmail = $true EnableSafeLinksForTeams = $true EnableSafeLinksForOffice = $true TrackClicks = $true AllowClickThrough = $false ScanUrls = $true EnableForInternalSenders = $true DeliverMessageAfterScan = $true DisableUrlRewrite = $false }; New-SafeLinksPolicy @params ; New-SafeLinksRule -Name "CIS SafeLinks" -SafeLinksPolicy "CIS SafeLinks Policy" -RecipientDomainIs (Get-AcceptedDomain).Name -Priority 0 '
 		DefaultValue	 = "Undefined"
 		ExpectedValue    = "EnableSafeLinksForEmail: True EnableSafeLinksForTeams: True EnableSafeLinksForOffice: True TrackClicks: True AllowClickThrough: False ScanUrls: True EnableForInternalSenders: True DeliverMessageAfterScan: True DisableUrlRewrite: False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Security defaults in Azure AD'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults' },
 		@{ 'Name' = 'Introducing security defaults'; 'URL' = 'https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/introducing-security-defaults/ba-p/1061414' },
 	@{ 'Name' = 'IM-2: Protect identity and authentication systems'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-2-protect-identity-and-authentication-systems' })

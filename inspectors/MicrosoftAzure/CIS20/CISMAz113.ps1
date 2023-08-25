@@ -19,15 +19,17 @@ function Build-CISMAz113($findings)
 		ID			     = "CISMAz113"
 		FindingName	     = "CIS MAz 1.1.3 - Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.2"
+		RiskScore	     = "10"
 		Description	     = "Forcing a time out for MFA will help ensure that sessions are not kept alive for an indefinite period of time, ensuring that browser sessions are not persistent will help in prevention of drive-by attacks in web browsers, this also prevents creation and saving of session cookies leaving nothing for an attacker to take."
 		Remediation	     = "You can navigate to the Entry Portal and the Conditional Access blade to configure the policy."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "presistentBrowserMode: never and isEnabled: true | signInFrequencyValue: between 4 and 24 and timevalue: hours | clientAppTypes: All | applicationsIncludeApplications: All | grantControls.builtInControls: mfa"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "2"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Configure authentication session management with Conditional Access'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-session-lifetime' })
 	}
 	return $inspectorobject

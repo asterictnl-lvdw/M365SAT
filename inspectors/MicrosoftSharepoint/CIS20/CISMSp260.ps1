@@ -18,15 +18,17 @@ function Build-CISMSp260($findings)
 		ID			     = "CISMSp260"
 		FindingName	     = "CIS MSp 2.6 - Office 365 SharePoint infected files are NOT disallowed for download"
 		ProductFamily    = "Microsoft Sharepoint"
-		CVS			     = "9.1"
+		RiskScore	     = "15"
 		Description	     = "Defender for Office 365 for SharePoint, OneDrive, and Microsoft Teams protects your organization from inadvertently sharing malicious files. When an infected file is detected, that file is blocked so that no one can open, copy, move, or share it until further actions are taken by the organization's security team."
 		Remediation	     = "Use the PowerShell Script to mitigate this issue"
 		PowerShellScript = 'Set-SPOTenant -DisallowInfectedFileDownload $true'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Turn on Safe Attachments for SharePoint, OneDrive, and Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/turn-on-mdo-for-spo-odb-and-teams?view=o365-worldwide' },
 			@{ 'Name' = 'Built-in virus protection in SharePoint Online, OneDrive, and Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/virus-detection-in-spo?view=o365-worldwide' })
 	}

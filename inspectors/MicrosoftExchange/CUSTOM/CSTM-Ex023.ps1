@@ -18,15 +18,17 @@ function Build-CSTM-Ex023($findings)
 		ID			     = "CSTM-Ex023"
 		FindingName	     = "CSTM-Ex023 - Exchange Mailboxes with IMAP Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "The Exchange Online mailboxes listed above have IMAP Authentication enabled. IMAP Authentication is a method of authenticating to an Exchange Online mailbox. Cyber adversaries have used IMAP authentication as a workaround for subtly conducting password spraying attacks or other credential-related attacks, because IMAP authentication is a form of legacy authentication generally not subject to the restraints of Multi-Factor Authentication and other modern authentication safeguards. For these reasons it is recommended that IMAP Authentication be disabled where possible."
 		Remediation	     = "Use the PowerShell Command to disable Mailboxes with IMAP Check with Get-CasMailbox -ResultSize unlimited -Filter PopEnabled -eq `$false -and ImapEnabled -eq `$false"
 		PowerShellScript = 'Get-CASMailboxPlan -Filter {ImapEnabled -eq "true" } | set-CASMailboxPlan -ImapEnabled $false; Get-CASMailbox -Filter {ImapEnabled -eq "true"} | Select-Object @{n = "Identity"; e = {$_.primarysmtpaddress}} | Set-CASMailbox -ImapEnabled $false'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Configure mailbox access (POP3 and IMAP)'; 'URL' = "https://docs.microsoft.com/en-us/exchange/clients/pop3-and-imap4/configure-mailbox-access" },
 			@{ 'Name' = 'Set-CASMailbox Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-casmailbox?view=exchange-ps" },
 			@{ 'Name' = 'Federal Bureau of Investigation Business Email Compromise Mitigation Recommendations'; 'URL' = "https://www.ic3.gov/Media/Y2020/PSA200406" },

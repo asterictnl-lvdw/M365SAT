@@ -18,14 +18,16 @@ function Build-CSTM-O365002($findings)
 		ID			     = "CSTM-O365002"
 		FindingName	     = "CSTM-O365002 - Third-Party Applications are Allowed"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "9.6"
+		RiskScore	     = "9"
 		Description	     = "Third-party integrated applications are allowed to run in the organization's Office 365 environment if a user authorizes them to do so. This configuration is considered insecure because a user may grant permissions to a malicious application without fully understanding the security implications. A user who installs a malicious third-party application is in effect compromised. Additionally, there are documented cases of a malicious actor gaining access to sensitive information by enticing a user to allow a third-party integrated application to run within their O365 Tenant."
 		Remediation	     = "In the Office 365 administration center, navigate to the Org Settings page, then select Services -> User Consent to Apps and turn user consent off."
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		PowerShellScript = 'Set-OrganizationConfig -EwsApplicationAccessPolicy EnforceBlockList; Set-OrganizationConfig -EwsBlockList @{add="LinkedInEWS*"}'
 		References	     = @(@{ 'Name' = 'Understand subscriptions and licenses in Microsoft 365 for business'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/commerce/licenses/subscriptions-and-licenses?view=o365-worldwide' },
 			@{ 'Name' = 'About Microsoft 365'; 'URL' = 'https://www.microsoft.com/en-us/licensing/product-licensing/microsoft-365' })

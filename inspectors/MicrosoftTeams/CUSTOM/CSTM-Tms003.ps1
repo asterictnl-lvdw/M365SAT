@@ -18,14 +18,16 @@ function Build-CSTM-Tms003($findings)
 		ID			     = "CSTM-Tms003"
 		FindingName   = "CSTM-Tms003 - Microsoft Teams Policies Allow Anonymous Members"
 		ProductFamily = "Microsoft Teams"
-		CVS		      = "3.0"
+		RiskScore      = "2"
 		Description   = "Microsoft Teams by default enables and allows  authenticated users to invite anonymous users to join Teams meetings. Some organizations may wish to disable this functionality, or restrict certain users, members, or roles from allowing anonymous users to join meetings. Changing these settings may have unintended consequences. Speak with shareholders and understand what functionality may be affected before disabling this access."
 		Remediation   = "This can be mitigated by navigating to the Teams admin center and turning off 'Anonymous users can join a meeting' under Meeting settings. This disables anonymous access globally. Alternatively, specific users and groups can be targeted by creating a new Meeting Policy and issuing this command in PowerShell."
 		DefaultValue  = "True for default policies= Global, Tag=AllOn, Tag=RestrictedAnonymousAccess, Tag=AllOff, Tag=RestrictedAnonymousNoRecording, Tag=Default, Tag=Kiosk"
 		ExpectedValue = 'AllowAnonymousUsersToJoinMeeting: $false'
 		ReturnedValue = $findings
-		Impact	      = "Low"
-		RiskRating    = "Low"
+		Impact		     = "2"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		PowerShellScript = 'Set-CsTeamsMeetingPolicy -Identity "Default" -AllowAnonymousUsersToJoinMeeting $false'
 		References    = @(@{ 'Name' = 'Manage external access (federation) - Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/manage-external-access' },
 			@{ 'Name' = 'Block Point-to-Point file transfers'; 'URL' = 'https://docs.microsoft.com/en-us/skypeforbusiness/set-up-policies-in-your-organization/block-point-to-point-file-transfers' })

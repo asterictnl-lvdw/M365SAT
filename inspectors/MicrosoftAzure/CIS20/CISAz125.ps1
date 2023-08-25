@@ -19,15 +19,17 @@ function Build-CISAz125($findings)
 		ID			     = "CISAz125"
 		FindingName	     = "CIS Az 1.2.5 - Ensure Multi-factor Authentication is Required for Risky Sign-ins"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.2"
+		RiskScore	     = "15"
 		Description	     = "Enabling multi-factor authentication is a recommended setting to limit the potential of accounts being compromised and limiting access to authenticated personnel."
 		Remediation	     = "Please use the link described in the PowerShell Script to create an additional ConditionalAccessPolicy"
 		PowerShellScript = 'https://hub.steampipe.io/mods/turbot/azure_compliance/controls/control.CISAz_v200_1_2_5?context=benchmark.CISAz_v200/benchmark.CISAz_v200_1/benchmark.CISAz_v200_1_2'
 		DefaultValue	 = "null"
 		ExpectedValue    = "A policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Common Conditional Access policy: Sign-in risk-based multifactor authentication'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-risk' },
 			@{ 'Name' = 'Troubleshooting Conditional Access using the What If tool'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/troubleshoot-conditional-access-what-if' },
 			@{ 'Name' = 'Conditional Access insights and reporting'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-insights-reporting' },

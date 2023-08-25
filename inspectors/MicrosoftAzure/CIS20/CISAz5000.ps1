@@ -19,15 +19,17 @@ function Build-CISAz5000($findings)
 		ID			     = "CISAz5000"
 		FindingName	     = "CIS Az 5.x.xx - Azure Monitoring and Logging Incompliancy Detected"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0"
+		RiskScore	     = "6"
 		Description	     = "There are some Azure Monitoring and Logging Settings Incompliant. Please review the values which are reported back into the report"
 		Remediation	     = "No PowerShell Script Available"
 		PowerShellScript = '-'
 		DefaultValue	 = "-"
 		ExpectedValue    = "-"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "3"
+		Likelihood	     = "2"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = '-'; 'URL' = '-' })
 	}
 	return $inspectorobject

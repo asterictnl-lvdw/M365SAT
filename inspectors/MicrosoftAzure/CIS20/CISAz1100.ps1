@@ -20,15 +20,17 @@ function Build-CISAz110($findings)
 		ID			     = "CISAz110"
 		FindingName	     = "CIS Az 1.10 - Notify all admins when other admins reset their password?' is set to 'No'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "15"
 		Description	     = "Global Administrator accounts are sensitive. Any password reset activity notification, when sent to all Global Administrators, ensures that all Global administrators can passively confirm if such a reset is a common pattern within their group. For example, if all Global Administrators change their password every 30 days, any password reset activity before that may require administrator(s) to evaluate any unusual activity and confirm its origin."
 		Remediation	     = "Change the value manually. There is no automatic script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Notifications'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Notifications'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-howitworks#notifications' },
 			@{ 'Name' = 'Plan an Azure Active Directory self-service password reset deployment'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-sspr-deployment' },
 			@{ 'Name' = 'GS-6: Define and implement identity and privileged access strategy'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-6-define-and-implement-identity-and-privileged-access-strategy' },

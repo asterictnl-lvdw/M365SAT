@@ -18,14 +18,16 @@ function Build-CSTM-O365001($findings)
 		ID			     = "CSTM-O365001"
 		FindingName	     = "CSTM-O365001 - Tenant License Level"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Export of current Tenant license level's. This information can be used to determine what features and options are available currently for the Tenant, and to determine what licenses may be most beneficial for future use upgrades."
 		Remediation	     = "None."
 		DefaultValue	 = "None"
 		ExpectedValue    = "Not applicable"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		PowerShellScript = 'Unavailable'
 		References	     = @(@{ 'Name' = 'Understand subscriptions and licenses in Microsoft 365 for business'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/commerce/licenses/subscriptions-and-licenses?view=o365-worldwide' },
 			@{ 'Name' = 'About Microsoft 365'; 'URL' = 'https://www.microsoft.com/en-us/licensing/product-licensing/microsoft-365' })

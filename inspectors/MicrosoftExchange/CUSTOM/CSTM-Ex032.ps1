@@ -18,15 +18,17 @@ function Build-CSTM-Ex032($findings)
 		ID			     = "CSTM-Ex032"
 		FindingName	     = "CSTM-Ex032 - SMTP Authentication not Globally Disabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "SMTP Authentication is a method of authenticating to an Exchange Online mailbox to deliver email. Cyber adversaries have used SMTP authentication as a workaround for subtly conducting password spraying attacks or other credential-related attacks and bypassing multi-factor authentication protection because legacy authentication methods such as SMTP do not support MFA. There are two ways of disabling SMTP, globally and granularly on a per-user-mailbox level. It is recommended that SMTP Authentication be globally disabled if possible. Note that this may disrupt the functionality of legacy or other applications that require it or continued operations."
 		Remediation	     = "Use the PowerShell to create a new SafeLinksPolicy to disable and enable all recommended settings!"
 		PowerShellScript = 'Set-TransportConfig -SmtpClientAuthenticationDisabled $true'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Enable or disable authenticated client SMTP submission (SMTP AUTH) in Exchange Online'; 'URL' = "https://docs.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission" },
 			@{ 'Name' = 'Set-CASMailbox Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-casmailbox?view=exchange-ps" })
 	}

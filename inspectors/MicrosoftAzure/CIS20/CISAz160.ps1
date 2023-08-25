@@ -18,17 +18,19 @@ function Build-CISAz160($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz160"
-		FindingName	     = "CIS Az 1.6.0 - Number of methods required to reset a password is not set to 2 or more methods"
+		FindingName	     = "CIS Az 1.6 - Number of methods required to reset a password is not set to 2 or more methods"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.3"
+		RiskScore	     = "3"
 		Description	     = "A Self-service Password Reset (SSPR) through Azure Multi-factor Authentication (MFA) ensures the user's identity is confirmed using two separate methods of identification. With multiple methods set, an attacker would have to compromise both methods before they could maliciously reset a user's password."
 		Remediation	     = "Manually change the value from 1 to 2 in the Azure Portal. There is no script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/AuthenticationMethods'
-		DefaultValue	 = "1"
+		DefaultValue	 = "2"
 		ExpectedValue    = "2"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Tutorial: Enable users to unlock their account or reset passwords using Azure Active Directory self-service password reset'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr' },
 			@{ 'Name' = 'Combined security information registration for Azure Active Directory overview'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-registration-mfa-sspr-combined' },
 			@{ 'Name' = 'IM-6: Use strong authentication controls'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-6-use-strong-authentication-controls' },

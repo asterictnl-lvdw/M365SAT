@@ -19,15 +19,17 @@ function Build-CISAz1140($findings)
 		ID			     = "CISAz1140"
 		FindingName	     = "CIS Az 1.14 - Users Can Register Applications Is Set to 'Yes'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.6"
+		RiskScore	     = "15"
 		Description	     = "It is recommended to only allow an administrator to register custom-developed applications. This ensures that the application undergoes a formal security review and approval process prior to exposing Azure Active Directory data. Certain users like developers or other high-request users may also be delegated permissions to prevent them from waiting on an administrative user. Your organization should review your policies and decide your needs."
 		Remediation	     = "Use the PowerShell Script to enable Security Defaults on Microsoft Azure Active Directory"
 		PowerShellScript = 'Import-Module Microsoft.Graph.Identity.SignIns; $params = @{AllowedToCreateApps = $false}; Update-MgPolicyAuthorizationPolicy -BodyParameter $params'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Restrict who can create applications'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/roles/delegate-app-roles#restrict-who-can-create-applications' },
 			@{ 'Name' = 'Who has permission to add applications to my Azure AD instance?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-how-applications-are-added#who-has-permission-to-add-applications-to-my-azure-ad-instance' },
 			@{ 'Name' = 'GS-1: Align organization roles, responsibilities and accountabilities'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-1-define-asset-management-and-data-protection-strategy' },

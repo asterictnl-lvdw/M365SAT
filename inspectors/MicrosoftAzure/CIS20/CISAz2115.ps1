@@ -19,15 +19,17 @@ function Build-CISAz2115($findings)
 		ID			     = "CISAz2115"
 		FindingName	     = "CIS Az 2.1.15 - Auto provisioning of Log Analytics agent for Azure VMs is Set to 'Off'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.8"
+		RiskScore	     = "5"
 		Description	     = "When Log Analytics agent for Azure VMs is turned on, Microsoft Defender for Cloud provisions the Microsoft Monitoring Agent on all existing supported Azure virtual machines and any new ones that are created. The Microsoft Monitoring Agent scans for various security-related configurations and events such as system updates, OS vulnerabilities, endpoint protection, and provides alerts."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_Security/SecurityMenuBlade/~/EnvironmentSettings'
 		DefaultValue	 = "On"
 		ExpectedValue    = "On"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Crticial"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Azure custom roles'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles' },
 			@{ 'Name' = 'Quickstart: Check access for a user to Azure resources'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access' })
 	}

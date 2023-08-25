@@ -18,15 +18,17 @@ function Build-CISMEx280($findings)
 		ID			     = "CISMEx280"
 		FindingName	     = "CIS MEx 2.8 - Users can Install Outlook Add-ins"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.6"
+		RiskScore	     = "10"
 		Description	     = "Attackers commonly use vulnerable and custom-built add-ins to access data in user applications. While allowing users to install add-ins by themselves does allow them to easily acquire useful add-ins that integrate with Microsoft applications, it can represent a risk if not used and monitored carefully."
 		Remediation	     = "Use the Tenable Reference and use the PowerShell template within the article."
 		PowerShellScript = 'New-RoleAssignmentPolicy -Name "Example" -Roles $revisedRoles'
 		DefaultValue	 = "Users can Install Outlook Add-Ins"
 		ExpectedValue    = "Users cannot Install Outlook Add-Ins"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = '2.8 - Ensure users installing Outlook add-ins is not allowed'; 'URL' = "https://www.tenable.com/audits/items/CIS_Microsoft_365_v1.5.0_E3_Level_2.audit:51eaf859366d9e68cf92204846b01329" })
 	}
 	return $inspectorobject

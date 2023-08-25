@@ -19,15 +19,17 @@ function Build-CISMAz114($findings)
 		ID			     = "CISMAz114"
 		FindingName	     = "CIS MAz 1.1.4 - MultiFactor Authentication (MFA) is not enabled for all users non-administrative roles"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.2"
+		RiskScore	     = "15"
 		Description	     = "Multifactor authentication requires an individual to present a minimum of two separate forms of authentication before access is granted. Multifactor authentication provides additional assurance that the individual attempting to gain access is who they claim to be. With multifactor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk."
 		Remediation	     = "It is recommended to enable MFA via Conditional Access if the license is applicable. There is no new script available. You can use the old MSOL Script if you want to enable per-user MFA"
-		PowerShellScript = ''
+		PowerShellScript = 'https://admindroid.sharepoint.com/:u:/s/external/EVzUDxQqxWdLj91v3mhAipsBt0GqNmUK5b4jFXPr181Svw?e=OOcfQn&isSPOFile=1'
 		DefaultValue	 = "True for tenants >2019, False for tenants <2019"
 		ExpectedValue    = "Number of User Accounts without MFA: 0"
 		ReturnedValue    = "Number of User Accounts without MFA: $($findings.Count)"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Microsoft Secure Score Series - 02 - Require MFA for non-administrative roles'; 'URL' = 'https://janbakker.tech/microsoft-secure-score-series-02-require-mfa-for-administrative-roles/' })
 	}
 	return $inspectorobject

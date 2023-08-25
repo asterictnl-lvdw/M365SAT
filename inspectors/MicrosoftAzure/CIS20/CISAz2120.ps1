@@ -19,15 +19,17 @@ function Build-CISAz2120($findings)
 		ID			     = "CISAz2120"
 		FindingName	     = "CIS Az 2.1.20 - Notify about alerts with the following severity is not Set to High"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.4"
+		RiskScore	     = "3"
 		Description	     = "Enabling security alert emails ensures that security alert emails are received from Microsoft. This ensures that the right people are aware of any potential security issues and are able to mitigate the risk."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "Owner"
 		ExpectedValue    = "Owner"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Quickstart: Configure email notifications for security alerts'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/configure-email-notifications' })
 	}
 	return $inspectorobject

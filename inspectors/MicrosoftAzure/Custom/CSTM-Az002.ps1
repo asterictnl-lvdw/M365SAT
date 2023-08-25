@@ -19,15 +19,17 @@ function Build-CSTM-Az002($findings)
 		ID		      = "CSTM-Az002"
 		FindingName   = "CSTM-Az002 - Azure PowerShell Service Principal Assignment Not Enforced"
 		ProductFamily = "Microsoft Azure"
-		CVS		      = "9.9"
+		RiskScore     = "12"
 		Description   = "Dangerous default configuration settings were found in the tenant. By default, Azure tenants allow all users to access the Azure Active Directory and Microsoft Graph PowerShell Modules. This allows any authenticated user or guest the ability to abuse Dangerous Default Permissions, as well as enumerate the entire tenant. Service Principals allow only assigned users to have these permissions instead of everyone."
 		Remediation   = "These permissions can be mitigated by creating and assigning Service Principals for the applications using the instructions in the linked blog post and setting the AppRoleAssignmentRequired attribute to $true for each Service Principal."
 		PowerShellScript = 'Please look at the recommendation paragraph within the References'
 		DefaultValue  = "None"
 		ExpectedValue = "Assigned Users, Groups, or Directory Roles"
 		ReturnedValue = $findings
-		Impact	      = "Critical"
-		RiskRating    = "Critical"
+		Impact	      = "4"
+		Likelihood    = "3"
+		RiskRating    = "High"
+		Priority	  = "High"
 		References    = @(@{ 'Name' = 'Azure AD Default Configuration Blunders'; 'URL' = "https://medium.com/soteria-security/azure-ad-default-configuration-blunders-c7abddeae56" })
 	}
 }

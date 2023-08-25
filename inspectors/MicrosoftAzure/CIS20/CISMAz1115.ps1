@@ -15,15 +15,17 @@ function Build-CISMAz1115($findings)
 		ID			     = "CISMAz1115"
 		FindingName	     = "CIS MAz 1.1.15 - Verify if Priviledged Identity Management (PIM) is used to manage roles"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "5"
 		Description	     = "Organizations want to minimize the number of people who have access to secure information or resources, because that reduces the chance of a malicious actor getting that access, or an authorized user inadvertently impacting a sensitive resource. However, users still need to carry out privileged operations in Azure AD and Office 365. Organizations can give users just-in-time (JIT) privileged access to roles. There is a need for oversight for what those users are doing with their administrator privileges. PIM helps to mitigate the risk of excessive, unnecessary, or misused access rights."
 		Remediation	     = "Unfortunately we cannot accurately detect if a Privileged Identity Management is active. In order to check this you must have AAD P2 License assigned to your subscription."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_Azure_PIMCommon/ResourceMenuBlade/~/quickstart/resourceId//resourceType/tenant/provider/aadroles'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "A Correctly Configured Policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'How To: Give risk feedback in Azure AD Identity Protection'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-risk-feedback' })
 	}
 	return $inspectorobject

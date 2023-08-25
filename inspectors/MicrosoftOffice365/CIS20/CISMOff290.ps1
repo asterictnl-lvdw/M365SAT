@@ -20,15 +20,17 @@ function Build-CISMOff290($findings)
 		ID			     = "CISMOff290"
 		FindingName	     = "CIS MOff 2.9 - User owned apps and services are not restricted"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.7"
+		RiskScore	     = "15"
 		Description	     = "Attackers commonly use vulnerable and custom-built add-ins to access data in user applications. While allowing users to install add-ins by themselves does allow them to easily acquire useful add-ins that integrate with Microsoft applications, it can represent a risk if not used and monitored carefully. Disable future user's ability to install add-ins in Microsoft Word, Excel, or PowerPoint helps reduce your threat-surface and mitigate this risk."
 		Remediation	     = "Manually uncheck at User owned apps and services the first two options so all 3 checkboxes are unchecked."
 		PowerShellScript = 'https://admin.microsoft.com/Adminportal/Home#/Settings/Services/:/Settings/L1/Store'
 		DefaultValue	 = "iwpurchaseallowed: True / iwpurchasefeatureenabled: True"
 		ExpectedValue    = "iwpurchaseallowed: False / iwpurchasefeatureenabled: False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Microsoft Learn'; 'URL' = 'https://learn.microsoft.com/' })
 	}
 	return $inspectorobject

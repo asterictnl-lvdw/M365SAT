@@ -20,15 +20,17 @@ function Build-CISMAz1119($findings)
 		ID			     = "CISMAz1119"
 		FindingName	     = "CIS MAz 1.1.19 - Remain Signed In Option is not Hidden!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.5"
+		RiskScore	     = "10"
 		Description	     = "Allowing users to select this option presents risk, especially in the event that the user signs into their account on a publicly accessible computer/web browser. In this case it would be trivial for an unauthorized person to gain access to any associated cloud data from that account."
 		Remediation	     = "Change the value to True (No) to disable KeepMeSignedIn prompt."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings/menuId/UserSettings'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "5"
+		Likelihood	     = "2"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Office 365 disable stay signed in prompt'; 'URL' = 'https://www.alitajran.com/office-365-disable-stay-signed-in-prompt/' })
 	}
 	return $inspectorobject

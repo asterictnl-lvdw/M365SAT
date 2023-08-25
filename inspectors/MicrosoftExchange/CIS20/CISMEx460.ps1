@@ -18,15 +18,17 @@ function Build-CISMEx460($findings)
 		ID			     = "CISMEx460"
 		FindingName	     = "CIS MEx 4.6 - Anti-phishing policy not has been created"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "15"
 		Description	     = "Protects users from phishing attacks (like impersonation and spoofing), and uses safety tips to warn users about potentially harmful messages."
 		Remediation	     = "Rune the following command to create a new AntiPhishPolicy"
 		PowerShellScript = '$domains = Get-AcceptedDomain; New-AntiPhishPolicy -Name "AntiPhish Policy" -Enabled $true -EnableOrganizationDomainsProtection $true -EnableSimilarUsersSafetyTips $true -EnableSimilarDomainsSafetyTips $true -EnableUnusualCharactersSafetyTips $true -AuthenticationFailAction Quarantine -EnableMailboxIntelligenceProtection $true -MailboxIntelligenceProtectionAction movetoJMF -PhishThresholdLevel 2 -TargetedUserProtectionAction movetoJMF -EnableTargetedDomainsProtection $true -TargetedDomainProtectionAction MovetoJMF -EnableAntispoofEnforcement $true New-AntiPhishRule -Name "AntiPhish Rule" -AntiPhishPolicy "AntiPhish Policy" -RecipientDomainIs $domains[0]'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "Policy"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Securing Your Office 365 Tenants. Part 2'; 'URL' = "https://www.msp360.com/resources/blog/securing-your-office-365-tenants-part-2/#:~:text=The%20anti%2Dphishing%20settings%20can%20be%20created%20with%20PowerShell%20Exchange%20Online%20commands" }, @{ 'Name' = "Configure anti-phishing policies"; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/set-up-anti-phishing-policies?view=o365-worldwide" })
 	}
 	return $inspectorobject

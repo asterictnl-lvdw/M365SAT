@@ -18,15 +18,17 @@ function Build-CISMEx430($findings)
 		ID			     = "CISMEx430"
 		FindingName	     = "CIS MEx 4.3 - Forms of mail forwarding are not blocked and/or not disabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.1"
+		RiskScore	     = "6"
 		Description	     = "Attackers often create these rules to exfiltrate data from your tenancy, this could be accomplished via access to an end-user account or otherwise. An insider could also use one of these methods as an secondary channel to exfiltrate sensitive data."
 		Remediation	     = "Check all Transport Rules and run the powershell command to remove them:"
 		PowerShellScript = 'Get-TransportRule | Where-Object {$_.RedirectMessageTo -ne $null} | ft Name,RedirectMessageTo | Remove-TransportRule $_.Name'
 		DefaultValue	 = "AllowedOOFType: External <br> AutoForwardEnabled: True"
 		ExpectedValue    = "AllowedOOFType: Not External <br> AutoForwardEnabled: False"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "2"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Procedures for mail flow rules in Exchange Server'; 'URL' = 'https://docs.microsoft.com/en-us/exchange/policy-and-compliance/mail-flow-rules/mail-flow-rule-procedures?view=exchserver-2019' },
 			@{ 'Name' = 'Control automatic external email forwarding in Microsoft 365'; 'URL' = 'https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/outbound-spam-policies-external-email-forwarding?view=o365-worldwide' },
 			@{ 'Name' = 'All you need to know about automatic email forwarding in Exchange Online'; 'URL' = 'https://techcommunity.microsoft.com/t5/exchange-team-blog/all-you-need-to-know-about-automatic-email-forwarding-in/ba-p/2074888#:~:text=%20%20%20Automatic%20forwarding%20option%20%20,%' })

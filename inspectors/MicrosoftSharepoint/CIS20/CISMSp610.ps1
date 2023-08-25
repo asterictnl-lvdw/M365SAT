@@ -18,15 +18,17 @@ function Build-CISMSp610($findings)
 		ID			     = "CISMSp610"
 		FindingName	     = "CIS MSp 6.1 - SharePoint external sharing is not managed through domain whitelist/blacklists"
 		ProductFamily    = "Microsoft SharePoint"
-		CVS			     = "8.2"
+		RiskScore	     = "5"
 		Description	     = "Attackers will often attempt to expose sensitive information to external entities through sharing, and restricting the domains that users can share documents with will reduce that surface area."
 		Remediation	     = "Use the PowerShell Command to enable external sharing through a whitelist/blacklist"
 		PowerShellScript = 'Set-SPOTenant -SharingDomainRestrictionMode AllowList -SharingAllowedDomainList "domain1.com domain2.com"'
 		DefaultValue	 = "ExternalUserAndGuestSharing (Anyone)"
 		ExpectedValue    = "ExternalUserSharingOnly (New and Existing Guests)"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Restrict sharing of SharePoint and OneDrive content by domain'; 'URL' = 'https://learn.microsoft.com/en-us/sharepoint/restricted-domains-sharing' })
 	}
 }

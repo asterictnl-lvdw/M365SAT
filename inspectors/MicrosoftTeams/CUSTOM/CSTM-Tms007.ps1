@@ -18,14 +18,16 @@ function Build-CSTM-Tms007($findings)
 		ID			     = "CSTM-Tms007"
 		FindingName	     = "CSTM-Tms007 - Tenant can communicate with external domains, tenants and users via Teams or Skype for Business"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "6.5"
+		RiskScore	     = "3"
 		Description	     = "Tenant Communication should stay internal to avoid information disclosure and information leaks to the public. It is hightly recommended to disallow external domains unless there is a reason that the external users should be communicated with. "
 		Remediation	     = "1. Select Admin Centers and Teams. > 2. Under Users select External access > 3. Under Teams and Skype for Business users in external organizations Select Block all external domains > 4. Under Teams accounts not managed by an organization move the slider to Off. > 5. Under Skype users move the slider is to Off. and Save the settings. For PowerShell commands please read the references."
 		DefaultValue	 = "AllowedDomains= AllowAllKnownDomains <br /> AllowPublicUsers= True <br /> EnableFederationAccess= True <br /> EnablePublicCloudAccess= True "
 		ExpectedValue    = "AllowedDomains= BlockAllExternalDomains <br /> AllowPublicUsers= False <br /> EnableFederationAccess= False <br /> EnablePublicCloudAccess= False"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "1"
+		Likelihood	     = "3"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		PowerShellScript = 'Set-CsExternalAccessPolicy; Set-CsExternalUserCommunicationPolicy; Set-CsTenantFederationConfiguration'
 		References	     = @(@{ 'Name' = 'Set up Skype for Business Online'; 'URL' = 'https://docs.microsoft.com/en-us/skypeforbusiness/set-up-skype-for-business-online/set-up-skype-for-business-online' })
 	}

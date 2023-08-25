@@ -19,15 +19,17 @@ function Build-CISMEx4110($findings)
 		ID			     = "CISMEx4110"
 		FindingName	     = "CIS MEx 4.11 - MailTips is not enabled for end users"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "8"
 		Description	     = "MailTips assist end users with identifying strange patterns to emails they send. By having this disabled end-users are at risk exfiltrating information or doing malicious things without knowing or without being warned."
 		Remediation	     = "Run the PowerShell Command to enable MailTips"
 		PowerShellScript = 'Set-OrganizationConfig -MailTipsAllTipsEnabled $true -MailTipsExternalRecipientsTipsEnabled $true -MailTipsGroupMetricsEnabled $true -MailTipsLargeAudienceThreshold "25"'
 		DefaultValue	 = "MailTipsAllTipsEnabled: False <br/> MailTipsExternalRecipientsTipsEnabled: False <br/> MailTipsGroupMetricsEnabled: False <br/> MailTipsLargeAudienceThreshold: 25"
 		ExpectedValue    = "MailTipsAllTipsEnabled: True <br/> MailTipsExternalRecipientsTipsEnabled: True <br/> MailTipsGroupMetricsEnabled: True <br/> MailTipsLargeAudienceThreshold: >25"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "4"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'MailTips in Exchange Online'; 'URL' = "https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/mailtips/mailtips" },
 			@{ 'Name' = 'Set-OrganizationConfig'; 'URL' = "https://learn.microsoft.com/en-us/powershell/module/exchange/set-organizationconfig?view=exchange-ps" })
 	}

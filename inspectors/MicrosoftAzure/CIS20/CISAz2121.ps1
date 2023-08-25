@@ -19,15 +19,17 @@ function Build-CISAz2121($findings)
 		ID			     = "CISAz2121"
 		FindingName	     = "CIS Az 2.1.21 - Microsoft Defender for Cloud Apps integration with Microsoft Defender for Cloud is not Selected"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.4"
+		RiskScore	     = "2"
 		Description	     = "Microsoft Defender for Cloud offers an additional layer of protection by using Azure Resource Manager events, which is considered to be the control plane for Azure. By analyzing the Azure Resource Manager records, Microsoft Defender for Cloud detects unusual or potentially harmful operations in the Azure subscription environment. Several of the preceding analytics are powered by Microsoft Defender for Cloud Apps. To benefit from these analytics, subscription must have a Cloud App Security license. Microsoft Defender for Cloud Apps works only with Standard Tier subscriptions."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "2"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'What is Microsoft Defender for Cloud?'; 'URL' = 'https://learn.microsoft.com/en-in/azure/defender-for-cloud/defender-for-cloud-introduction#azure-management-layer-azure-resource-manager-preview' })
 	}
 	return $inspectorobject

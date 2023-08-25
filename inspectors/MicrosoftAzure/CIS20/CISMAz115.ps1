@@ -19,15 +19,17 @@ function Build-CISMAz115($findings)
 		ID			     = "CISMAz115"
 		FindingName	     = "CIS MAz 1.1.5 - Microsoft Authenticator is not configured to protect against MFA fatigue"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.2"
+		RiskScore	     = "15"
 		Description	     = "As the use of strong authentication has become more widespread, attackers have started to exploit the tendency of users to experience 'MFA fatigue.' This occurs when users are repeatedly asked to provide additional forms of identification, leading them to eventually approve requests without fully verifying the source. To counteract this, number matching can be employed to ensure the security of the authentication process. With this method, users are prompted to confirm a number displayed on their original device and enter it into the device being used for MFA. Additionally, other information such as geolocation and application details are displayed to enhance the end user's awareness. Among these 3 options, number matching provides the strongest net security gain."
 		Remediation	     = "Navigate to Microsoft Entra and select Microsoft Authenticator. Review the settings and set it to all_users and enable the first 3 options in the Configure section."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods'
 		DefaultValue	 = "Enabled for tenants >2022, Disabled for tenants <2022"
 		ExpectedValue    = "From 2023 if not manually assigned it would be enabled if Microsoft manages the setting."
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Defend your users from MFA fatigue attacks'; 'URL' = 'https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/defend-your-users-from-mfa-fatigue-attacks/ba-p/2365677' })
 	}
 	return $inspectorobject

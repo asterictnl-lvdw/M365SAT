@@ -18,15 +18,17 @@ function Build-CISMEx350($findings)
 		ID			     = "CISMEx350"
 		FindingName	     = "CIS MEx 3.5 - DLP Policies Not Enabled and Enforced"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "2"
 		Description	     = "Enabling the default Teams DLP policy rule in Microsoft 365 helps protect an organization's sensitive information by preventing accidental sharing or leakage of that information in Teams conversations and channels."
 		Remediation	     = "Use the PowerShell script to create a new DLPCompliancePolicy or review the policies existence and if they are enabled."
 		PowerShellScript = 'New-DlpCompliancePolicy -Name "GlobalPolicy" -SharePointLocation All'
 		DefaultValue	 = "Enabled (On)"
 		ExpectedValue    = "Enabled"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Learn about data loss prevention'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp?view=o365-worldwide" },
 			@{ 'Name' = 'Create, test, and tune a DLP policy'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/compliance/create-test-tune-dlp-policy?view=o365-worldwide" })
 	}

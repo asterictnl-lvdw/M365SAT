@@ -18,15 +18,17 @@ function Build-CISMEx410($findings)
 		ID			     = "CISMEx410"
 		FindingName	     = "CIS MEx 4.1 - Common Attachment Types Filter is disabled!"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "9.6"
+		RiskScore	     = "9.6"
 		Description	     = "The Common Attachment Types Filter lets a user block known and custom malicious file types from being attached to emails."
 		Remediation	     = "Run the following Exchange Online PowerShell command"
 		PowerShellScript = 'Set-MalwareFilterPolicy -Identity Default -EnableFileFilter $true'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Turn on malware protection for your business'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/business-video/anti-malware?view=o365-worldwide' })
 	}
 }

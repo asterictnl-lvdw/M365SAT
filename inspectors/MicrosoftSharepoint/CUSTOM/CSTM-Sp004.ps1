@@ -18,14 +18,16 @@ function Build-CSTM-Sp004($findings)
 		ID			     = "CSTM-Sp004"
 		FindingName	     = "CSTM-Sp004 - Outgoing Sharing Invitations are Not Monitored"
 		ProductFamily    = "Microsoft SharePoint"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "SharePoint is the de-facto sharing and file management tool in the O365 suite. SharePoint provides administrators with the ability to record and monitor when their users have sent file sharing invitations to external users. This feature should be enabled, but it was detected as disabled. This feature could be vital in a detection or response capacity in cases where data was lost or shared inappropriately."
 		Remediation	     = "Use the PowerShell Script to mitigate this issue:"
 		DefaultValue	 = "None"
 		ExpectedValue    = "A configured mailbox recipient"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		PowerShellScript = 'Set-SPOTenant -BccExternalSharingInvitations $true -BccExternalSharingInvitationsList "administrator@yourdomain"'
 		References	     = @(@{ 'Name' = 'Reference - Set-SPOTenant'; 'URL' = 'https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps' },
 			@{ 'Name' = 'SharePoint Diary: SharePoint Online External Sharing invitations.'; 'URL' = 'https://www.sharepointdiary.com/2020/01/shareoint-online-external-sharing-alerts.html' })

@@ -18,15 +18,17 @@ function Build-CSTM-Ex001($findings)
 		ID			     = "CSTM-Ex001"
 		FindingName	     = "CSTM-Ex001 - ADFS Configuration Found"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Active Directory Federation Services (ADFS) configured on this Tenant. ADFS Claims Rules may act as replacements for some features in Azure, hence rendering certain findings a 'False Positive'"
 		Remediation	     = "Review ADFS configuration for claims rules that may replace or negate findings in this report (eg, Forced MFA when outside of corporate networks)."
 		PowerShellScript = '-'
 		DefaultValue	 = "None"
 		ExpectedValue    = "Not applicable"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Active Directory Federation Services'; 'URL' = 'https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services' })
 	}
 	return $inspectorobject

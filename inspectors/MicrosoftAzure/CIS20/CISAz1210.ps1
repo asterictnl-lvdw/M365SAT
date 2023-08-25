@@ -19,15 +19,17 @@ function Build-CISAz1210($findings)
 		ID			     = "CISAz1210"
 		FindingName	     = "CIS Az 1.21 - Users can create Microsoft 365 groups in Azure portals, API or PowerShell"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "6.7"
+		RiskScore	     = "15"
 		Description	     = "Restricting Microsoft 365 group creation to administrators only ensures that creation of Microsoft 365 groups is controlled by the administrator. Appropriate groups should be created and managed by the administrator and group creation rights should not be delegated to any other user."
 		Remediation	     = "Use the Powershell Script to modify the setting back to False. Else goto the Azure Portal: https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General to fix this issue. Note: You will need to get the DirectorySettingID to implement the setting correctly!"
 		PowerShellScript = '$params = @{ Values = @(@{ Name = "EnableGroupCreation"; Value = "False" }) }; Update-MgDirectorySetting -DirectorySettingId $directorySettingId -BodyParameter $params'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Manage who can create Microsoft 365 Groups'; 'URL' = 'https://learn.microsoft.com/en-us/microsoft-365/solutions/manage-creation-of-groups?view=o365-worldwide' },
 			@{ 'Name' = 'PA-1: Separate and limit highly privileged/administrative users'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-1-separate-and-limit-highly-privilegedadministrative-users' },
 			@{ 'Name' = 'GS-2: Define and implement enterprise segmentation/separation of duties strategyment'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-2-define-and-implement-enterprise-segmentationseparation-of-duties-strategy' },

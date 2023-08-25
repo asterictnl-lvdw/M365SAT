@@ -18,15 +18,17 @@ function Build-CSTM-Ex007($findings)
 		ID			     = "CSTM-Ex007"
 		FindingName	     = "CSTM-Ex007 - Multiple Policies Not Enabled that are found by the ConfigAnalyzerPolicyRecommendations!"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.3"
+		RiskScore  	     = "9"
 		Description	     = 'Anti-Spam, Anti-Phishing and Anti-Malware Policies are recommended to have an existing policy configured to minimize impact from spam and phishing and malware within your organization'
 		Remediation	     = 'Configure the Anti-Spam, Anti-Phishing and Anti-Malware policy according to the recommendations. Please consult the text file for further information.'
 		PowerShellScript = 'New-AntiPhishPolicy; New-HostedContentFilterPolicy; New-MalwareFilterPolicy'
 		DefaultValue	 = "> 0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'ConfigAnalyzerPolicyRecommendations.txt'; 'URL' = "file://$($path)/ConfigAnalyzerPolicyRecommendations.txt" },
 			@{ 'Name' = 'Lock, Stock and Office 365 ATP Automation'; 'URL' = "https://call4cloud.nl/2020/07/lock-stock-and-office-365-atp-automation/" })
 	}

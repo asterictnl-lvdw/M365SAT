@@ -15,15 +15,17 @@ function Build-CSTM-Ex002($findings)
 		ID			     = "CSTM-Ex002"
 		FindingName	     = "CSTM-Ex002 - Entities Allowed to Perform Domain Spoofing"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "Domain Spoofing occurs when an external entity sends email using a mail domain owned by another entity. There are legitimate use cases where domain spoofing is allowed. It is recommended to speak with stakeholders and determine if this type of rule is beneficial and if any exceptions are needed. Microsoft configures some Anti-Spoofing settings by default in the Anti-Phishing policies on tenants, this rule would complement default settings."
 		Remediation	     = "Review the Tenant Allow/Block List under Spoofing in the Security console."
 		PowerShellScript = ''
 		DefaultValue	 = "None"
 		ExpectedValue    = "None"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Manage the Tenant Allow/Block List in EOP'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/tenant-allow-block-list?view=o365-worldwide' })
 	}
 	return $inspectorobject

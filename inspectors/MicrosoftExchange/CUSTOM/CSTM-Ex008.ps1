@@ -18,15 +18,17 @@ function Build-CSTM-Ex008($findings)
 		ID			     = "CSTM-Ex008"
 		FindingName	     = "CSTM-Ex008 - (Multiple) Whitelisted Domains Detected"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.6"
+		RiskScore		     = "6"
 		Description	     = "Whitelisting domains in transport rules bypasses regular malware and phishing scanning, which can enable an attacker to launch attacks against your users from a safe haven domain."
 		Remediation	     = "Use the PowerShell script to remove the transport rules"
 		PowerShellScript = 'Remove-TransportRule {RuleName}; Get-TransportRule | Where-Object {($_.setscl -eq -1 -and $_.SenderDomainIs -ne $null)} | ft Name,SenderDomainIs'
 		DefaultValue	 = "0 Domains"
 		ExpectedValue    = "0 Domains"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "2"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'CIS 7, 9.7'; 'URL' = "https://paper.bobylive.com/Security/CIS/CIS_Microsoft_365_Foundations_Benchmark_v1_4_0.pdf" })
 	}
 	return $inspectorobject

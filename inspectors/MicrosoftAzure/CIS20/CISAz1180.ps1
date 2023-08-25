@@ -20,15 +20,17 @@ function Build-CISAz1180($findings)
 		ID			     = "CISAz1180"
 		FindingName	     = "CIS Az 1.18 - Restrict user ability to access groups features in the Access Pane is Set to 'No'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.8"
+		RiskScore	     = "5"
 		Description	     = "Self-service group management enables users to create and manage security groups or Office 365 groups in Azure Active Directory (Azure AD). Unless a business requires this day-to-day delegation for some users, self-service group management should be disabled."
 		Remediation	     = "Change the Value to False to restrict non-admin users from accessing sensitive data. There is no automatic script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Set up self-service group management in Azure Active Directory'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-self-service-management' },
 			@{ 'Name' = 'PA-1: Separate and limit highly privileged/administrative users'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-1-separate-and-limit-highly-privilegedadministrative-users' },
 			@{ 'Name' = 'GS-2: Define and implement enterprise segmentation/separation of duties strategyment'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-2-define-and-implement-enterprise-segmentationseparation-of-duties-strategy' },
