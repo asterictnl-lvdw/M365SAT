@@ -18,15 +18,17 @@ function Build-CSTM-Ex010($findings)
 		ID			     = "CSTM-Ex010"
 		FindingName	     = "CSTM-Ex010 - DLP Policies Not Enabled and Enforced"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Policies were found in a state other than 'Enable'. The state of the policy determines what, if any, actions are taken when the policy is triggered. Reasons that a policy may be in a state other than 'Enable' include testing, policy deprecation, and auditing as well as potentially nefarious reasons. Policy state definitions are: - Enable: The policy is enabled for actions and notifications. This is the default value. - Disable: The policy is disabled. - TestWithNotifications: No actions are taken, but notifications are sent. - TestWithoutNotifications: An audit mode where no actions are taken, and no notifications are sent."
 		Remediation	     = "Validate that the current state of the policies returned are expected and remediate as necessary."
 		PowerShellScript = 'New-DlpPolicy -Name "Example" -Template "TEMPLATEHERE";Set-DlpPolicy "Example" -State Enabled'
 		DefaultValue	 = "Enabled"
 		ExpectedValue    = "Enabled"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Learn about data loss prevention'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp?view=o365-worldwide" },
 			@{ 'Name' = 'Create, test, and tune a DLP policy'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/compliance/create-test-tune-dlp-policy?view=o365-worldwide" })
 	}

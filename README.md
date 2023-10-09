@@ -2,6 +2,8 @@
 ## The Official Microsoft 365 Security Assessment Tool
 Written in PowerShell 5.x and PowerShell 7.x as well!
 
+Next Scheduled Release: End of October 2023
+
 <div>
   <p align="center">
     <b>The Open-Source, Automated Microsoft 365 Security Assessment Tool</b> </br></br>

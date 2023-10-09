@@ -19,15 +19,17 @@ function Build-CISMEx480($findings)
 		ID			     = "CISMEx480"
 		FindingName	     = "CIS MEx 4.8 - SPF records are not published for all Exchange Domains"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "9"
 		Description	     = "SPF records allow Exchange Online Protection and other mail systems know where messages from domains are allowed to originate. This information can be used by that system to determine how to treat the message based on if it is being spoofed or is valid."
 		Remediation	     = "Create an SPF TXT DNS record as described in the references below. Remember that configuring SPF may affect the deliverability of mail from that domain. An SPF rollout should be measured and gradual."
 		PowerShellScript = 'Not Available!'
 		DefaultValue	 = "Null for all custom domains"
 		ExpectedValue    = "v=spf1 include:spf.protection.outlook.com include:<domain name> -all"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set Up SPF in Office 365 to Help Prevent Spoofing'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/set-up-spf-in-office-365-to-help-prevent-spoofing?view=o365-worldwide" },
 			@{ 'Name' = 'Explaining SPF Records'; 'URL' = "https://postmarkapp.com/blog/explaining-spf" })
 	}

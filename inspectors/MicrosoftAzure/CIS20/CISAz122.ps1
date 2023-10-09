@@ -19,15 +19,17 @@ function Build-CISAz122($findings)
 		ID			     = "CISAz122"
 		FindingName	     = "CIS Az 1.2.2 - No Geographic Access Policy considered"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "5"
 		Description	     = "Conditional Access, when used as a deny list for the tenant or subscription, is able to prevent ingress or egress of traffic to countries that are outside of the scope of interest (e.g.: customers, suppliers) or jurisdiction of an organization. This is an effective way to prevent unnecessary and long-lasting exposure to international threats such as APTs."
 		Remediation	     = "Please use the link described in the PowerShell Script to create a ConditionalAccessPolicy"
 		PowerShellScript = 'https://hub.steampipe.io/mods/turbot/azure_compliance/controls/control.CISAz_v200_1_2_2?context=benchmark.CISAz_v200/benchmark.CISAz_v200_1/benchmark.CISAz_v200_1_2#from-powershell'
 		DefaultValue	 = "null"
 		ExpectedValue    = "A policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'Conditional Access: Block access by location'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-location' },
 			@{ 'Name' = 'What is Conditional Access report-only mode?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-conditional-access-report-only' },
 			@{ 'Name' = 'IM-7: Restrict resource access based on conditions'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-7-restrict-resource-access-based-on--conditions' })

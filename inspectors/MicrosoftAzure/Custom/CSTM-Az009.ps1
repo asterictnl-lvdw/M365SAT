@@ -19,15 +19,17 @@ function Build-CSTM-Az009($findings)
 		ID			     = "CSTM-Az009"
 		FindingName	     = "CSTM-Az009 - TempPass does not have the correct security settings configured"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "A Temporary Access Pass is a time-limited passcode that can be configured for multi or single use to allow users to onboard other authentication methods including passwordless methods such as Microsoft Authenticator, FIDO2 or Windows Hello for Business. A Temporary Access Pass also makes recovery easier when a user has lost or forgotten their strong authentication factor like a FIDO2 security key or Microsoft Authenticator app, but needs to sign in to register new strong authentication methods."
 		Remediation	     = "Check the values via the Entra Portal "
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods/fromNav/Identity'
 		DefaultValue	 = "defaultLifetimeInMinutes:60/maximumLifetimeInMinutes:480/minimumLifetimeInMinutes:60/state:disabled/defaultLength:8"
 		ExpectedValue    = "defaultLifetimeInMinutes:60/maximumLifetimeInMinutes:480/minimumLifetimeInMinutes:60/state:disabled/defaultLength:12"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Using a Temporary Access Pass for Bootstrapping your Passwordless Journey!'; 'URL' = "https://identity-man.eu/2022/09/20/using-a-temporary-access-pass-for-bootstrapping-your-passwordless-journey/" })
 	}
 }

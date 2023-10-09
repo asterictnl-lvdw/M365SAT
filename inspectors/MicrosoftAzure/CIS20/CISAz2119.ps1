@@ -19,15 +19,17 @@ function Build-CISAz2119($findings)
 		ID			     = "CISAz2119"
 		FindingName	     = "CIS Az 2.1.19 - Additional email addresses is not Configured with any Security Contact Email"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.4"
+		RiskScore	     = "5"
 		Description	     = "Microsoft Defender for Cloud emails the Subscription Owner to notify them about security alerts. Adding your Security Contact's email address to the 'Additional email addresses' field ensures that your organization's Security Team is included in these alerts. This ensures that the proper people are aware of any potential compromise in order to mitigate the risk in a timely fashion."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "Owner"
 		ExpectedValue    = "Owner"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Quickstart: Configure email notifications for security alerts'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/configure-email-notifications' })
 	}
 	return $inspectorobject

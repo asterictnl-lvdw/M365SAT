@@ -18,15 +18,17 @@ function Build-CISMEx650($findings)
 		ID			     = "CISMEx650"
 		FindingName	     = "CIS MEx 6.5 - Additional storage providers are not restricted in Outlook on the Web"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.6"
+		RiskScore	     = "15"
 		Description	     = "By default additional storage providers are allowed in Office on the Web (such as Box, Dropbox, Facebook, Google Drive, OneDrive Personal, etc.). This could lead to information leakage and additional risk of infection from organizational non-trusted storage providers. Restricting this will inherently reduce risk as it will narrow opportunities for infection and data leakage."
 		Remediation	     = "Use the PowerShell Script to remediate this issue. You can check with the PowerShell command: <b>Get-OwaMailboxPolicy | Format-Table Name, AdditionalStorageProvidersAvailable</b> if the remediation has been successful!"
 		PowerShellScript = 'Set-OwaMailboxPolicy -Identity OwaMailboxPolicy-Default -AdditionalStorageProvidersAvailable $false'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = '3rd party cloud storage services supported by Office apps'; 'URL' = 'https://support.microsoft.com/en-us/topic/3rd-party-cloud-storage-services-supported-by-office-apps-fce12782-eccc-4cf5-8f4b-d1ebec513f72' })
 	}
 	return $inspectorobject

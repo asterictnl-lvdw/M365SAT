@@ -18,15 +18,17 @@ function Build-CSTM-Ex029($findings)
 		ID			     = "CSTM-Ex029"
 		FindingName	     = "CSTM-Ex029 - Outlook Web Application Offline Mode Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.6"
+		RiskScore	     = "12"
 		Description	     = "One of the oft-overlooked features of web mail, known as OWA, is the offline mode feature. This feature leaves an unencrypted copy of the last 500 emails on your device for easy access while you are not connected."
 		Remediation	     = "Use the PowerShell Script to disable AllowOfflineOn for all computers"
 		PowerShellScript = 'Get-OwaMailboxPolicy | Set-OwaMailboxPolicy -AllowOfflineOn NoComputers'
 		DefaultValue	 = "No restrictions"
 		ExpectedValue    = "NoComputers are allowed to AllowOfflineOn"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Disable offline access in Outlook on the Web at a global level'; 'URL' = "https://social.technet.microsoft.com/Forums/en-US/d2c2ff3f-232b-496b-a1dc-f2f402ae5c0a/disable-offline-access-in-outlook-on-the-web-at-a-global-level?forum=Exch2016Adm" },
 			@{ 'Name' = 'Office 365 - Have You Evaluated These Exchange Online Features?'; 'URL' = "https://blogs.perficient.com/2016/03/07/office-365-have-you-evaluated-these-exchange-online-features/" })
 	}

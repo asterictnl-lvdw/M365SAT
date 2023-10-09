@@ -16,17 +16,19 @@ function Build-CISMEx340($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx340"
-		FindingName	     = "CIS MEx 3.4 - DLP Policy is not configured/enabled!!"
+		FindingName	     = "CIS MEx 3.4 - DLP Policy is not configured/enabled!"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "6.8"
+		RiskScore	     = "6"
 		Description	     = "Enabling DLP policies alerts users and administrators that specific types of data should not be exposed, helping to protect the data from accidental exposure."
 		Remediation	     = "Use the PowerShell script to configure a New-Dlp Compliance Policy"
 		PowerShellScript = 'New-DlpPolicy -Name "Contoso PII"" -Template {templatehere}'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "A Policy"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
+		Impact		     = "2"
+		Likelihood	     = "3"
 		RiskRating	     = "Medium"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Learn about data loss prevention'; 'URL' = "https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp?view=o365-worldwide" })
 	}
 	return $inspectorobject

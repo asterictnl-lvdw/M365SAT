@@ -19,15 +19,17 @@ function Build-CISAz1230($findings)
 		ID			     = "CISAz1230"
 		FindingName	     = "CIS Az 1.23 - Custom Subscription Administrator Roles Exist"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "5"
 		Description	     = "Classic subscription admin roles offer basic access management and include Account Administrator, Service Administrator, and Co-Administrators. It is recommended the least necessary permissions be given initially. Permissions can be added as needed by the account holder. This ensures the account holder cannot perform actions which were not intended."
 		Remediation	     = "Use the Azure CloudShell Script to enable Security Defaults on Microsoft Azure Active Directory"
 		PowerShellScript = 'az role definition delete --name <role name>'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Add or change Azure subscription administrators'; 'URL' = 'https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/add-change-subscription-administrator' },
 			@{ 'Name' = 'Introducing security defaults'; 'URL' = 'https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/introducing-security-defaults/ba-p/1061414' },
 		@{ 'Name' = 'IM-2: Protect identity and authentication systems'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-2-protect-identity-and-authentication-systems' })

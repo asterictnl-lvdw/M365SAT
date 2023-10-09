@@ -19,15 +19,17 @@ function Build-CISAz126($findings)
 		ID			     = "CISAz126"
 		FindingName	     = "CIS Az 1.2.6 - Ensure Multi-factor Authentication is Required for Azure Management"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "15"
 		Description	     = "Enabling multi-factor authentication is a recommended setting to limit the use of Administrative actions and to prevent intruders from changing settings."
 		Remediation	     = "Please use the link described in the PowerShell Script to create an additional ConditionalAccessPolicy"
 		PowerShellScript = 'https://hub.steampipe.io/mods/turbot/azure_compliance/controls/control.CISAz_v200_1_2_6?context=benchmark.CISAz_v200/benchmark.CISAz_v200_1/benchmark.CISAz_v200_1_2'
 		DefaultValue	 = "null"
 		ExpectedValue    = "A policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Conditional Access: Users, groups, and workload identities'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-conditional-access-users-groups' },
 			@{ 'Name' = 'IM-7: Restrict resource access based on conditions'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-7-restrict-resource-access-based-on--conditions' })
 	}

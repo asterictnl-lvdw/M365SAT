@@ -18,15 +18,17 @@ function Build-CSTM-Ex016($findings)
 		ID			     = "CSTM-Ex016"
 		FindingName	     = "CSTM-Ex016 - Exchange Mailboxes with Forwarding Rules to External Recipients"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore		     = "12"
 		Description	     = "Email forwarding can be useful but can also pose a security risk due to the potential disclosure of information. Attackers might use this information to attack your organization or partners. The mailboxes returned in this finding all forward mail to external recipients."
 		Remediation	     = "This finding refers to individual mailboxes that have forwarding rules enabled to external recipients. For these mailboxes, verify that the forwarding rules do not violate company policy, are expected, and allowed. Remediation can be accomplished by running the PowerShell command. A list of affected email addresses is included in this report. You can use the references as well to remediate this issue"
 		PowerShellScript = 'Get-Mailbox -ResultSize Unlimited | Where {($_.ForwardingAddress -ne $Null) -or ($_.ForwardingsmtpAddress -ne $Null)} | Set-Mailbox -ForwardingAddress $null -ForwardingSmtpAddress $null -DeliverToMailboxAndForward $false; Get-RemoteDomain | Set-RemoteDomain -AutoForwardEnabled $false'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Office 365 - List all email forwarding rules (PowerShell)'; 'URL' = "https://geekshangout.com/office-365-powershell-list-email-forwarding-rules-mailboxes/" },
 			@{ 'Name' = 'Get-Mailbox Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/get-mailbox?view=exchange-ps" },
 			@{ 'Name' = 'Remove forwarding from Office 365 Mailboxes with Powershell'; 'URL' = "https://www.tachytelic.net/2019/06/remove-forwarding-office-365-powershell/" },

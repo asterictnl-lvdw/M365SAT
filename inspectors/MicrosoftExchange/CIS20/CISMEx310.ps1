@@ -18,15 +18,17 @@ function Build-CISMEx310($findings)
 		ID			     = "CISMEx310"
 		FindingName	     = "CIS MEx 3.1 - CustomerLockbox Feature is disabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "5.7"
+		RiskScore	     = "10"
 		Description	     = "Enabling this feature protects organizational data against data spillage and exfiltration."
 		Remediation	     = "Use the PowerShell script to enable CustomerLockBox for your Exchange Tenant"
 		PowerShellScript = 'Set-OrganizationConfig -CustomerLockBoxEnabled $true'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Customer Lockbox Overview'; 'URL' = "https://learn.microsoft.com/en-us/azure/security/fundamentals/customer-lockbox-overview" })
 	}
 	return $inspectorobject

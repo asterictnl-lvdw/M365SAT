@@ -18,15 +18,17 @@ function Build-CISAz112($findings)
 		ID			     = "CISAz112"
 		FindingName	     = "CIS Az 1.1.2 - Some Admin Accounts do not have MFA enabled"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "10.0"
+		RiskScore	     = "20"
 		Description	     = "With multi-factor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk."
 		Remediation	     = "Please enable MFA for all Admin users through the Admin Portal. You can also use the legacy script by Adminroid"
 		PowerShellScript = 'https://admindroid.sharepoint.com/:u:/s/external/EVzUDxQqxWdLj91v3mhAipsBt0GqNmUK5b4jFXPr181Svw?e=OOcfQn&isSPOFile=1'
 		DefaultValue	 = "All Admins have no MFA Enabled"
 		ExpectedValue    = "All Admins have MFA Enabled"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
+		Impact		     = "4"
+		Likelihood	     = "5"
 		RiskRating	     = "Critical"
+		Priority		 = "Critical"
 		References	     = @(@{ 'Name' = 'How it works: Azure AD Multi-Factor Authentication'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-mfa-howitworks' },
 			@{ 'Name' = 'Azure Active Directory Premium MFA Attributes via Graph API?'; 'URL' = 'https://stackoverflow.com/questions/41156206/azure-active-directory-premium-mfa-attributes-via-graph-api' },
 			@{ 'Name' = 'IM-6: Use strong authentication controls'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-6-use-strong-authentication-controls' })

@@ -18,15 +18,17 @@ function Build-CSTM-Ex027($findings)
 		ID			     = "CSTM-Ex027"
 		FindingName	     = "CSTM-Ex027 - MailboxPlans Have Legacy Protocols Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "8.2"
+		RiskScore	     = "12"
 		Description	     = "For Exchange Online, Microsoft provides many protocols for end users to connect to their mailbox. We have IMAP, POP, ActiveSync, ECP, MAPI, OWA and more. Typically, we want to block less secure protocols like IMAP4 and POP3 so that users will not use these to connect a mailbox to."
 		Remediation	     = "Execute the PowerShell command to disable the legacy protocols"
 		PowerShellScript = 'New-AuthenticationPolicy -Name "Block Legacy Authentication"; Get-CASMailboxPlan -Filter {SmtpClientAuthenticationDisabled -eq "false" } | Set-CASMailboxPlan -ActiveSyncEnabled: $false -PopEnabled: $false -ImapEnabled: $false -MAPIEnabled: $false; Get-CASMailbox -Filter {SmtpClientAuthenticationDisabled -eq "true"} | Select-Object @{n = "Identity"; e = {$_.primarysmtpaddress}} | Set-CASMailbox -ActiveSyncEnabled: $false -PopEnabled: $false -ImapEnabled: $false -MAPIEnabled: $false'
 		DefaultValue	 = "ActiveSyncEnabled,PopEnabled,ImapEnabled,EwsEnabled,MapiEnabled = True"
 		ExpectedValue    = "ActiveSyncEnabled,PopEnabled,ImapEnabled,EwsEnabled,MapiEnabled = False"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'How to: Block legacy authentication access to Azure AD with Conditional Access'; 'URL' = "https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication" },
 			@{ 'Name' = 'How To Block Legacy Authentication Office 365'; 'URL' = "https://thesysadminchannel.com/use-conditional-access-to-block-legacy-authentication-in-office-365/" },
 			@{ 'Name' = 'Block Legacy Authentication now, and do not wait for Microsoft'; 'URL' = "https://jeffreyappel.nl/block-legacy-authentication-now-and-dont-wait-for-microsoft/" })

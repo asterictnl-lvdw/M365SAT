@@ -20,15 +20,17 @@ function Build-CISMAz1118($findings)
 		ID			     = "CISMAz1118"
 		FindingName	     = "CIS MAz 1.1.18 - LinkedIn Account Connections is enabled!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.8"
+		RiskScore	     = "5"
 		Description	     = "Disabling LinkedIn integration prevents potential phishing attacks and risk scenarios where an external party could accidentally disclose sensitive information."
 		Remediation	     = "Change the value to 1 (No) to disable LinkedIn"
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings/menuId/UserSettings'
 		DefaultValue	 = "0"
 		ExpectedValue    = "1"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Integrate LinkedIn account connections in Azure Active Directory'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/linkedin-integration' })
 	}
 	return $inspectorobject

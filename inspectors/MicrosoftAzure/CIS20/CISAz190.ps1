@@ -18,17 +18,19 @@ function Build-CISAz190($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz190"
-		FindingName	     = "CIS Az 1.9.0 - 'Notify users on password resets?' is set to 'No'"
+		FindingName	     = "CIS Az 1.9 - 'Notify users on password resets?' is set to 'No'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.3"
+		RiskScore	     = "4"
 		Description	     = "User notification on password reset is a proactive way of confirming password reset activity. It helps the user to recognize unauthorized password reset activities."
 		Remediation	     = "Change the value back to True to be compliant again. There is no automatic script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Notifications'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "4"
+		Likelihood	     = "1"
+		RiskRating	     = "Medium"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set up notifications and customizations'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr#set-up-notifications-and-customizations' },
 			@{ 'Name' = 'Notifications'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-howitworks#notifications' },
 			@{ 'Name' = 'Plan an Azure Active Directory self-service password reset deployment'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-sspr-deployment' },

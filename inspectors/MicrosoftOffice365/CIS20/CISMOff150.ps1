@@ -18,15 +18,17 @@ function Build-CISMOff150($findings)
 		ID			     = "CISMOff150"
 		FindingName	     = "CIS MOff 1.5 - Admins Contain a License!"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "9.1"
+		RiskScore	     = "12"
 		Description	     = "Ensuring administrative accounts are cloud-only, without applications assigned to them will reduce the attack surface of high privileged identities in your environment. In order to participate in Microsoft 365 security services such as Identity Protection, PIM and Conditional Access an administrative account will need a license attached to it. Ensure that the license used does not include any applications with potentially vulnerable services by using either Azure Premium P1 or Azure Premium P2 for the cloud-only account with administrator roles. In a hybrid environment, having separate accounts will help ensure that in the event of a breach in the cloud, that the breach does not affect the on-prem environment and vice-versa."
 		Remediation	     = "You can review the list of accounts containing a license and change them in the Microsoft 365 Portal"
 		PowerShellScript = ''
 		DefaultValue	 = "No Licenses"
 		ExpectedValue    = "No Licenses"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "4"
+		Likelihood	     = "3"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Add users and assign licenses at the same time'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/admin/add-users/add-users?view=o365-worldwide" })
 	}
 	return $inspectorobject

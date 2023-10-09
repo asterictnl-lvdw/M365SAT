@@ -18,15 +18,17 @@ function Build-CSTM-Ex019($findings)
 		ID			     = "CSTM-Ex019"
 		FindingName	     = "CSTM-Ex019 - Simulated Phishing Transport Rules - Security Bypasses"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore		     = "0"
 		Description	     = "Your Organization has a Simulation Phish Policy Activated for educational purposes. If this is not the case, quickly disable this policy"
 		Remediation	     = "Review Mail Flow rules that bypass spam filtering for Simulated Phishing platforms. Bypassing Spam filtering, Safe Links and Safe Attachments by IP, domain, or header values allows attackers to spoof domains and addresses, or modify the header of their emails and bypass security measures."
 		PowerShellScript = 'New-HostedContentFilterPolicy -Name "Example Policy" -HighConfidenceSpamAction Quarantine -SpamAction Quarantine -BulkThreshold 6'
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "No Policy / Policy That Management is Aware off"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Soteria Curated List of Simulated Phishing Platform Resource Links'; 'URL' = "https://gist.github.com/ThoughtContagion/5f227b562bef4b19d5a5d0d4765f7890" },
 			@{ 'Name' = 'Whitelist Dangers and Cyber-Security'; 'URL' = "https://www.spamstopshere.com/blog/email-security/whitelist-dangers-and-cyber-security" })
 	}

@@ -19,15 +19,17 @@ function Build-CSTM-Az007($findings)
 		ID			     = "CSTM-Az007"
 		FindingName	     = "CSTM-Az007 - Multiple Groups Security Disabled"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Multiple Groups in Azure Directory do not have any security restrictions enabled."
 		Remediation	     = "Consider enabling Azure Directory Security for Groups to the respective groups"
 		PowerShellScript = ''
 		DefaultValue	 = "Not Enabled for Groups by Default"
 		ExpectedValue    = "Enabled for Groups"
 		ReturnedValue    = "Number of Groups without Security: $($findings)"
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Azure AD Groups - in a nutshell'; 'URL' = 'https://byteben.com/bb/azure-ad-groups-in-a-nutshell/' })
 	}
 }

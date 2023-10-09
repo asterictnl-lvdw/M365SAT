@@ -19,15 +19,17 @@ function Build-CSTM-Az000($findings)
 		ID			     = "CSTM-Az000"
 		FindingName	     = "CSTM-Az000 - Directory Synchronization Service Account Found"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Directory synchronization allows you to manage identities in your Active Directory Domain Services (AD DS) and all updates to user accounts, groups, and contacts are synchronized to the Azure Active Directory (Azure AD) tenant of your Microsoft 365 subscription."
 		Remediation	     = "Validate the Configuration of the Service Account to determine if default installation procedure is used. If so, please use Microsoft's guidace to apply best practices."
 		PowerShellScript = ''
 		DefaultValue	 = "-"
 		ExpectedValue    = "-"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'ADSync Service accounts'; 'URL' = "https://docs.microsoft.com/en-us/azure/active-directory/hybrid/concept-adsync-service-account" },
 			@{ 'Name' = 'Service accounts'; 'URL' = "https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts" },
 			@{ 'Name' = 'Virtual accounts'; 'URL' = "https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/service-accounts#bkmk-virtualserviceaccounts" })

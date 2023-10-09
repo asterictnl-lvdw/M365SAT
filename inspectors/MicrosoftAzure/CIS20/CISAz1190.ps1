@@ -19,15 +19,17 @@ function Build-CISAz1190($findings)
 		ID			     = "CISAz1190"
 		FindingName	     = "CIS Az 1.19 - Users can create security groups in Azure portals, API or PowerShell"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.4"
+		RiskScore	     = "15"
 		Description	     = "When creating security groups is enabled, all users in the directory are allowed to create new security groups and add members to those groups. Unless a business requires this day-to-day delegation, security group creation should be restricted to administrators only."
 		Remediation	     = "Use the Powershell Script to modify the policy to disallow Tenant Creation by unauthorized users"
 		PowerShellScript = '$RolePermissions = @{}; $RolePermissions["AllowedToCreateSecurityGroups"] = $False; Update-MgPolicyAuthorizationPolicy -AuthorizationPolicyId "authorizationPolicy" -DefaultUserRolePermissions $RolePermissions'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set up self-service group management in Azure Active Directory'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-self-service-management' },
 			@{ 'Name' = 'PA-1: Separate and limit highly privileged/administrative users'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-1-separate-and-limit-highly-privilegedadministrative-users' },
 			@{ 'Name' = 'GS-2: Define and implement enterprise segmentation/separation of duties strategyment'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-2-define-and-implement-enterprise-segmentationseparation-of-duties-strategy' },

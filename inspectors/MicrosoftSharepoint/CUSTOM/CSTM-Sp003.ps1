@@ -18,14 +18,16 @@ function Build-CSTM-Sp003($findings)
 		ID			     = "CSTM-Sp003"
 		FindingName	     = "CSTM-Sp003 - SharePoint Legacy Authentication is Enabled"
 		ProductFamily    = "Microsoft SharePoint"
-		CVS			     = "9.1"
+		RiskScore	     = "15"
 		Description	     = "SharePoint legacy authentication is enabled. Cyber adversaries frequently attempt credential stuffing and other attacks against legacy authentication protocols because they are subject to less scrutiny and are typically exempt from multi-factor authentication and other modern access requirements. It is recommended to globally disable SharePoint legacy authentication."
 		Remediation	     = "Use the PowerShell Script to mitigate the issue and disable Legacy Authentication for SharePoint"
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		PowerShellScript = 'Set-SPOTenant -LegacyAuthProtocolsEnabled $False'
 		References	     = @(@{ 'Name' = 'Set-SPOTenant Reference'; 'URL' = 'https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps' },
 			@{ 'Name' = 'How to: Block legacy authentication to Azure AD with conditional access'; 'URL' = 'https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication' },

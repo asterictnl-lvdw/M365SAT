@@ -17,17 +17,19 @@ function Build-CISAz140($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz140"
-		FindingName	     = "CIS Az 1.4.0 - Ensure Access Review is Set Up for External Users in Azure AD Privileged Identity Management"
+		FindingName	     = "CIS Az 1.4 - Ensure Access Review is Set Up for External Users in Azure AD Privileged Identity Management"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "6.4"
+		RiskScore	     = "6"
 		Description	     = "Guest users in the Azure AD are generally required for collaboration purposes in Office 365, and may also be required for Azure functions in enterprises with multiple Azure tenants. Guest users should be reviewed on a regular basis, at least annually. Guest users should not be granted administrative roles where possible. Guest users are typically added outside your employee on-boarding/off-boarding process and could potentially be overlooked indefinitely, leading to a potential vulnerability. Guest users should be reviewed on a monthly basis to ensure that inactive and unneeded accounts are removed."
 		Remediation	     = "Review the Guest Accounts that are into the tenant and remove the unneccesary guest access from your tenant"
 		PowerShellScript = 'Remove-MgUser -UserId <username@domain.org>'
 		DefaultValue	 = "No guests"
 		ExpectedValue    = "No unneccesary guests"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "2"
 		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Properties of an Azure Active Directory B2B collaboration user'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/external-identities/user-properties' },
 			@{ 'Name' = 'Delete a user'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/add-users-azure-active-directory#delete-a-user' },
 			@{ 'Name' = 'Security Control v3: Privileged access'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-3-review-and-reconcile-user-access-regularly' },

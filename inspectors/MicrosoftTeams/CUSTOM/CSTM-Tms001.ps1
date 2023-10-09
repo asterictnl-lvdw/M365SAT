@@ -18,14 +18,16 @@ function Build-CSTM-Tms001($findings)
 		ID			     = "CSTM-Tms001"
 		FindingName	     = "CSTM-Tms001 - Microsoft Teams External Domain Communication Policies"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "6.5"
+		RiskScore	     = "3"
 		Description	     = "Microsoft Teams can communicate with external domains. This could lead to data exfiltration as external domains could include personal accounts. Please review this policy and ensure no malicious domains have access to join the Teams tenant."
 		Remediation	     = "Review Microsoft Teams External Access Policies and validate that all results are expected, and no conflicting rules are in place."
 		DefaultValue	 = "All Domains Allowed"
 		ExpectedValue    = "None"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		PowerShellScript = ''
 		References	     = @(@{ 'Name' = 'Manage external access (federation) - Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/manage-external-access' },
 			@{ 'Name' = 'Use guest and external access to collaborate with people outside your organization'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/communicate-with-users-from-other-organizations' })

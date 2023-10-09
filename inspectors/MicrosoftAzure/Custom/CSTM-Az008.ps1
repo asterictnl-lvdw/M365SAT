@@ -19,15 +19,17 @@ function Build-CSTM-Az008($findings)
 		ID			     = "CSTM-Az008"
 		FindingName	     = "CSTM-Az008 - MFA Number matching & Additional Features not activated!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.8"
+		RiskScore	     = "6"
 		Description	     = "Without Number Matching and the additional security features enabled. Your organization and user account are vulnerable to MFA Fatigue attacks. These attacks have the goal to send as many MFA requests as possible to persuade the user to accept the request. The number matching as well eliminates the 33% guess attack which enabled the attacker to do a wild guess to see if they got the right number."
 		Remediation	     = "Log into the Microsoft Entry Portal and enable or set it as Microsoft's default to enable the MFA Number matching and additional security features."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods/fromNav/Identity'
 		DefaultValue	 = "-"
 		ExpectedValue    = "-"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "2"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Microsoft enforces number matching to fight MFA fatigue attacks'; 'URL' = "https://www.bleepingcomputer.com/news/microsoft/microsoft-enforces-number-matching-to-fight-mfa-fatigue-attacks/" })
 	}
 }

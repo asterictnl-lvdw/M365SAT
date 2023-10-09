@@ -18,15 +18,17 @@ function Build-CSTM-Ex030($findings)
 		ID			     = "CSTM-Ex030"
 		FindingName	     = "CSTM-Ex030 - Multiple Weak Protocols in Outlook Web Application Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "Some protocols could lead to information exposure towards public areas. Consider disabling the settings to harden Microsoft Exchange Security."
 		Remediation	     = "Use the PowerShell Script to disable AllowOfflineOn for all computers"
 		PowerShellScript = 'Get-OwaMailboxPolicy | Set-OwaMailboxPolicy -ActiveSyncIntegrationEnabled $false -AdditionalStorageProvidersAvailable $false -BoxAttachmentsEnabled $false -DisableFacebook $true -DropboxAttachmentsEnabled $false -GoogleDriveAttachmentsEnabled $false -LinkedInEnabled $false -OneDriveAttachmentsEnabled $true -OutlookBetaToggleEnabled $true -ReportJunkEmailEnabled $true -SilverlightEnabled $false'
 		DefaultValue	 = "Weak Protocols Are Enabled"
 		ExpectedValue    = "Weak Protocols Are Disabled"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Reference - Set-OwaMailboxPolicy'; 'URL' = "https://learn.microsoft.com/en-us/powershell/module/exchange/set-owamailboxpolicy?view=exchange-ps" },
 			@{ 'Name' = 'OWA Mailbox Policy Configuration - With PowerShell!'; 'URL' = "https://www.powershellgeek.com/2015/03/15/owa-mailbox-policy-configuration-with-powershell/" })
 	}

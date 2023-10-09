@@ -18,15 +18,17 @@ function Build-CSTM-Ex009($findings)
 		ID			     = "CSTM-Ex009"
 		FindingName	     = "CSTM-Ex009 - iFrames Not Identified as Spam"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.6"
+		RiskScore		     = "9"
 		Description	     = "Cyber adversaries often place HTML iframes in the body of an email as a vector for containing spam templates or other malicious content. the organization does not have Exchange spam/content Filter policies to flag emails containing iframes as spam. It is advisable to create content filter rules to detect iframes in email as spam."
 		Remediation	     = "Use the PowerShell Script or the References to create a iFrame Spam policy"
 		PowerShellScript = 'New-HostedContentFilterPolicy -Name "Example Policy" -HighConfidenceSpamAction Quarantine -SpamAction Quarantine -BulkThreshold 6 -MarkAsSpamFramesInHtml On -MarkAsSpamSpfRecordHardFail On -MarkAsSpamEmptyMessages On -MarkAsSpamJavaScriptInHtml On'
 		DefaultValue	 = "Off"
 		ExpectedValue    = "On"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Configuring Exchange Online Protection, First Steps'; 'URL' = "https://practical365.com/first-steps-configuring-exchange-online-protection/" },
 			@{ 'Name' = 'Advanced Spam Filter (ASF) Settings in Exchange Online Protection'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/advanced-spam-filtering-asf-options?view=o365-worldwide" },
 			@{ 'Name' = 'Set-HostedContentFilterPolicy Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-hostedcontentfilterpolicy?view=exchange-ps" })

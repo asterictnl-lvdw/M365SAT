@@ -20,15 +20,17 @@ function Build-CISMAz118($findings)
 		ID			     = "CISMAz118"
 		FindingName	     = "CISM Az 1.1.8 - Self Service Password Reset is not set to be enabled for all users"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.5"
+		RiskScore	     = "9"
 		Description	     = "Users will no longer need to engage the helpdesk for password resets, and the password reset mechanism will automatically block common, easily guessable passwords."
 		Remediation	     = "Manually change the value from 0 (None) or 1 (Selected) to 2 (All) in the Azure Portal. There is no script available at this moment unfortunately."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Properties'
 		DefaultValue	 = "0"
 		ExpectedValue    = "2"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Tutorial: Enable users to unlock their account or reset passwords using Azure Active Directory self-service password reset'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/tutorial-enable-sspr' },
 			@{ 'Name' = 'Combined security information registration for Azure Active Directory overview'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-registration-mfa-sspr-combined' },
 			@{ 'Name' = 'IM-6: Use strong authentication controls'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-6-use-strong-authentication-controls' },

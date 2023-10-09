@@ -18,14 +18,16 @@ function Build-CSTM-Sp005($findings)
 		ID			     = "CSTM-Sp006"
 		FindingName	     = "CSTM-Sp006 - OfficeClientADALDisabled is not set to Enabled"
 		ProductFamily    = "Microsoft Sharepoint"
-		CVS			     = "8.4"
+		RiskScore	     = "9"
 		Description	     = 'Unmanaged devices pose a risk, since their security cannot be verified. Allowing users to sync data to these devices, takes that data out of the control of the organization. This increases the risk of the data either being intentionally or accidentally leaked.'
 		Remediation	     = 'Run Get-ADDomain to get the Device IDs and run the PowerShell Command and fill in the GUIDs with the devices you want to block:'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		PowerShellScript = 'Set-SPOTenant -OfficeClientADALDisabled $True'
 		References	     = @(@{ 'Name' = 'Reference - Set-SPOTenant'; 'URL' = 'https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps' })
 	}

@@ -15,15 +15,17 @@ function Build-CSTM-Ex004($findings)
 		ID			     = "CSTM-Ex004"
 		FindingName	     = "CSTM-Ex004 - Exchange does not have a Authentication Policy Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.1"
+		RiskScore	     = "12"
 		Description	     = "Exchange Online faces a lot of attacks, attack vectors and malicious actors. Having BasicAuthenitcation not disabled leaves the M365 vulnerable for brute force attacks and weak security of accounts"
 		Remediation	     = "Use the PowerShell script to set the Authentication Policy"
 		PowerShellScript = 'Set-AuthenticationPolicy -Identity "<id>" -AllowBasicAuthActiveSync:$False -AllowBasicAuthAutodiscover:$False -AllowBasicAuthImap:$False -AllowBasicAuthMapi:$False -AllowBasicAuthOfflineAddressBook:$False -AllowBasicAuthOutlookService:$False -AllowBasicAuthPop:$False -AllowBasicAuthReportingWebServices:$False -AllowBasicAuthRest:$False -AllowBasicAuthRpc:$False -AllowBasicAuthSmtp:$False -AllowBasicAuthWebServices:$False -AllowBasicAuthPowershell:$FalsengWebServices $False -AllowBasicAuthRpc $False -AllowBasicAuthSmtp $False -AllowBasicAuthWebServices $False -AllowBasicAuthPowershell $False'
 		DefaultValue	 = "No Authentication Policy"
 		ExpectedValue    = "An Authentication Policy"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "4"
+		Likelihood	     = "3"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'PowerShell and Exchange Online Security'; 'URL' = 'https://www.scriptrunner.com/en/blog/powershell-and-exchange-online-security/' })
 	}
 	return $inspectorobject

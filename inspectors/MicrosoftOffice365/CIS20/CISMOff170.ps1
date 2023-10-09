@@ -20,15 +20,17 @@ function Build-CISMOff170($findings)
 		ID			     = "CISMOff170"
 		FindingName	     = "CIS MOff 1.7.0 - Idle Session Timeout for unmanaged devices is not set to 1 hour or less!"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.2"
+		RiskScore	     = "8"
 		Description	     = "Ending idle sessions through an automatic process can help protect sensitive company data, and will add another layer of security for end users who work on unmanaged devices that can potentially be accessed by the public. Unauthorized individuals onsite or remotely can take advantage of systems left unattended over time. Automatic timing out of sessions makes this more difficult."
 		Remediation	     = "Manually change the value to 1 hour and enable the checkbox if not done in the portal."
 		PowerShellScript = 'https://admin.microsoft.com/Adminportal/Home#/Settings/SecurityPrivacy'
 		DefaultValue	 = "TimeoutString: Never TimeoutValue: 0"
 		ExpectedValue    = "TimeoutString: NOT Never TimeoutValue: <60"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "2"
+		Likelihood	     = "4"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Set user password to never expire'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-365/admin/add-users/set-password-to-never-expire?view=o365-worldwide' })
 	}
 	return $inspectorobject

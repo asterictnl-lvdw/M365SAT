@@ -20,15 +20,17 @@ function Build-CISMAz1122($findings)
 		ID			     = "CISMAz1122"
 		FindingName	     = "CIS MAz 1.1.22 - Non-Admin Users can create new tenants!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.1"
+		RiskScore	     = "10"
 		Description	     = "Restricting tenant creation prevents unauthorized or uncontrolled deployment of resources and ensures that the organization retains control over its infrastructure. User generation of shadow IT could lead to multiple, disjointed environments that can make it difficult for IT to manage and secure the organization's data, especially if other users in the organization began using these tenants for business purposes under the misunderstanding that they were secured by the organization's security team."
 		Remediation	     = "Change the value to False (Yes) to restrict non-admins from creating tenants! Or use the PowerShell script to restrict non-admins."
 		PowerShellScript = '$params = @{ DefaultUserRolePermissions = @{ AllowedToCreateTenants = $false } }; Update-MgBetaPolicyAuthorizationPolicy -AuthorizationPolicyId "authorizationPolicy" -BodyParameter $params'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Restrict member users default permissions'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/users-default-permissions#restrict-member-users-default-permissions' })
 	}
 	return $inspectorobject

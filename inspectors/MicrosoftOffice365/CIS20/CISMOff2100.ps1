@@ -20,15 +20,17 @@ function Build-CISMOff2100($findings)
 		ID			     = "CISMOff2100"
 		FindingName	     = "CIS MOff 2.10 - internal phishing protection for Forms is disabled"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.8"
+		RiskScore	     = "3"
 		Description	     = "Enabling internal phishing protection for Microsoft Forms will prevent attackers using forms for phishing attacks by asking personal or other sensitive information and URLs."
 		Remediation	     = "Manually check at OfficeForms Setting in the Admin Portal. The respective setting: 'Add internal phishing protection'"
 		PowerShellScript = 'https://admin.microsoft.com/Adminportal/Home#/Settings/Services/:/Settings/L1/OfficeForms'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Administrator settings for Microsoft Forms'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-forms/administrator-settings-microsoft-forms' },
 			@{ 'Name' = 'Review and unblock forms or users detected and blocked for potential phishing'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-forms/review-unblock-forms-users-detected-blocked-potential-phishing' })
 	}

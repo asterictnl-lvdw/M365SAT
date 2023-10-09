@@ -18,15 +18,17 @@ function Build-CSTM-Ex017($findings)
 		ID			     = "CSTM-Ex017"
 		FindingName	     = "Tenant Transport Rules"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "There are Transport Rules Existing in Microsoft Exchange, please verify if they are not faulty or have any malicious intend"
 		Remediation	     = "Review Mail Flow rules and validate that all results are expected and no conflicting rules are in place."
 		PowerShellScript = 'Remove-TransportRule -Identity ID'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "4"
+		Likelihood	     = "1"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Manage Mail Flow Rules in Exchange Online'; 'URL' = "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/manage-mail-flow-rules" })
 	}
 	return $inspectorobject

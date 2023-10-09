@@ -15,15 +15,17 @@ function Build-CSTM-Ex005($findings)
 		ID			     = "CSTM-Ex005"
 		FindingName	     = "CSTM-Ex005 - External Forwarding and AutoForwarding is not correctly Configured"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.1"
+		RiskScore	     = "9"
 		Description	     = "AllowedOOFType should not match 'External' and AutoForwardEnabled should not match 'True'. External Forwarding should be disabled to avoid information leaks and disclosure. Attackers often create these rules to exfiltrate data from your tenancy, this could be accomplished via access to an end-user account or otherwise."
 		Remediation	     = 'Use the PowerShell Scripts: Get-TransportRule | Remove-TransportRule <br> Set-RemoteDomain Default -AutoForwardEnabled $false; $rejectMessageText = "{Your Reject Message}" and the PowerShell Script to create a TransportRule that blocks AutoForwarding'
 		PowerShellScript = 'New-TransportRule -name "Client Rules To External Block" -Priority 0 -SentToScope NotInOrganization -FromScope InOrganization -MessageTypeMatches AutoForward -RejectMessageEnhancedStatusCode 5.7.1 -RejectMessageReasonText $rejectMessageText'
 		DefaultValue	 = "AllowedOOFType: External <br> AutoForwardEnabled: True"
 		ExpectedValue    = "AllowedOOFType: Not External <br> AutoForwardEnabled: False"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Procedures for mail flow rules in Exchange Server'; 'URL' = 'https://docs.microsoft.com/en-us/exchange/policy-and-compliance/mail-flow-rules/mail-flow-rule-procedures?view=exchserver-2019' },
 			@{ 'Name' = 'Disable automatic forwarding in Office 365 and Exchange Server to prevent information leakage'; 'URL' = 'https://docs.microsoft.com/en-us/archive/blogs/exovoice/disable-automatic-forwarding-in-office-365-and-exchange-server-to-prevent-information-leakage' },
 			@{ 'Name' = 'Set-RemoteDomain'; 'URL' = 'https://docs.microsoft.com/en-us/powershell/module/exchange/set-remotedomain?view=exchange-ps' },

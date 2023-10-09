@@ -23,7 +23,7 @@ function Get-M365SATHTMLReport
 	$SharepointObject = @()
 	
 	#AffectedObjects Definition
-	$AffectedObjects = $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.Impact -and $_.RiskRating -ne $null } }).Count
+	$AffectedObjects = $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.Priority -and $_.RiskRating -ne $null } }).Count
 	$ExchangeObject += $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.ProductFamily -eq "Microsoft Exchange" -and $_.RiskRating -ne $null } })
 	$AzureObject += $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.ProductFamily -eq "Microsoft Azure" -and $_.RiskRating -ne $null } })
 	$TeamsObject += $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.ProductFamily -eq "Microsoft Teams" -and $_.RiskRating -ne $null } })
@@ -38,11 +38,11 @@ function Get-M365SATHTMLReport
 	
 	# Summary (Critical,High,Medium,Low,Informational)
 	
-	$CriticalCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.Impact -eq "Critical" } }).Impact.Count
-	$HighCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.Impact -eq "High" } }).Impact.Count
-	$MediumCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.Impact -eq "Medium" } }).Impact.Count
-	$LowCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.Impact -eq "Low" } }).Impact.Count
-	$InformationalCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.Impact -eq "Informational" } }).Impact.Count
+	$CriticalCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.RiskRating -eq "Critical" } }).RiskRating.Count
+	$HighCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.RiskRating -eq "High" } }).RiskRating.Count
+	$MediumCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.RiskRating -eq "Medium" } }).RiskRating.Count
+	$LowCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.RiskRating -eq "Low" } }).RiskRating.Count
+	$InformationalCount = $(foreach ($priority in $object.Findings) { $priority | ? { $_.RiskRating -eq "Informational" } }).RiskRating.Count
 	
 	# Misc
 	$ReportTitle = "M365SAT - Microsoft 365 Security Report"
@@ -595,23 +595,23 @@ function Get-M365SATHTMLReport
 		$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } })
 		foreach ($Prod in $Products)
 		{
-			if ($Prod.Impact -eq "Critical")
+			if ($Prod.RiskRating -eq "Critical")
 			{
 				$Critical++
 			}
-			elseif ($Prod.Impact -eq "High")
+			elseif ($Prod.RiskRating -eq "High")
 			{
 				$High++
 			}
-			elseif ($Prod.Impact -eq "Medium")
+			elseif ($Prod.RiskRating -eq "Medium")
 			{
 				$Medium++
 			}
-			elseif ($Prod.Impact -eq "Low")
+			elseif ($Prod.RiskRating -eq "Low")
 			{
 				$Low++
 			}
-			elseif ($Prod.Impact -eq "Informational")
+			elseif ($Prod.RiskRating -eq "Informational")
 			{
 				$Info++
 			}
@@ -676,7 +676,8 @@ function Get-M365SATHTMLReport
 	
 	ForEach ($Productfamily in $ProductFamilies)
 	{
-		$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object -Property {[decimal]$_.CVS}
+		$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object { Switch -Regex ($_.RiskRating) { 'Critical' { 1 }	'High' { 2 }	'Medium' { 3 }	'Low' { 4 }	'Informational' { 5 } }; $_.ID }
+		#$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object -Property {[decimal]$_.CVS}
 		$CollapseId = $($Productfamily).Replace(" ", "_")
 		$Output += "<a name='$($Productfamily)'></a> 
         <div class='card m-3'>
@@ -689,7 +690,7 @@ function Get-M365SATHTMLReport
 		{
 			$RemediationActionsExist = $false
 			# Validation if result corresponds with severity
-			If ($Result.Impact -eq "Informational")
+			If ($Result.RiskRating -eq "Informational")
 			{
 				$CalloutType = "bd-callout-info"
 				$BadgeType = "card-prio-info"
@@ -698,7 +699,7 @@ function Get-M365SATHTMLReport
 				$IconColor = "#2986CC"
 				$Title = $Check.PassText
 			}
-			ElseIf ($Result.Impact -eq "Low")
+			ElseIf ($Result.RiskRating -eq "Low")
 			{
 				$CalloutType = "bd-callout-success"
 				$BadgeType = "card-prio-low"
@@ -707,7 +708,7 @@ function Get-M365SATHTMLReport
 				$IconColor = "#38761D"
 				$Title = $Check.PassText
 			}
-			ElseIf ($Result.Impact -eq "Medium")
+			ElseIf ($Result.RiskRating -eq "Medium")
 			{
 				$CalloutType = "bd-callout-warning"
 				$BadgeType = "card-prio-medium"
@@ -716,7 +717,7 @@ function Get-M365SATHTMLReport
 				$IconColor = "#FFC107"
 				$Title = $Check.FailRecommendation
 			}
-			ElseIf ($Result.Impact -eq "High")
+			ElseIf ($Result.RiskRating -eq "High")
 			{
 				$CalloutType = "bd-callout-danger"
 				$BadgeType = "card-prio-high"
@@ -737,7 +738,7 @@ function Get-M365SATHTMLReport
 			#Write Collapse Object that contains the info
 			$Output += "        
                     <div class='accordion' id='$($ProductFamily)_Acd'>
-                    <button class='accordion-button btn-align-left collapsed' type='button' id='$($Result.ID)' data-bs-toggle='collapse' data-bs-target='#$($Result.ID)_body' aria-expanded='false' aria-controls='$($Result.ID)_body'><span class='badge $($BadgeType)'>$($BadgeName)</span><h6>[$($Result.CVS)]: $($Result.FindingName)</h6></button></div> 
+                    <button class='accordion-button btn-align-left collapsed' type='button' id='$($Result.ID)' data-bs-toggle='collapse' data-bs-target='#$($Result.ID)_body' aria-expanded='false' aria-controls='$($Result.ID)_body'><span class='badge $($BadgeType)'>$($BadgeName)</span><h6>[$($Result.RiskScore)]: $($Result.FindingName)</h6></button></div> 
                     "
 			#Start of Container Generation Within group object (FindingName)
 			$Output += "  
@@ -824,14 +825,32 @@ function Get-M365SATHTMLReport
 				}
             
             $Output += "</div>"
+			
+			# RiskRating Explanation
+			$Output += "<div class='row p-3'>
+                            <div><b>Impact:</b><p>$($Result.Impact)</p></div>
 
+                    </div>"
+			
+			# Likelihood Explanation
+			$Output += "<div class='row p-3'>
+                            <div><b>Likelihood:</b><p>$($Result.Likelihood)</p></div>
+
+                    </div>"
+			
+			# Likelihood Explanation
+			$Output += "<div class='row p-3'>
+                            <div><b>Priority:</b><p>$($Result.Priority)</p></div>
+
+                    </div>"
+			
+			# Impact Score
 			$Output += "
                             <div>
-                            <b>Impact:</b>
-                            <div class='badge $($BadgeType) badge-pill badge-light'><span>$($Result.Impact)</span></div>
+                            <b>RiskRating:</b>
+                            <div class='badge $($BadgeType) badge-pill badge-light'><span>$($Result.RiskRating)</span></div>
                             </div>
                         "
-			
 			
 			$Output += "<br><div><div><span style='vertical-align: left;'><b>References:</b></span></div>"
 			

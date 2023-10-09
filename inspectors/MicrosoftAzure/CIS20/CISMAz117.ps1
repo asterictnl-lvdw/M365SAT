@@ -18,15 +18,17 @@ function Build-CISMAz117($findings)
 		ID			     = "CISMAz117"
 		FindingName	     = "CIS MAz 1.1.7 - Improper Number of Company/Global Administrators"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.3"
+		RiskScore	     = "12"
 		Description	     = "It is recommended that 2 to 4 users be granted company or global administrative privileges. If there is only one global tenant administrator, he or she can perform malicious activity without the possibility of being discovered by another admin. If there are numerous global tenant administrators, the more likely it is that one of their accounts will be successfully breached by an external attacker."
 		Remediation	     = "Use the Security and Compliance Center to review the administrative privileges granted to the users listed and determine if each user truly requires their administrative privileges. In many cases a more granular set of permissions may be appropriate. Reduce the privileges of each user as appropriate."
 		PowerShellScript = ''
 		DefaultValue	 = "1"
 		ExpectedValue    = "Between two and four"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "4"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'About Administrative Roles'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/admin/add-users/about-admin-roles?view=o365-worldwide" },
 			@{ 'Name' = 'Permissions in the Security and Compliance Center'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/permissions-in-the-security-and-compliance-center?view=o365-worldwide" })
 	}

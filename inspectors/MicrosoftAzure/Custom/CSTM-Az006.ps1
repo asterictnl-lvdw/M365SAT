@@ -19,15 +19,17 @@ function Build-CSTM-Az006($findings)
 		ID			     = "CSTM-Az006"
 		FindingName	     = "CSTM-Az006 - Azure Security Score is not Maximum Value"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "6"
 		Description	     = "Microsoft Azure encountered that your tenant has not maximum security enabled, thus your secure score could be improved. A lower secure score means that your tenant has recommendations based on security hardening to be able to be configured to enhance security."
 		Remediation	     = "Please check the references URL for the actual score and what to fix."
 		PowerShellScript = 'Unavailable'
 		DefaultValue	 = "No Default Value"
 		ExpectedValue    = "Maximum Score"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Security Microsoft - SecureScore'; 'URL' = "https://security.microsoft.com/securescore" })
 	}
 }

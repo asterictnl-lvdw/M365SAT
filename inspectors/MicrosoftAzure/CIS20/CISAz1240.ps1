@@ -19,15 +19,17 @@ function Build-CISAz1240($findings)
 		ID			     = "CISAz1240"
 		FindingName	     = "CIS Az 1.24 - No Custom Role is Assigned Permissions for Administering Resource Locks"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0"
+		RiskScore	     = "5"
 		Description	     = "Given the resource lock functionality is outside of standard Role Based Access Control(RBAC), it would be prudent to create a resource lock administrator role to prevent inadvertent unlocking of resources."
 		Remediation	     = "Use the PowerShell Script in the URL to create a new Resource Lock Administrator"
 		PowerShellScript = 'https://hub.steampipe.io/mods/turbot/azure_compliance/controls/control.CISAz_v200_1_24?context=benchmark.CISAz_v200/benchmark.CISAz_v200_1'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Azure custom roles'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles' },
 			@{ 'Name' = 'Quickstart: Check access for a user to Azure resources'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access' })
 	}

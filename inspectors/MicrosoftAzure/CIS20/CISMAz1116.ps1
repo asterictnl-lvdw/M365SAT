@@ -18,15 +18,17 @@ function Build-CISMAz1116($findings)
 		ID			     = "CISMAz1116"
 		FindingName	     = "CIS MAz 1.1.16 - Public Microsoft 365 Groups Found"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "3"
 		Description	     = "Ensure that only organizationally managed and approved public groups exist. When a group has a 'Public' privacy, users may access data related to this group. Administrators are notified when a user uses the Azure Portal. Requesting access to the group forces users to send a message to the group owner, but they still have immediately access to the group. The SharePoint URL is usually guessable, and can be found from the Group application of the Access Panel. If group privacy is not controlled, any user may access sensitive information, according to the group they try to access."
 		Remediation	     = "Unfortunately we cannot accurately detect if a Privileged Identity Management is active. In order to check this you must have AAD P2 License assigned to your subscription."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_Azure_PIMCommon/ResourceMenuBlade/~/quickstart/resourceId//resourceType/tenant/provider/aadroles'
 		DefaultValue	 = "Public when create from the Administration portal; private otherwise."
 		ExpectedValue    = "Private where necessary"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "3"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'How To: Give risk feedback in Azure AD Identity Protection'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-risk-feedback' })
 	}
 	return $inspectorobject

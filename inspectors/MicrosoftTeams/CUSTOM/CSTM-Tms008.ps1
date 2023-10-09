@@ -18,14 +18,16 @@ function Build-CSTM-Tms008($findings)
 		ID			     = "CSTM-Tms008"
 		FindingName	     = "CSTM-Tms008 - Unapproved File Sharing Options are Enabled"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "6.5"
+		RiskScore	     = "12"
 		Description	     = "Microsoft Teams enables collaboration via file sharing. This file sharing is conducted within Teams, using SharePoint Online, by default; however, third-party cloud services are allowed as well. "
 		Remediation	     = "Use the PowerShell Script to disable the sharing options."
 		DefaultValue	 = "All= True"
 		ExpectedValue    = "All= False"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		PowerShellScript = 'Set-CsTeamsClientConfiguration -AllowGoogleDrive $false -AllowShareFile $false -AllowBox $false -AllowDropBox $false -AllowEgnyte $false'
 		References	     = @(@{ 'Name' = 'Set up Skype for Business Online'; 'URL' = 'https://docs.microsoft.com/en-us/skypeforbusiness/set-up-skype-for-business-online/set-up-skype-for-business-online' })
 	}

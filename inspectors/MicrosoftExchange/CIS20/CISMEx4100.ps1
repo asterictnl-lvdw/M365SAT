@@ -18,15 +18,17 @@ function Build-CISMEx4100($findings)
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx4100"
 		FindingName	     = "CIS MEx 4.10 - Notifications for internal users sending malware is Disabled"
-		CVS			     = "2.0"
+		RiskScore	     = "12"
 		Description	     = "This setting alerts administrators that an internal user sent a message that contained malware. This may indicate an account or machine compromise, that would need to be investigated."
 		Remediation	     = "Configure a MalwareFilterPolicy by using the PowerShellScript"
 		PowerShellScript = 'Set-MalwareFilterPolicy -Identity "Malware Filter Policy Name" -Action DeleteMessage -EnableInternalSenderAdminNotifications $true -InternalSenderAdminAddress "admin@yourdomain.com"'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True, with a configured mailbox or distribution list address"
 		ReturnedValue    = $findings
-		Impact		     = "Low"
-		RiskRating	     = "Low"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Configuring Exchange Online Protection'; 'URL' = "https://practical365.com/first-steps-configuring-exchange-online-protection/" },
 			@{ 'Name' = 'Set-MalwareFilterPolicy Commandlet Reference Example 1'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-malwarefilterpolicy?view=exchange-ps" })
 	}

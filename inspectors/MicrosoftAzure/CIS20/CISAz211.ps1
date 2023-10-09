@@ -20,15 +20,17 @@ function Build-CISAz21x($findings)
 		ID			     = "CISAz21x"
 		FindingName	     = "CIS Az 2.1.x - Multiple Defender Subscriptions Not Compliant"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0"
+		RiskScore	     = "1"
 		Description	     = "Enabling Microsoft Defender allows for greater defense-in-depth, with threat detection provided by the Microsoft Security Response Center (MSRC)."
 		Remediation	     = "Use the powershell command and replace SubScriptionName with the corresponding subscription which has a Free Pricing Tier at the moment."
 		PowerShellScript = 'Set-AzSecurityPricing -Name "<SubscriptionName>" -PricingTier "Standard"'
 		DefaultValue	 = "Free or None"
 		ExpectedValue    = "Standard"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'PV-6: Rapidly and automatically remediate vulnerabilities'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-posture-vulnerability-management#pv-6-rapidly-and-automatically-remediate-vulnerabilities' },
 			@{ 'Name' = 'Azure Pricing'; 'URL' = 'https://azure.microsoft.com/en-us/pricing/#product-pricing' },
 		@{ 'Name' = 'IM-2: Protect identity and authentication systems'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-2-protect-identity-and-authentication-systems' })

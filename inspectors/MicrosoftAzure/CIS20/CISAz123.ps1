@@ -19,15 +19,17 @@ function Build-CISAz123($findings)
 		ID			     = "CISAz123"
 		FindingName	     = "CIS Az 1.2.3 - No Multi-factor Authentication Policy Exists for Administrative Groups"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "20"
 		Description	     = "Enabling multi-factor authentication is a recommended setting to limit the use of Administrative accounts to authenticated personnel."
 		Remediation	     = "Please use the link described in the PowerShell Script to create an additional ConditionalAccessPolicy"
 		PowerShellScript = 'https://hub.steampipe.io/mods/turbot/azure_compliance/controls/control.CISAz_v200_1_2_3?context=benchmark.CISAz_v200/benchmark.CISAz_v200_1/benchmark.CISAz_v200_1_2'
 		DefaultValue	 = "null"
 		ExpectedValue    = "A policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "4"
+		Likelihood	     = "5"
+		RiskRating	     = "Critical"
+		Priority		 = "Critical"
 		References	     = @(@{ 'Name' = 'Common Conditional Access policy: Require MFA for administrators'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-admin-mfa' },
 			@{ 'Name' = 'Manage emergency access accounts in Azure AD'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/roles/security-emergency-access' },
 			@{ 'Name' = 'Troubleshooting Conditional Access using the What If tool'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/troubleshoot-conditional-access-what-if' },

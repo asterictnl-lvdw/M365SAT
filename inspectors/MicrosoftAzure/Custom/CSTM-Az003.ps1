@@ -17,17 +17,19 @@ function Build-CSTM-Az003($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CSTM-Az003"
-		FindingName	     = "CSTM-Az003 - Expired Domain Registration Found"
+		FindingName	     = "CSTM-Az003 - Expired Domain Registration(s) Found"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.5"
+		RiskScore	     = "3"
 		Description	     = "Recently a blog was published about a method of tenant takeover using expired domain registrations. This method relied on a domain registration expiring and the domain remaining associated with the Tenant. Monitoring domain registration for the organization can help detect and alert on attempts to exploit this attack path. Microsoft initially issued fixes for this attack between December 2021 and January 2022, but has since rolled back those efforts"
 		Remediation	     = "Remediation of this finding requires removing the domain from the list of associated domains within the tenant."
 		PowerShellScript = 'Unavailable'
 		DefaultValue	 = "None"
 		ExpectedValue    = "None"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'LetItGo: A Case Study in Expired Domains and Azure AD'; 'URL' = "https://sra.io/blog/letitgo-a-case-study-in-expired-domains-and-azure-ad/" },
 			@{ 'Name' = 'DNSense: Brand and Domain Protection Made Simple'; 'URL' = "https://soteria.io/dnsense-online-brand-protection/" })
 	}

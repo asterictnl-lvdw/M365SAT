@@ -20,15 +20,17 @@ function Build-CSTM-Az012($findings)
 		ID			     = "CSTM-Az012"
 		FindingName	     = "CSTM-Az012 - DiagnosticSettings"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Diagnostic Settings are important when errors or problems occur within your Azure tenant. Without these settings it is harder to find out the cause of problems"
 		Remediation	     = "Check all Diagnostic Settings and enable where needed"
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_Monitoring/DiagnosticsLogsBlade'
 		DefaultValue	 = "Not enabled for resources"
 		ExpectedValue    = "Enabled for important resources"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Diagnostic settings in Azure Monitor'; 'URL' = 'https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings?tabs=portal' })
 	}
 	return $inspectorobject

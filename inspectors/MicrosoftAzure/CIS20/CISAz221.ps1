@@ -19,15 +19,17 @@ function Build-CISAz221($findings)
 		ID			     = "CISAz221"
 		FindingName	     = "CIS Az 2.1.22 - Check if Microsoft Defender for IoT Hub Is Set To 'On'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0"
+		RiskScore	     = "1"
 		Description	     = "IoT devices are very rarely patched and can be potential attack vectors for enterprise networks. Updating their network configuration to use a central security hub allows for detection of these breaches."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.Devices%2FIotHubs'
 		DefaultValue	 = "Off"
 		ExpectedValue    = "On"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'Microsoft Defender for IoT'; 'URL' = 'https://azure.microsoft.com/en-us/products/iot-defender/#overview' })
 	}
 	return $inspectorobject
