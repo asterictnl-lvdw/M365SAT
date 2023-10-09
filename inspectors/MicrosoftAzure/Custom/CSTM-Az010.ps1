@@ -20,15 +20,17 @@ function Build-CSTM-Az010($findings)
 		ID			     = "CSTM-Az010"
 		FindingName	     = "CSTM-Az010 - OnPremisesPasswordResetPolicies does not have the correct security settings configured"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Azure Active Directory (Azure AD) self-service password reset (SSPR) lets users reset their passwords in the cloud, but most companies also have an on-premises Active Directory Domain Services (AD DS) environment for users. Password writeback allows password changes in the cloud to be written back to an on-premises directory in real time by using either Azure AD Connect or Azure AD Connect cloud sync. When users change or reset their passwords using SSPR in the cloud, the updated passwords also written back to the on-premises AD DS environment."
 		Remediation	     = "Manually check the boxes by navigating to the link displayed in PowerShellScript."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/OnPremisesIntegration/fromNav/Identity'
 		DefaultValue	 = "accountUnlockEnabled: false / accountUnlockSupported: true / cloudProvisioningEnablementForTenant: false / enablementForTenant: true / passwordWritebackSupported: true"
 		ExpectedValue    = "accountUnlockEnabled: true / accountUnlockSupported: true / cloudProvisioningEnablementForTenant: true / enablementForTenant: true / passwordWritebackSupported: true"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
+		Impact		     = "0"
+		Likelihood	     = "0"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'How does self-service password reset writeback work in Azure Active Directory?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-writeback' })
 	}
 	return $inspectorobject

@@ -18,15 +18,17 @@ function Build-CISMSp360($findings)
 		ID			     = "CISMSp360"
 		FindingName	     = "CIS MSp 3.6 - SharePoint Guest Users Resharing Permitted"
 		ProductFamily    = "Microsoft SharePoint"
-		CVS			     = "9.3"
+		RiskScore	     = "20"
 		Description	     = "Sharing and collaboration are key; however, file, folder, or site collection owners should have the authority over what external users get shared with to prevent unauthorized disclosures of information."
 		Remediation	     = "Use the PowerShell script to mitigate this issue."
 		PowerShellScript = 'Set-SPOTenant -PreventExternalUsersFromResharing $true'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
+		Impact		     = "4"
+		Likelihood	     = "5"
 		RiskRating	     = "Critical"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Manage sharing settings'; 'URL' = 'https://docs.microsoft.com/en-us/sharepoint/turn-external-sharing-on-or-off' },
 			@{ 'Name' = 'External sharing overview'; 'URL' = 'https://learn.microsoft.com/en-us/sharepoint/external-sharing-overview' })
 	}

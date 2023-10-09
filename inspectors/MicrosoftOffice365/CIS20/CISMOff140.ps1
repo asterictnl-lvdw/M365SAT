@@ -18,15 +18,17 @@ function Build-CISMOff140($findings)
 		ID			     = "CISMOff140"
 		FindingName	     = "CIS MOff 1.4 - Passwords are not set to never expire"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "9.3"
+		RiskScore	     = "15"
 		Description	     = "Organizations such as NIST and Microsoft have updated their password policy recommendations to not arbitrarily require users to change their passwords after a specific amount of time, unless there is evidence that the password is compromised or the user forgot it. They suggest this even for single factor (Password Only) use cases, with a reasoning that forcing arbitrary password changes on users actually make the passwords less secure. Other recommendations within this Benchmark suggest the use of MFA authentication for at least critical accounts (at minimum), which makes password expiration even less useful as well as password protection for Azure AD.."
 		Remediation	     = "Use the PowerShell Script to enable Modern Authentication for Microsoft Exchange Online."
 		PowerShellScript = '$Domains = Get-MgDomain; ForEach($Domain in $Domains){Update-MgDomain -DomainId $Domain.Id -PasswordValidityPeriodInDays 2147483647 -PasswordNotificationWindowInDays 30 }'
 		DefaultValue	 = "90"
 		ExpectedValue    = "2147483647"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "Low"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set user password to never expire'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-365/admin/add-users/set-password-to-never-expire?view=o365-worldwide' })
 	}
 	return $inspectorobject

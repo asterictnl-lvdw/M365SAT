@@ -18,15 +18,17 @@ function Build-CISMEx450($findings)
 		ID			     = "CISMEx450"
 		FindingName	     = "CIS MEx 4.5 - Safe Attachments Not Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.6"
+		RiskScore	     = "15"
 		Description	     = "Enabling Safe Attachments policy helps protect against malware threats in email attachments by analyzing suspicious attachments in a secure, cloud-based environment before they are delivered to the user's inbox. This provides an additional layer of security and can prevent new or unseen types of malware from infiltrating the organization's network."
 		Remediation	     = "Run the following PowerShell command:"
 		PowerShellScript = '$domains = Get-AcceptedDomain; New-SafeAttachmentPolicy -Name "Safe Attachment Policy" -Enable $true -Redirect $false -RedirectAddress $ITSupportEmail New-SafeAttachmentRule -Name "Safe Attachment Rule" -SafeAttachmentPolicy "Safe Attachment Policy" -RecipientDomainIs $domains[0]'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Deploy ATP with PowerShell'; 'URL' = "https://call4cloud.nl/2020/07/lock-stock-and-office-365-atp-automation/" })
 	}
 	return $inspectorobject

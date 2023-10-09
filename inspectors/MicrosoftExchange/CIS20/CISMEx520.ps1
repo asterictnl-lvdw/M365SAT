@@ -18,15 +18,17 @@ function Build-CISMEx520($findings)
 		ID			     = "CISMEx520"
 		FindingName	     = "CIS MEx 5.2 - Microsoft 365 audit log search is not Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "12"
 		Description	     = "Enabling audit log search in the Microsoft Purview compliance portal can help organizations improve their security posture, meet regulatory compliance requirements, respond to security incidents, and gain valuable operational insights."
 		Remediation	     = "Use the PowerShell Script to Mitigate this issue."
 		PowerShellScript = 'Enable-OrganizationCustomization; Set-AdminAuditLogConfig -UnifiedAuditLogIngestionEnabled $true; Set-AdminAuditLog -UnifiedAuditLogInvestigationEnabled $true'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "4"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Enabling the Unified Audit Log on all delegated Office 365 tenants via PowerShell'; 'URL' = 'https://gcits.com/knowledge-base/enabling-unified-audit-log-delegated-office-365-tenants-via-powershell/' },
 		@{ 'Name' = 'Turn auditing on or off'; 'URL' = 'https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-enable-disable?view=o365-worldwide' })
 	}

@@ -19,15 +19,17 @@ function Build-CISAz2122($findings)
 		ID			     = "CISAz2122"
 		FindingName	     = "CIS Az 2.1.22 - Microsoft Defender for Endpoint integration with Microsoft Defender for Cloud is not Selected"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.4"
+		RiskScore	     = "2"
 		Description	     = "Microsoft Defender for Endpoint integration brings comprehensive Endpoint Detection and Response (EDR) capabilities within Microsoft Defender for Cloud. This integration helps to spot abnormalities, as well as detect and respond to advanced attacks on endpoints monitored by Microsoft Defender for Cloud. MDE works only with Standard Tier subscriptions."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "2"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'What is Microsoft Defender for Cloud?'; 'URL' = 'https://learn.microsoft.com/en-in/azure/defender-for-cloud/defender-for-cloud-introduction#azure-management-layer-azure-resource-manager-preview' })
 	}
 	return $inspectorobject

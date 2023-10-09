@@ -18,15 +18,17 @@ function Build-CSTM-Ex031($findings)
 		ID			     = "CSTM-Ex031"
 		FindingName	     = "CSTM-Ex031 - Microsoft Exchange & Microsoft Office 365 Contains Public Groups"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "0.0"
+		RiskScore	     = "0"
 		Description	     = "Ensure that only organizationally managed and approved public groups exist."
 		Remediation	     = "In the Microsoft 365 Administration portal, go to: Teams&Groups > Select the Public Group > Go To Settings > Set Privacy To Private"
 		PowerShellScript = '$publicgroups = Get-UnifiedGroup | ? { $_.AccessType -eq "Public"}'
 		DefaultValue	 = "0"
 		ExpectedValue    = "Approved Public Groups Documented"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
+		Impact		     = "4"
+		Likelihood	     = "1"
 		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Reference - Get-UnifiedGroup'; 'URL' = "https://learn.microsoft.com/en-us/powershell/module/exchange/get-unifiedgroup?view=exchange-ps" },
 			@{ 'Name' = 'Group Self-Service'; 'URL' = "https://blogs.perficient.com/2016/03/07/office-365-have-you-evaluated-these-exchange-online-features/" })
 	}

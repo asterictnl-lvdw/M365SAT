@@ -18,15 +18,17 @@ function Build-CISMOff160($findings)
 		ID			     = "CISMOff160"
 		FindingName	     = "CIS MOff 1.6 - Ensure at least two global admin accounts have been defined"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.3"
+		RiskScore	     = "12"
 		Description	     = "In various situations, an organization may require the use of a break glass account to gain emergency access. In the event of losing access to administrative functions, an organization may experience a significant loss in its ability to provide support, lose insight into its security posture, and potentially suffer financial losses."
 		Remediation	     = "Create an extra Global Admin Account if you only have one. "
 		PowerShellScript = '-'
 		DefaultValue	 = "1"
 		ExpectedValue    = "At least 2 and max 4"
 		ReturnedValue    = $findings.Count
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'About Administrative Roles'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/admin/add-users/about-admin-roles?view=o365-worldwide" },
 			@{ 'Name' = 'Permissions in the Security and Compliance Center'; 'URL' = "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/permissions-in-the-security-and-compliance-center?view=o365-worldwide" })
 	}

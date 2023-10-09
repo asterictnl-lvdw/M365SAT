@@ -16,17 +16,19 @@ function Build-CISMTm330($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMTm330"
-		FindingName	     = "External access is not restricted in the Teams admin center!"
+		FindingName	     = "CISM Tm 3.3 - External access is not restricted in the Teams admin center!"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "8.3"
+		RiskScore	     = "8"
 		Description	     = "Allowing users to communicate with Skype or Teams users outside of an organization presents a potential security threat as external users can interact with organization users over Skype for Business or Teams. While legitimate, productivity-improving scenarios exist, they are outweighed by the risk of data loss, phishing, and social engineering attacks against organization users via Teams. Therefore, it is recommended to restrict external communications in order to minimize the risk of security incidents."
 		Remediation	     = "Use the PowerShell script to disallow External Access"
 		PowerShellScript = 'Set-CsTenantFederationConfiguration -AllowTeamsConsumer $false -AllowPublicUsers $false -AllowFederatedUsers $false'
 		DefaultValue	 = "All True"
 		ExpectedValue    = "All False"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "2"
+		Likelihood	     = "4"
+		RiskRating	     = "Medium"
+		Priority		 = "Low"
 		References	     = @(@{ 'Name' = 'Manage external meetings and chat with people and organizations using Microsoft identities'; 'URL' = "https://learn.microsoft.com/en-US/microsoftteams/trusted-organizations-external-meetings-chat?WT.mc_id=TeamsAdminCenterCSH&tabs=organization-settings" })
 	}
 	return $inspectorobject

@@ -18,14 +18,16 @@ function Build-CSTM-Sp005($findings)
 		ID			     = "CSTM-Sp005"
 		FindingName	     = "CSTM-Sp005 - No AllowList set up and Unmanaged Device Restriction Enabled"
 		ProductFamily    = "Microsoft Sharepoint"
-		CVS			     = "8.4"
+		RiskScore	     = "12"
 		Description	     = 'Unmanaged devices pose a risk, since their security cannot be verified. Allowing users to sync data to these devices, takes that data out of the control of the organization. This increases the risk of the data either being intentionally or accidentally leaked.'
 		Remediation	     = 'Run Get-ADDomain to get the Device IDs and run the PowerShell Command and fill in the GUIDs with the devices you want to block:'
 		DefaultValue	 = "False <br /> False"
 		ExpectedValue    = "True <br /> True"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		PowerShellScript = 'Set-SPOTenantSyncClientRestriction -Enable -DomainGuids "GUID1; GUID2" -BlockMacSync=$true '
 		References	     = @(@{ 'Name' = 'Reference - Set-SPOTenant'; 'URL' = 'https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/set-spotenant?view=sharepoint-ps' })
 	}

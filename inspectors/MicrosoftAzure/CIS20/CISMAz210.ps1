@@ -19,15 +19,17 @@ function Build-CISMAz210($findings)
 		ID			     = "CISMAz210"
 		FindingName	     = "CIS MAz 2.1 - Admin Consent Workflow not enabled!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.4"
+		RiskScore	     = "5"
 		Description	     = "The admin consent workflow (Preview) gives admins a secure way to grant access to applications that require admin approval. When a user tries to access an application but is unable to provide consent, they can send a request for admin approval. The request is sent via email to admins who have been designated as reviewers. A reviewer acts on the request, and the user is notified of the action."
 		Remediation	     = "Manually change it here: https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings or use the PowerShell Script below"
 		PowerShellScript = '$params = @{ Values = @(@{ Name = "EnableAdminConsentRequests"; Value = "True" }) }; Update-MgDirectorySetting - DirectorySettingId $directorySettingId -BodyParameter $params'
 		DefaultValue	 = "EnableAdminConsentRequests: False"
 		ExpectedValue    = "EnableAdminConsentRequests: True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
+		Impact		     = "1"
+		Likelihood	     = "5"
 		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Configure the admin consent workflow'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-admin-consent-workflow' })
 	}
 	return $inspectorobject

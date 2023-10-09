@@ -17,17 +17,19 @@ function Build-CISAz130($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz130"
-		FindingName	     = "CIS Az 1.3.0 - Users can create Azure AD Tenants"
+		FindingName	     = "CIS Az 1.3 - Users can create Azure AD Tenants"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.3"
+		RiskScore	     = "10"
 		Description	     = "It is recommended to only allow an administrator to create new tenants. This prevent users from creating new Azure AD or Azure AD B2C tenants and ensures that only authorized users are able to do so."
 		Remediation	     = "Use the Powershell Script to modify the policy to disallow Tenant Creation by unauthorized users"
 		PowerShellScript = '$RolePermissions = @{}; $RolePermissions["allowedToCreateTenants"] = $False; Update-MgPolicyAuthorizationPolicy -AuthorizationPolicyId "authorizationPolicy" -DefaultUserRolePermissions $RolePermissions'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'What are the default user permissions in Azure Active Directory?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/users-default-permissions' },
 			@{ 'Name' = 'Tenant Creator Role'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#tenant-creator' })
 	}

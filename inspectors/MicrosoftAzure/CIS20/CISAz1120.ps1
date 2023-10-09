@@ -20,15 +20,17 @@ function Build-CISAz1120($findings)
 		ID			     = "CISAz1120"
 		FindingName	     = "CIS Az 1.12 - User consent for applications is not set to: 'Do not allow user consent' or 'Allow for Verified Publishers'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.6"
+		RiskScore	     = "12"
 		Description	     = "If Azure Active Directory is running as an identity provider for third-party applications, permissions and consent should be limited to administrators or pre-approved. Malicious applications may attempt to exfiltrate data or abuse privileged user accounts."
 		Remediation	     = "Goto: https://portal.azure.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/UserSettings or Use the PowerShell Command"
 		PowerShellScript = 'Import-Module Microsoft.Graph.Identity.SignIns; $params = @{DefaultUserRolePermissions = @{PermissionGrantPoliciesAssigned = @()}}; Update-MgPolicyAuthorizationPolicy -BodyParameter $params'
 		DefaultValue	 = "Allow user consent for apps"
 		ExpectedValue    = "Do not allow user consent or Allow user consent for apps from verified publishers, for selected permissions"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "4"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Admin Consent for Permissions in Azure Active Directory'; 'URL' = 'https://nicksnettravels.builttoroam.com/post/2017/01/24/Admin-Consent-for-Permissions-in-Azure-Active-Directory.aspx' },
 			@{ 'Name' = 'Configure how users consent to applications'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-to-applications' },
 			@{ 'Name' = 'PA-1: Separate and limit highly privileged/administrative users'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-1-protect-and-limit-highly-privileged-users' },

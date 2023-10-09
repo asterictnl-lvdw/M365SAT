@@ -18,15 +18,17 @@ function Build-CISMSp2120($findings)
 		ID			     = "CISMSp2120"
 		FindingName	     = "CIS MSp 2.12 - SharePoint and OneDrive integration with Azure AD B2B is disabled"
 		ProductFamily    = "Microsoft Sharepoint"
-		CVS			     = "9.1"
+		RiskScore	     = "6"
 		Description	     = "External users assigned guest accounts will be subject to Azure AD access policies, such as multi-factor authentication. This provides a way to manage guest identities and control access to SharePoint and OneDrive resources. Without this integration, files can be shared without account registration, making it more challenging to audit and manage who has access to the organization's data."
 		Remediation	     = "Use the PowerShell Script to mitigate this issue"
 		PowerShellScript = 'Set-SPOTenant -EnableAzureADB2BIntegration $true'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = $findings
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "2"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Turn on Safe Attachments for SharePoint, OneDrive, and Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/turn-on-mdo-for-spo-odb-and-teams?view=o365-worldwide' },
 			@{ 'Name' = 'Built-in virus protection in SharePoint Online, OneDrive, and Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/virus-detection-in-spo?view=o365-worldwide' })
 	}

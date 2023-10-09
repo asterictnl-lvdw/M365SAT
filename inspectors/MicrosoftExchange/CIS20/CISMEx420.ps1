@@ -18,15 +18,17 @@ function Build-CISMEx420($findings)
 		ID			     = "CISMEx420"
 		FindingName	     = "CIS MEx 4.2 - Exchange Online Spam Policies are not set to notify administrators"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "2.0"
+		RiskScore	     = "3"
 		Description	     = "A blocked account is a good indication that the account in question has been breached and an attacker is using it to send spam emails to other people."
 		Remediation	     = "Run the following PowerShell command"
 		PowerShellScript = '$BccEmailAddress = @("<INSERT-EMAIL>"); $NotifyEmailAddress = @("<INSERT-EMAIL>"); Set-HostedOutboundSpamFilterPolicy -Identity Default BccSuspiciousOutboundAdditionalRecipients $BccEmailAddress -BccSuspiciousOutboundMail $true -NotifyOutboundSpam $true -NotifyOutboundSpamRecipients $NotifyEmailAddress'
 		DefaultValue	 = "Not configured policy"
 		ExpectedValue    = "A configured policy "
 		ReturnedValue    = $findings
-		Impact		     = "Low"
+		Impact		     = "3"
+		Likelihood	     = "1"
 		RiskRating	     = "Low"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set-HostedOutboundSpamFilterPolicy Function Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-hostedoutboundspamfilterpolicy?view=exchange-ps" },
 			@{ 'Name' = 'Configure Outbound Spam Notification Office 365 Exchange Online'; 'URL' = "http://www.thatlazyadmin.com/2019/04/01/configure-outbound-spam-notification-office-365-exchange-online/" })
 	}

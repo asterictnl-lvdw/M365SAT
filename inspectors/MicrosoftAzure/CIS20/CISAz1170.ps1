@@ -20,15 +20,17 @@ function Build-CISAz1170($findings)
 		ID			     = "CISAz1170"
 		FindingName	     = "CIS Az 1.17 - 'Restrict access to Azure AD administration portal is set to 'No'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.1"
+		RiskScore	     = "10"
 		Description	     = "The Azure AD administrative portal has sensitive data and permission settings. All non-administrators should be prohibited from accessing any Azure AD data in the administration portal to avoid exposure"
 		Remediation	     = "Change the Value to True to restrict non-admin users from accessing sensitive data. There is no automatic script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'The Azure AD portal strikes back'; 'URL' = 'https://call4cloud.nl/2020/07/the-azure-ad-portal-strikes-back/' },
 			@{ 'Name' = 'Azure AD built-in roles'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference' },
 			@{ 'Name' = 'GS-2: Define and implement enterprise segmentation/separation of duties strategyment'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-2-define-and-implement-enterprise-segmentationseparation-of-duties-strategy' },

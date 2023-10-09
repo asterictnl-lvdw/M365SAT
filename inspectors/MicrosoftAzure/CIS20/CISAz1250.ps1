@@ -19,15 +19,17 @@ function Build-CISAz1250($findings)
 		ID			     = "CISAz1250"
 		FindingName	     = "CIS Az 1.25 - 'Subscription Entering AAD Directory' and 'Subscription Leaving AAD Directory' Are Set to Everyone!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.8"
+		RiskScore	     = "10"
 		Description	     = "Permissions to move subscriptions in and out of Azure Active Directory must only be given to appropriate administrative personnel. A subscription that is moved into an Azure Active Directory may be within a folder to which other users have elevated permissions. This prevents loss of data or unapproved changes of the objects within by potential bad actors."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Crticial"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Azure custom roles'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles' },
 			@{ 'Name' = 'Quickstart: Check access for a user to Azure resources'; 'URL' = 'https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access' })
 	}

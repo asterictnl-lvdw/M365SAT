@@ -19,15 +19,17 @@ function Build-CISAz2118($findings)
 		ID			     = "CISAz2118"
 		FindingName	     = "CIS Az 2.1.18 - All users with the following roles is not set to Owner"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.7"
+		RiskScore	     = "1"
 		Description	     = "Enabling security alert emails to subscription owners ensures that they receive security alert emails from Microsoft. This ensures that they are aware of any potential security issues and can mitigate the risk in a timely fashion."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "Owner"
 		ExpectedValue    = "Owner"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Quickstart: Configure email notifications for security alerts'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/configure-email-notifications' })
 	}
 	return $inspectorobject

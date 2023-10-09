@@ -20,15 +20,17 @@ function Build-CISMOff2110($findings)
 		ID			     = "CISMOff2110"
 		FindingName	     = "CIS MOff 2.11 - Sways can be shared with people outside of your organization"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.6"
+		RiskScore	     = "3"
 		Description	     = "Disable external sharing of Sway documents that can contain sensitive information to prevent accidental or arbitrary data leak."
 		Remediation	     = "Manually uncheck at Sway Setting in the Admin Portal. The respective setting: 'Let people in your organization share their sways with people outside your organization'"
 		PowerShellScript = 'https://admin.microsoft.com/Adminportal/Home#/Settings/Services/:/Settings/L1/Sway'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Administrator settings for Microsoft Forms'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-forms/administrator-settings-microsoft-forms' },
 			@{ 'Name' = 'Review and unblock forms or users detected and blocked for potential phishing'; 'URL' = 'https://learn.microsoft.com/en-US/microsoft-forms/review-unblock-forms-users-detected-blocked-potential-phishing' })
 	}

@@ -19,15 +19,17 @@ function Build-CISAz2114($findings)
 		ID			     = "CISAz2114"
 		FindingName	     = "CIS Az 2.1.14 - ASC Default Policy Setting is not Enforced!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "9.8"
+		RiskScore	     = "9.8"
 		Description	     = "A security policy defines the desired configuration of your workloads and helps ensure compliance with company or regulatory security requirements. ASC Default policy is associated with every subscription by default. ASC default policy assignment is a set of security recommendations based on best practices. Enabling recommendations in ASC default policy ensures that Azure security center provides the ability to monitor all of the supported recommendations and optionally allow automated action for a few of the supported recommendations."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_Security/SecurityMenuBlade/~/EnvironmentSettings'
 		DefaultValue	 = "EnforcementMode: Default / Parameters: Null"
 		ExpectedValue    = "EnforcementMode: Default / Parameters: Null"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Crticial"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Manage security policies'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-security-policy' })
 	}
 	return $inspectorobject

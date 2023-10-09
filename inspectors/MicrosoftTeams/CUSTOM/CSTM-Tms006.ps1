@@ -18,14 +18,16 @@ function Build-CSTM-Tms006($findings)
 		ID			     = "CSTM-Tms006"
 		FindingName	     = "CSTM-Tms006 - Microsoft Teams Users Allowed to Preview Links in Messages"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "3.0"
+		RiskScore	     = "6"
 		Description	     = "Microsoft Teams by default enables and allows users to preview links in messages. Some organizations may wish to disable this functionality. Changing these settings may have unintended consequences. Speak with stakeholders and understand what functionality may be affected before disabling this access."
 		Remediation	     = "This can be mitigated by navigating to the Teams admin center and turning off 'Allow' Previews under Messaging settings. This disables link previews globally. Alternatively, specific users and groups can be targeted by creating a new Messaging Policy and issuing a command in PowerShell"
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = $findings
-		Impact		     = "Low"
-		RiskRating	     = "Low"
+		Impact		     = "2"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		PowerShellScript = 'Set-CsTeamsMessagingPolicy -Identity "Policy Name" -AllowUrlPreviews $false'
 		References	     = @(@{ 'Name' = 'How to turn off URL previews in Microsoft Teams?'; 'URL' = 'https://document360.com/blog/how-to-turn-off-url-previews-in-microsoft-teams/' },
 			@{ 'Name' = 'MS Teams: 1 feature, 4 vulnerabilities'; 'URL' = 'https://positive.security/blog/ms-teams-1-feature-4-vulns' })

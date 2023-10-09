@@ -18,14 +18,16 @@ function Build-CSTM-Tms005($findings)
 		ID			     = "CSTM-Tms005"
 		FindingName	     = "CSTM-Tms005 - Microsoft Teams Enhanced Encryption Not Enabled!"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "6.3"
+		RiskScore	     = "9"
 		Description	     = "Enhanced Encryption enabled more protection on Microsoft Teams. Calling and Meeting end-to-end encryption ensures conversations stay encrypted and cannot be decoded unless users have access to."
 		Remediation	     = "Enable End-To-End Encryption. Refer to the references on how to set-up end-to-end encryption in Teams"
 		DefaultValue	 = "Disabled"
 		ExpectedValue    = "Enabled"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "3"
 		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		PowerShellScript = 'Set-CsTeamsEnhancedEncryptionPolicy -Identity Global -CallingEndtoEndEncryptionEnabledType DisabledUserOverride'
 		References	     = @(@{ 'Name' = 'Use end-to-end encryption for one-to-one Microsoft Teams calls'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/teams-end-to-end-encryption' })
 	}

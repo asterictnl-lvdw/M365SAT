@@ -20,15 +20,17 @@ function Build-CSTM-Az011($findings)
 		ID			     = "CSTM-Az011"
 		FindingName	     = "CSTM-Az011 - Account Lockout Protection not optimally configured"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.3"
+		RiskScore	     = "12"
 		Description	     = "MFA fraud alerts are used to alert the admins when the multi-factor authentication request is initiated without the users' concern. In MFA fraud alerting, the users notify the admins by reporting fraudulent activity that occurred in their accounts."
 		Remediation	     = "Manually enable the checkboxes to enable Account Lockout Protection and FraudAlerts for your organization"
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/MultifactorAuthenticationMenuBlade/~/AccountLockout/fromProviders~/false'
 		DefaultValue	 = "accountLockoutDurationMinutes:5/accountLockoutResetMinutes:1/accountLockoutThreshold:5/blockForFraud:False/enableFraudAlert:False/fraudCode:null/defaultBypassTimespan:300/pinAttempts:null/smstimeoutseconds:null"
 		ExpectedValue    = "accountLockoutDurationMinutes:5/accountLockoutResetMinutes:1/accountLockoutThreshold:5/blockForFraud:False/enableFraudAlert:True/fraudCode:0/defaultBypassTimespan:300/pinAttempts:3/smstimeoutseconds:300"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Configure MFA Fraud Alerts in Azure AD : An Alarm for Security Emergency'; 'URL' = 'https://o365reports.com/2023/03/14/configure-mfa-fraud-alerts-in-azure-ad-an-alarm-for-security-emergency/' })
 	}
 	return $inspectorobject

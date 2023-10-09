@@ -19,15 +19,17 @@ function Build-CISAz2116($findings)
 		ID			     = "CISAz2116"
 		FindingName	     = "CIS Az 2.1.16 - Auto provisioning of Vulnerability assessment for machines is Set to Off"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "5"
 		Description	     = "Vulnerability assessment for machines scans for various security-related configurations and events such as system updates, OS vulnerabilities, and endpoint protection, then produces alerts on threat and vulnerability findings."
 		Remediation	     = "You can change the settings in the URL written in PowerShellScript."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "Null"
 		ExpectedValue    = "On"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'How does Defender for Cloud collect data?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/monitoring-components?tabs=autoprovision-va' })
 	}
 	return $inspectorobject

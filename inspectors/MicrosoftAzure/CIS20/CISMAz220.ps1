@@ -19,15 +19,17 @@ function Build-CISMAz220($findings)
 		ID			     = "CISMAz220"
 		FindingName	     = "CIS MAz 2.2 - Third party integrated applications are allowed!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "7.8"
+		RiskScore	     = "10"
 		Description	     = "Third party integrated applications connection to services should be disabled, unless there is a very clear value and robust security controls are in place. While there are legitimate uses, attackers can grant access from breached accounts to third party applications to exfiltrate data from your tenancy without having to maintain the breached account."
 		Remediation	     = "Manually change it here: https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/~/AdminConsentSettings "
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings/menuId/UserSettings'
 		DefaultValue	 = "AllowedToCreateApps: True"
 		ExpectedValue    = "AllowedToCreateApps: False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "2"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'How and why applications are added to Azure AD'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-how-applications-are-added' })
 	}
 	return $inspectorobject

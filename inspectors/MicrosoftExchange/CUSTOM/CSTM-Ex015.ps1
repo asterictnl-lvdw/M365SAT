@@ -18,15 +18,17 @@ function Build-CSTM-Ex015($findings)
 		ID			     = "CSTM-Ex015"
 		FindingName	     = "CSTM-Ex015 - Exchange Mailboxes with SendOnBehalfOf Delegates Found"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore		     = "9"
 		Description	     = "The Exchange Online mailboxes listed above have delegated SendOnBehalfOf permissions to another account."
 		Remediation	     = "This finding refers to individual mailboxes that have SendOnBehalfOf delegated permissions. For these mailboxes, verify that the delegate access is expected, appropriate, and do not violate company policy."
 		PowerShellScript = 'Get-EXOMailbox -ResultSize Unlimited -Properties GrantSendOnBehalfTo | Set-Mailbox -GrantSendOnBehalfTo @{remove="*"}'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings.ToString()
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Set-Mailbox Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/set-mailbox?view=exchange-ps" },
 			@{ 'Name' = 'Remove Send on Behalf permissions using Powershell'; 'URL' = "https://morgantechspace.com/2015/08/powershell-remove-send-on-behalf-permissions.html" })
 	}

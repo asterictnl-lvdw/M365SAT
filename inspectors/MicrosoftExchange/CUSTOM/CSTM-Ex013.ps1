@@ -18,15 +18,17 @@ function Build-CSTM-Ex013($findings)
 		ID			     = "CSTM-Ex013"
 		FindingName	     = "CSTM-Ex013 - Exchange Mailboxes with FullAccess Delegates Found"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "12"
 		Description	     = "The Exchange Online mailboxes listed above have delegated Full Access permissions to another account."
 		Remediation	     = "This finding refers to individual mailboxes that have Full Access delegated permissions. For these mailboxes, verify that the delegate access is expected, appropriate, and do not violate company policy."
 		PowerShellScript = 'Remove-MailboxPermission -Identity mailbox -AccessRights FullAccess -Confirm:$false -User user'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings
-		Impact		     = "High"
+		Impact		     = "4"
+		Likelihood	     = "3"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Remove-MailboxPermission Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/remove-mailboxpermission?view=exchange-ps" })
 	}
 	return $inspectorobject

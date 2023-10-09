@@ -15,15 +15,17 @@ function Build-CISMEx4130($findings)
 		ID			     = "CISMEx4130"
 		FindingName	     = "CIS MEx 4.13 - Priority accounts do not have 'Strict protection' presets applied"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "9.1"
+		RiskScore	     = "15"
 		Description	     = "Enabling priority account protection for users in Microsoft 365 is necessary to enhance security for accounts with access to sensitive data and high privileges, such as CEOs, CISOs, CFOs, and IT admins. These priority accounts are often targeted by spear phishing or whaling attacks and require stronger protection to prevent account compromise. To address this, Microsoft 365 and Microsoft Defender for Office 365 offer several key features that provide extra security, including the identification of incidents and alerts involving priority accounts and the use of built-in custom protections designed specifically for them."
 		Remediation	     = "Use the PowerShell Script to enable PriorityAccountProtection"
 		PowerShellScript = 'Enable-EOPProtectionPolicyRule -Identity "Strict Preset Security Policy"; Enable-ATPProtectionPolicyRule -Identity "Strict Preset Security Policy"'
 		DefaultValue	 = "True"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "Critical"
-		RiskRating	     = "Critical"
+		Impact		     = "3"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Manage and monitor priority accounts'; 'URL' = "https://learn.microsoft.com/en-us/microsoft-365/admin/setup/priority-accounts?view=o365-worldwide" },
 			@{ 'Name' = 'Preset security policies in EOP and Microsoft Defender for Office 365'; 'URL' = "https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/preset-security-policies?view=o365-worldwide" },
 			@{ 'Name' = 'Recommended settings for EOP and Microsoft Defender for Office 365 security'; 'URL' = "https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365?view=o365-worldwide#impersonation-settings-in-anti-phishing-policies-in-microsoft-defender-for-office-365" },

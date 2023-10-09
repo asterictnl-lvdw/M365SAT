@@ -19,15 +19,17 @@ function Build-CISAz2117($findings)
 		ID			     = "CISAz2117"
 		FindingName	     = "CIS Az 2.1.17 - Check if Auto provisioning of Microsoft Defender for Containers components is Set to On"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0"
+		RiskScore	     = "5"
 		Description	     = "As with any compute resource, Container environments require hardening and run-time protection to ensure safe operations and detection of threats and vulnerabilities."
 		Remediation	     = "Check if the setting is activated. If not please do activate it. You can ignore this informational finding in the future if enabled."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_Azure_SubscriptionManagement/ManageSubscriptionPoliciesBlade'
 		DefaultValue	 = "Disabled"
 		ExpectedValue    = "Enabled"
 		ReturnedValue    = "$findings"
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "1"
+		Likelihood	     = "5"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Overview of Microsoft Defender for Containers?'; 'URL' = 'https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction' })
 	}
 	return $inspectorobject

@@ -18,15 +18,17 @@ function Build-CSTM-Ex024($findings)
 		ID			     = "CSTM-Ex024"
 		FindingName	     = "CSTM-Ex024 - Mailboxes with Internal Forwarding Rules Enabled"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "5.7"
+		RiskScore	     = "0"
 		Description	     = "The Exchange Online mailboxes listed above have Forwarding rules configured enabled. Attackers commonly create hidden forwarding rules in compromised mailboxes. These rules may be exfiltrating data with or without the user's knowledge."
 		Remediation	     = "Use the PowerShell Command to disable the Internal Forward Rules based on the EmailAddress. A list is included about which emailadresses are impacted."
 		PowerShellScript = 'Remove-InboxRule -Mailbox <email address> -Identity "Rule Name"'
 		DefaultValue	 = "None"
 		ExpectedValue    = "None"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "0"
+		Likelihood	     = "3"
+		RiskRating	     = "Informational"
+		Priority		 = "Informational"
 		References	     = @(@{ 'Name' = 'Office 365 - List all email forwarding rules (PowerShell)'; 'URL' = "https://geekshangout.com/office-365-powershell-list-email-forwarding-rules-mailboxes/" },
 			@{ 'Name' = 'Get-Mailbox Commandlet Reference'; 'URL' = "https://docs.microsoft.com/en-us/powershell/module/exchange/get-mailbox?view=exchange-ps" })
 	}

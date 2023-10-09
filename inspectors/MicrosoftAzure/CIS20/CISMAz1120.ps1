@@ -20,15 +20,17 @@ function Build-CISMAz1120($findings)
 		ID			     = "CISMAz1120"
 		FindingName	     = "CIS MAz 1.1.20 - Access to the Azure AD administration portal is not restricted!"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.9"
+		RiskScore	     = "10"
 		Description	     = "The Azure AD administrative (AAD) portal contains sensitive data and permission settings, which are still enforced based on the user's role. However, an end user may inadvertently change properties or account settings that could result in increased administrative overhead. Additionally, a compromised end user account could be used by a malicious attacker as a means to gather additional information and escalate an attack."
 		Remediation	     = "Change the value to True (Yes) to restrict access to the AD portal"
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/UserSettings/menuId/UserSettings'
 		DefaultValue	 = "False"
 		ExpectedValue    = "True"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "2"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Restrict member users default permissions'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/users-default-permissions#restrict-member-users-default-permissions' })
 	}
 	return $inspectorobject

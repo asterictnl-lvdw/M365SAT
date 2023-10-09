@@ -18,14 +18,16 @@ function Build-CSTM-Sp002($findings)
 		ID			     = "CSTM-Sp002"
 		FindingName	     = "CSTM-Sp002 - SharePoint External Sharing Enabled (Global)"
 		ProductFamily    = "Microsoft SharePoint"
-		CVS			     = "8.2"
+		RiskScore	     = "9"
 		Description	     = "SharePoint is the organization's hub for sharing files amongst each other. SharePoint can also permit users to share content with anonymous outsiders or members of other organizations (commonly referred to as 'external users'). Sharing with external users and guests is currently enabled in this instance of SharePoint. This setting may increase the probability of sensitive information being shared outside of the organization, either accidentally or as a means of data exfiltration by a cyber adversary with access to the organizational environment. Consider disabling this setting for the sake of preventing such occurrences if there is no intention of sharing information outside of the organization as part of the organization's mission. However, note that some degree of external sharing is vital for many organizations. Furthermore, disabling external sharing is not necessarily a panacea for problems related to confidential information, as users may still mistakenly or maliciously share confidential information through a number of channels. Continue to apply good sense in data loss prevention and other forms of monitoring even if external sharing is disabled."
 		Remediation	     = "Limit Sharing to External Users by executing the PowerShell command."
 		DefaultValue	 = "ExternalUserAndGuestSharing (Anyone)"
 		ExpectedValue    = "ExternalUserSharingOnly (New and Existing Guests)"
 		ReturnedValue    = $findings
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "4"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		PowerShellScript = 'Set-SPOTenant -SharingCapability Disabled / Set-PnPTenant -SharingCapability Disabled'
 		References	     = @(@{ 'Name' = 'Manage sharing settings'; 'URL' = 'https://docs.microsoft.com/en-us/sharepoint/turn-external-sharing-on-or-off' },
 			@{ 'Name' = 'Limit sharing in M365'; 'URL' = 'https://docs.microsoft.com/en-us/microsoft-365/solutions/microsoft-365-limit-sharing?view=o365-worldwide' })

@@ -19,15 +19,17 @@ function Build-CISMAz1111($findings)
 		ID			     = "CISMAz1111"
 		FindingName	     = "CIS MAz 1.1.11 - No Conditional Access policies to block legacy authentication"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.2"
+		RiskScore	     = "8.2"
 		Description	     = "Legacy authentication protocols do not support multi-factor authentication. These protocols are often used by attackers because of this deficiency. Blocking legacy authentication makes it harder for attackers to gain access."
 		Remediation	     = "Configure the policy at the ConditionalAccess Blade below in the PowerShell Script. There is a Policy Template available which you can create if there is no such policy created beforehand."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies '
 		DefaultValue	 = "No Policy"
 		ExpectedValue    = "A Policy"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "5"
+		Likelihood	     = "2"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Conditional Access authentication strength'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-strengths' })
 	}
 	return $inspectorobject

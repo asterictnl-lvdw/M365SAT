@@ -18,17 +18,19 @@ function Build-CISAz180($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISAz180"
-		FindingName	     = "CIS Az 1.8.0 - Number of days before users are asked to re-confirm their authentication information is set to '0'"
+		FindingName	     = "CIS Az 1.8 - Number of days before users are asked to re-confirm their authentication information is set to '0'"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.3"
+		RiskScore	     = "3"
 		Description	     = "This setting is necessary if you have setup 'Require users to register when signing in option'. If authentication re-confirmation is disabled, registered users will never be prompted to re-confirm their existing authentication information. If the authentication information for a user changes, such as a phone number or email, then the password reset information for that user reverts to the previously registered authentication information."
 		Remediation	     = "Manually change the value from 0 to something else e.g. 180. There is no script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/~/Registration'
 		DefaultValue	 = "180"
 		ExpectedValue    = "More than 0"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'How it works: Azure AD self-service password reset'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-howitworks#registration' },
 			@{ 'Name' = 'Plan an Azure Active Directory self-service password reset deployment'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-sspr-deployment' },
 			@{ 'Name' = 'GS-6: Define and implement identity and privileged access strategy'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-6-define-and-implement-identity-and-privileged-access-strategy' },

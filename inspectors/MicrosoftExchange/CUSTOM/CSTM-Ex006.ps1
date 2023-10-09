@@ -15,15 +15,17 @@ function Build-CSTM-Ex006($findings)
 		ID			     = "CSTM-Ex006"
 		FindingName	     = "CSTM-Ex006 - Basic Authentication Possible on Mobile Devices"
 		ProductFamily    = "Microsoft Exchange"
-		CVS			     = "7.5"
+		RiskScore	     = "9"
 		Description	     = "Basic Authentication on Mobile Devices is possible with Basic Authentication. This leaves mobile devices vulnerable to attacks from outside"
 		Remediation	     = "Require modern authentication, even more mobile devices. Please consult the references and the PowerShellScript for configuration instructions"
 		PowerShellScript = 'Set-ActiveSyncOrganizationSettings -DefaultAccessLevel Block;'
 		DefaultValue	 = "More than 0 devices"
 		ExpectedValue    = "0 Devices"
 		ReturnedValue    = "$($findings) Devices"
-		Impact		     = "High"
-		RiskRating	     = "High"
+		Impact		     = "3"
+		Likelihood	     = "3"
+		RiskRating	     = "Medium"
+		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Account setup with modern authentication in Exchange Online'; 'URL' = 'https://docs.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/outlook-for-ios-and-android/setup-with-modern-authentication' }, @{ 'Name' = 'Securing Outlook for iOS and Android in Exchange Online'; 'URL' = 'https://docs.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/outlook-for-ios-and-android/secure-outlook-for-ios-and-android' })
 	}
 	return $inspectorobject

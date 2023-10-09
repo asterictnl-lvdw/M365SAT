@@ -18,14 +18,16 @@ function Build-CSTM-Tms004($findings)
 		ID			     = "CSTM-Tms004"
 		FindingName	     = "CSTM-Tms004 - Microsoft Teams Consumer Communication Policies"
 		ProductFamily    = "Microsoft Teams"
-		CVS			     = "6.5"
+		RiskScore	     = "4"
 		Description	     = "Microsoft Teams External Access Policies allow communication with Teams users not managed by an organization."
 		Remediation	     = "Review Microsoft Teams External Access Policies and validate that all results are expected and no conflicting rules are in place."
 		DefaultValue	 = "No restrictions are in place for communication with public Skype or Teams users"
 		ExpectedValue    = "Not applicable"
 		ReturnedValue    = $findings
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "2"
+		Likelihood	     = "2"
+		RiskRating	     = "Low"
+		Priority		 = "Low"
 		PowerShellScript = 'Not Available'
 		References	     = @(@{ 'Name' = 'Manage external access (federation) - Microsoft Teams'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/manage-external-access' },
 			@{ 'Name' = 'Use guest and external access to collaborate with people outside your organization'; 'URL' = 'https://docs.microsoft.com/en-us/microsoftteams/communicate-with-users-from-other-organizations' })

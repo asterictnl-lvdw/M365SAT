@@ -19,15 +19,17 @@ function Build-CISAz1200($findings)
 		ID			     = "CISAz1200"
 		FindingName	     = "CIS Az 1.20 - Owners can manage group membership requests in the Access Panel is set to Yes"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "6.9"
+		RiskScore	     = "3"
 		Description	     = "Restricting security group management to administrators only prohibits users from making changes to security groups. This ensures that security groups are appropriately managed and their management is not delegated to non-administrators."
 		Remediation	     = "Change the value back to False to be compliant again. There is no automatic script available at this moment unfortunately."
 		PowerShellScript = 'https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/General'
 		DefaultValue	 = "True"
 		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
-		Impact		     = "Medium"
-		RiskRating	     = "Medium"
+		Impact		     = "3"
+		Likelihood	     = "1"
+		RiskRating	     = "Low"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Set up self-service group management in Azure Active Directory'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-self-service-management' },
 			@{ 'Name' = 'PA-1: Separate and limit highly privileged/administrative users'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-privileged-access#pa-1-separate-and-limit-highly-privilegedadministrative-users' },
 			@{ 'Name' = 'GS-2: Define and implement enterprise segmentation/separation of duties strategyment'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-governance-strategy#gs-2-define-and-implement-enterprise-segmentationseparation-of-duties-strategy' },

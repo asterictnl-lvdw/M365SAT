@@ -18,15 +18,17 @@ function Build-CISMAz1112($findings)
 		ID			     = "CISMAz1112"
 		FindingName	     = "CIS MAz 1.1.12 - Password Synchronization Disabled"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "0.0"
+		RiskScore	     = "10"
 		Description	     = "Password hash synchronization helps by reducing the number of passwords your users need to maintain to just one and enables leaked credential detection for your hybrid accounts. Leaked credential protection is leveraged through Azure AD Identity Protection and is a subset of that feature which can help identity if an organization's user account passwords have appeared on the dark web or public spaces. Using other options for your directory synchronization may be less resislient as Microsoft can still process sign-ins to 365 with Hash Sync even if a network connection to your on-premises environment is not available."
 		Remediation	     = "Follow Microsoft guidance and best practices to ensure your hybrid configuration meets your business needs and policies."
 		PowerShellScript = 'Please use the StackOverflow Solution to disable Password Synchronization'
 		DefaultValue	 = "None"
 		ExpectedValue    = "None"
 		ReturnedValue    = $findings
-		Impact		     = "Informational"
-		RiskRating	     = "Informational"
+		Impact		     = "2"
+		Likelihood	     = "5"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'What is password hash synchronization with Azure AD?'; 'URL' = "https://docs.microsoft.com/en-us/azure/active-directory/hybrid/whatis-phs" },
 			@{ 'Name' = 'Is there any ps command to disable password hash sync?'; 'URL' = "https://stackoverflow.com/questions/62036670/is-there-any-ps-command-to-disable-password-hash-sync" })
 	}

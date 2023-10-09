@@ -15,15 +15,17 @@ function Build-CISMAz1121($findings)
 		ID			     = "CISMAz1121"
 		FindingName	     = "CIS MAz 1.1.21 - Ensure Microsoft Azure Management is limited to administrative roles"
 		ProductFamily    = "Microsoft Azure"
-		CVS			     = "8.1"
+		RiskScore	     = "10"
 		Description	     = "Blocking sign-in to Azure Management applications and portals enhances security of sensitive data by restricting access to privileged users. This mitigates potential exposure due to administrative errors or software vulnerabilities, as well as acting as a defense in depth measure against security breaches."
 		Remediation	     = "Unfortunately we cannot accurately detect if correctly configured. If you have a existing policy. Please verify if the settings are configured correctly."
 		PowerShellScript = 'https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies'
 		DefaultValue	 = "No Policy and Non-administrators can access the Azure AD administration portal"
 		ExpectedValue    = "A Correctly Configured Policy Non-administrators cannot access the Azure AD administration portal"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "2"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Conditional Access: Cloud apps, actions, and authentication context'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/concept-conditional-access-cloud-apps' })
 	}
 	return $inspectorobject

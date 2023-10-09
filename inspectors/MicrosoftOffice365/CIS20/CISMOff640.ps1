@@ -20,15 +20,17 @@ function Build-CISMOff640($findings)
 		ID			     = "CISMOff640"
 		FindingName	     = "CIS MOff 6.4 - 'third-party storage services' are not restricted in 'Microsoft 365 on the web'"
 		ProductFamily    = "Microsoft Office 365"
-		CVS			     = "8.7"
+		RiskScore	     = "15"
 		Description	     = "By using external storage services an organization may increases the risk of data breaches and unauthorized access to confidential information. Additionally, third-party services may not adhere to the same security standards as the organization, making it difficult to maintain data privacy and security."
 		Remediation	     = "Manually uncheck the box 'Let users open files stored in third-party storage services in Microsoft 365 on the web'. The URL is given in PowerShellScript."
 		PowerShellScript = 'https://admin.microsoft.com/Adminportal/Home#/Settings/Services/:/Settings/L1/OfficeOnline'
 		DefaultValue	 = "Enabled: True"
 		ExpectedValue    = "Enabled: False"
 		ReturnedValue    = "$findings"
-		Impact		     = "High"
+		Impact		     = "3"
+		Likelihood	     = "5"
 		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'Enable or disable third-party storage services'; 'URL' = 'https://learn.microsoft.com/en-us/microsoft-365/admin/setup/set-up-file-storage-and-sharing?view=o365-worldwide#enable-or-disable-third-party-storage-services' })
 	}
 	return $inspectorobject
