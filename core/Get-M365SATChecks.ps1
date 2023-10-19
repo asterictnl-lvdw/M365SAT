@@ -17,6 +17,8 @@ function Get-M365SATChecks($Directory, $Modules, $CustomModules)
 	}
 	
 	$Folder = "CIS20"
+	$listfullinspectors = @()
+
 	$listinspectorsfullname = @()
 	$listinspectorsname = @()
 	
@@ -26,28 +28,40 @@ function Get-M365SATChecks($Directory, $Modules, $CustomModules)
 		{
 			Get-ChildItem -Path $Directory\inspectors\$Module\$Folder -Recurse | Unblock-File
 			Get-ChildItem -Path $Directory\inspectors\$Module\CUSTOM -Recurse | Unblock-File
-			# Get FullPath
-			$listinspectorsfullname += (Get-ChildItem $Directory\inspectors\$Module\$Folder\*.ps1).FullName
-			# Get Name Only
-			$listinspectorsname += (Get-ChildItem $Directory\inspectors\$Module\$Folder\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
-			# Get FullPath Custom Modules
-			$listinspectorsfullname += (Get-ChildItem $Directory\inspectors\$Module\CUSTOM\*.ps1).FullName
-			# Get Name Only Custom Modules
-			$listinspectorsname += (Get-ChildItem $Directory\inspectors\$Module\CUSTOM\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
+			#AllInspectors
+			$AllInspectors = Get-ChildItem $Directory\$Module\$Folder\*.ps1
+			foreach ($inspector in $AllInspectors)
+			{
+				$fullname = $inspector.FullName
+				$name = ($inspector.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+			}
+
+			$AllCustomInspectors = Get-ChildItem $Directory\$Module\CUSTOM\*.ps1
+			foreach ($custominspectors in $AllCustomInspectors)
+			{
+				$customfullname = $custominspectors.FullName
+				$customname = ($custominspectors.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $customfullname; 'Name' = $customname })
+			}
 		}
 	}
 	else
 	{
 		foreach ($Module in $Modules)
 		{
-			Get-ChildItem -Path $Directory\inspectors\$Module\$Folder -Recurse | Unblock-File
-			$listinspectorsfullname += (Get-ChildItem $Directory\inspectors\$Module\$Folder\*.ps1).FullName
-			$listinspectorsname += (Get-ChildItem $Directory\inspectors\$Module\$Folder\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
+			Get-ChildItem -Path $Directory\$Module\$Folder -Recurse | Unblock-File
+			$AllInspectors = Get-ChildItem $Directory\$Module\$Folder\*.ps1
+			foreach ($inspector in $AllInspectors)
+			{
+				$fullname = $inspector.FullName
+				$name = ($inspector.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+			}
 		}
 	}
 	$listinspectors = [PSCustomObject]@{
-		FullName = $listinspectorsfullname
-		Name	 = $listinspectorsname
+		Inspectors = $listfullinspectors
 	}
 	return $listinspectors
 }
@@ -68,13 +82,22 @@ function Get-M365SATLocalChecks($Directory, $Modules, $CustomModules)
 		foreach ($Module in $Modules)
 		{
 			Get-ChildItem -Path $Directory\$Module\$Folder -Recurse | Unblock-File
-			
-			$listinspectorsfullname += (Get-ChildItem $Directory\$Module\$Folder\*.ps1).FullName
-			$listinspectorsname += (Get-ChildItem $Directory\$Module\$Folder\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
+			$AllInspectors = Get-ChildItem $Directory\$Module\$Folder\*.ps1
+			foreach ($inspector in $AllInspectors)
+			{
+				$fullname = $inspector.FullName
+				$name = ($inspector.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+			}
 			
 			Get-ChildItem -Path $Directory\$Module\CUSTOM -Recurse | Unblock-File
-			$listinspectorsfullname += (Get-ChildItem $Directory\$Module\CUSTOM\*.ps1).FullName
-			$listinspectorsname += (Get-ChildItem $Directory\$Module\CUSTOM\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
+			$AllCustomInspectors = Get-ChildItem $Directory\$Module\CUSTOM\*.ps1
+			foreach ($custominspectors in $AllCustomInspectors)
+			{
+				$customfullname = $custominspectors.FullName
+				$customname = ($custominspectors.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $customfullname; 'Name' = $customname })
+			}
 		}
 	}
 	else
@@ -82,13 +105,17 @@ function Get-M365SATLocalChecks($Directory, $Modules, $CustomModules)
 		foreach ($Module in $Modules)
 		{
 			Get-ChildItem -Path $Directory\$Module\$Folder -Recurse | Unblock-File
-			$listinspectorsfullname += (Get-ChildItem $Directory\$Module\$Folder\*.ps1).FullName
-			$listinspectorsname += (Get-ChildItem $Directory\$Module\$Folder\*.ps1).Name | ForEach-Object { ($_ -split ".ps1")[0] }
+			$AllInspectors = Get-ChildItem $Directory\$Module\$Folder\*.ps1
+			foreach ($inspector in $AllInspectors)
+			{
+				$fullname = $inspector.FullName
+				$name = ($inspector.Name -split ".ps1")[0]
+				$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+			}
 		}
 	}
 	$listinspectors = [PSCustomObject]@{
-		FullName = $listinspectorsfullname
-		Name = $listinspectorsname
+		Inspectors = $listfullinspectors
 	}
 	
 	return $listinspectors

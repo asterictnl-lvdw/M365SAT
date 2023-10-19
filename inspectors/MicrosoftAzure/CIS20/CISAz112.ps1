@@ -78,14 +78,14 @@ Function Get-Admins
 	process
 	{
 		$admins = [System.Collections.Generic.List[string]]::new()
-		$roleIds = (Get-MgDirectoryRole) | Select-Object Id, DisplayName
-		foreach ($role in $roleIds)
+		[array]$AdminRoles = Get-MgDirectoryRole | Select-Object DisplayName, Id | Sort-Object DisplayName
+		ForEach ($Role in $AdminRoles)
 		{
-			$userList = Get-MgDirectoryRoleMember -DirectoryRoleId $role.id
-			foreach ($user in $userList)
+			[array]$RoleMembers = Get-MgDirectoryRoleMember -DirectoryRoleId $Role.Id | ? { $_.AdditionalProperties."@odata.type" -eq "#microsoft.graph.user" }
+			ForEach ($Member in $RoleMembers)
 			{
-				$upn = (Get-MgUser -UserId $user.id).UserPrincipalName
-				$admins.Add($upn)
+				$UserDetails = Get-MgUser -UserId $Member.Id
+				$admins.Add($UserDetails.UserPrincipalName)
 			}
 		}
 		return $admins
@@ -107,7 +107,8 @@ Function Get-MFAMethods
 	process
 	{
 		# Get MFA details for each user
-		[array]$mfaData = Get-MgUserAuthenticationMethod -UserId $userId
+		$mfaData = Get-MgUserAuthenticationMethod -UserId $userId -ErrorAction SilentlyContinue
+		
 		# Create MFA details object
 		$mfaMethods = [PSCustomObject][Ordered]@{
 			status		     = "-"
@@ -125,60 +126,64 @@ Function Get-MFAMethods
 		}
 		ForEach ($method in $mfaData)
 		{
-			Switch ($method.AdditionalProperties["@odata.type"])
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.microsoftAuthenticatorAuthenticationMethod")
 			{
-				"#microsoft.graph.microsoftAuthenticatorAuthenticationMethod"  {
-					# Microsoft Authenticator App
-					$mfaMethods.authApp = $true
-					$mfaMethods.authDevice = $method.AdditionalProperties["displayName"]
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.phoneAuthenticationMethod"                  {
-					# Phone authentication
-					$mfaMethods.phoneAuth = $true
-					$mfaMethods.authPhoneNr = $method.AdditionalProperties["phoneType", "phoneNumber"] -join ' '
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.fido2AuthenticationMethod"                   {
-					# FIDO2 key
-					$mfaMethods.fido = $true
-					$fifoDetails = $method.AdditionalProperties["model"]
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.passwordAuthenticationMethod"                {
-					# Password
-					# When only the password is set, then MFA is disabled.
-					if ($mfaMethods.status -ne "enabled") { $mfaMethods.status = "disabled" }
-				}
-				"#microsoft.graph.windowsHelloForBusinessAuthenticationMethod" {
-					# Windows Hello
-					$mfaMethods.helloForBusiness = $true
-					$helloForBusinessDetails = $method.AdditionalProperties["displayName"]
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.emailAuthenticationMethod"                   {
-					# Email Authentication
-					$mfaMethods.emailAuth = $true
-					$mfaMethods.SSPREmail = $method.AdditionalProperties["emailAddress"]
-					$mfaMethods.status = "enabled"
-				}
-				"microsoft.graph.temporaryAccessPassAuthenticationMethod"    {
-					# Temporary Access pass
-					$mfaMethods.tempPass = $true
-					$tempPassDetails = $method.AdditionalProperties["lifetimeInMinutes"]
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.passwordlessMicrosoftAuthenticatorAuthenticationMethod" {
-					# Passwordless
-					$mfaMethods.passwordLess = $true
-					$passwordLessDetails = $method.AdditionalProperties["displayName"]
-					$mfaMethods.status = "enabled"
-				}
-				"#microsoft.graph.softwareOathAuthenticationMethod" {
-					# ThirdPartyAuthenticator
-					$mfaMethods.softwareAuth = $true
-					$mfaMethods.status = "enabled"
-				}
+				# Microsoft Authenticator App
+				$mfaMethods.authApp = $true
+				$mfaMethods.authDevice = $method.AdditionalProperties["displayName"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.phoneAuthenticationMethod")
+			{
+				# Phone authentication
+				$mfaMethods.phoneAuth = $true
+				$mfaMethods.authPhoneNr = $method.AdditionalProperties["phoneType", "phoneNumber"] -join ' '
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.fido2AuthenticationMethod")
+			{
+				# FIDO2 key
+				$mfaMethods.fido = $true
+				$fifoDetails = $method.AdditionalProperties["model"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.windowsHelloForBusinessAuthenticationMethod")
+			{
+				# Windows Hello
+				$mfaMethods.helloForBusiness = $true
+				$helloForBusinessDetails = $method.AdditionalProperties["displayName"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.emailAuthenticationMethod")
+			{
+				# Email Authentication
+				$mfaMethods.emailAuth = $true
+				$mfaMethods.SSPREmail = $method.AdditionalProperties["emailAddress"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.temporaryAccessPassAuthenticationMethod")
+			{
+				# Temporary Access pass
+				$mfaMethods.tempPass = $true
+				$tempPassDetails = $method.AdditionalProperties["lifetimeInMinutes"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.passwordlessMicrosoftAuthenticatorAuthenticationMethod")
+			{
+				# Passwordless
+				$mfaMethods.passwordLess = $true
+				$passwordLessDetails = $method.AdditionalProperties["displayName"]
+				$mfaMethods.status = "enabled"
+			}
+			if ($method.AdditionalProperties["@odata.type"] -contains "#microsoft.graph.softwareOathAuthenticationMethod")
+			{
+				# ThirdPartyAuthenticator
+				$mfaMethods.softwareAuth = $true
+				$mfaMethods.status = "enabled"
+			}
+			if ($mfaMethods.status -ne "enabled")
+			{
+				$mfaMethods.status = "disabled"
 			}
 		}
 		Return $mfaMethods

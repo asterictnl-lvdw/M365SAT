@@ -39,7 +39,7 @@ function Audit-CISAz2114
 {
 	try
 	{
-		$Setting = Get-AzPolicyAssignment | Where-Object { $_.Name -eq 'SecurityCenterBuiltIn' } | Select-Object -ExpandProperty Properties -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+		$Setting = Get-AzPolicyAssignment -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Where-Object { $_.Name -eq 'SecurityCenterBuiltIn' } | Select-Object -ExpandProperty Properties 
 		
 		
 		if ($Setting.EnforcementMode -match "DoNotEnforce" -or $Setting.Parameters -contains "Disabled")
