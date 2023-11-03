@@ -1,8 +1,8 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
-# Purpose: Checks the Multi-Factor Auth Status for all Priviledged Users
+# Purpose: Checks the Multi-Factor Auth Status for all Non-Priviledged Users
 # Author: Leonardo van de Weteringh
 
 # New Error Handler Will be Called here
@@ -11,24 +11,24 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISAz112($findings)
+function Build-CISMAz5121($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISAz112"
-		FindingName	     = "CIS Az 1.1.2 - Some Admin Accounts do not have MFA enabled"
+		ID			     = "CISMAz5121"
+		FindingName	     = "CIS MAz 5.1.2.1 - Some User Accounts do not have MFA enabled"
 		ProductFamily    = "Microsoft Azure"
-		RiskScore	     = "20"
+		RiskScore	     = "15"
 		Description	     = "With multi-factor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk."
-		Remediation	     = "Please enable MFA for all Admin users through the Admin Portal. You can also use the legacy script by Adminroid"
+		Remediation	     = "Please enable MFA for all users through the Admin Portal. You can also use the legacy script by Adminroid"
 		PowerShellScript = 'https://admindroid.sharepoint.com/:u:/s/external/EVzUDxQqxWdLj91v3mhAipsBt0GqNmUK5b4jFXPr181Svw?e=OOcfQn&isSPOFile=1'
-		DefaultValue	 = "All Admins have no MFA Enabled"
-		ExpectedValue    = "All Admins have MFA Enabled"
+		DefaultValue	 = "Disabled"
+		ExpectedValue    = "All Users have MFA Enabled"
 		ReturnedValue    = "$findings"
-		Impact		     = "4"
+		Impact		     = "3"
 		Likelihood	     = "5"
-		RiskRating	     = "Critical"
-		Priority		 = "Critical"
+		RiskRating	     = "High"
+		Priority		 = "High"
 		References	     = @(@{ 'Name' = 'How it works: Azure AD Multi-Factor Authentication'; 'URL' = 'https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-mfa-howitworks' },
 			@{ 'Name' = 'Azure Active Directory Premium MFA Attributes via Graph API?'; 'URL' = 'https://stackoverflow.com/questions/41156206/azure-active-directory-premium-mfa-attributes-via-graph-api' },
 			@{ 'Name' = 'IM-6: Use strong authentication controls'; 'URL' = 'https://learn.microsoft.com/en-us/security/benchmark/azure/security-controls-v3-identity-management#im-6-use-strong-authentication-controls' })
@@ -36,28 +36,28 @@ function Build-CISAz112($findings)
 	return $inspectorobject
 }
 
-function Audit-CISAz112
+function Audit-CISMAz5121
 {
 	try
 	{
 		# Actual Script
 		$affectedusers = @()
-		$admins = Get-Admins
+		$users = Get-Users
 		
-		foreach ($admin in $admins)
+		foreach ($user in $users)
 		{
-			$mfaMethods = Get-MFAMethods -userId $admin
+			$mfaMethods = Get-MFAMethods -userId $user.id
 			if ($mfaMethods.status -eq "disabled")
 			{
-				$affectedusers += $admin
+				$affectedusers += $user
 			}
 		}
 		
 		# Validation
 		if ($affectedusers.count -gt 0)
 		{
-			$affectedusers | Format-Table -AutoSize | Out-File "$path\CIS112AdminsNonMFA.txt"
-			$finalobject = Build-CISAz112($affectedusers.Count)
+			$affectedusers | Format-Table -AutoSize | Out-File "$path\CISMAz5121UsersNonMFA.txt"
+			$finalobject = Build-CISMAz5121($affectedusers.Count)
 			return $finalobject
 		}
 		return $null
@@ -69,29 +69,31 @@ function Audit-CISAz112
 	}
 }
 
-Function Get-Admins
+Function Get-Users
 {
   <#
   .SYNOPSIS
-    Get all user with an Admin role
+    Get users from the requested DN
   #>
 	process
 	{
-		$admins = [System.Collections.Generic.List[string]]::new()
-		$roleIds = (Get-MgDirectoryRole) | Select-Object Id, DisplayName
-		foreach ($role in $roleIds)
-		{
-			$userList = Get-MgDirectoryRoleMember -DirectoryRoleId $role.id
-			foreach ($user in $userList)
-			{
-				$upn = (Get-MgUser -UserId $user.id).UserPrincipalName
-				$admins.Add($upn)
-			}
-		}
-		return $admins
+		# Use the filter to get all members
+		$filter = "UserType eq 'member'"
+		
+		# Set the properties to retrieve		
+		$select = @(
+			'id',
+			'DisplayName',
+			'userprincipalname',
+			'mail'
+		)
+		$properties = $select + "AssignedLicenses"
+		# Retrieve the users based on filters and properties
+		$users = Get-MgUser -Filter $filter -Property $properties -all | Select-Object $select
+		
+		return $users
 	}
 }
-
 
 
 Function Get-MFAMethods
@@ -184,4 +186,4 @@ Function Get-MFAMethods
 		Return $mfaMethods
 	}
 }
-return Audit-CISAz112
+return Audit-CISMAz5121

@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure the admin consent workflow is enabled
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz210($findings)
+function Build-CISMAz5153($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz210"
-		FindingName	     = "CIS MAz 2.1 - Admin Consent Workflow not enabled!"
+		ID			     = "CISMAz5153"
+		FindingName	     = "CIS MAz 5.1.5.3 - Admin Consent Workflow not enabled!"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "5"
 		Description	     = "The admin consent workflow (Preview) gives admins a secure way to grant access to applications that require admin approval. When a user tries to access an application but is unable to provide consent, they can send a request for admin approval. The request is sent via email to admins who have been designated as reviewers. A reviewer acts on the request, and the user is notified of the action."
@@ -35,7 +35,7 @@ function Build-CISMAz210($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz210
+function Audit-CISMAz5153
 {
 	try
 	{
@@ -53,7 +53,7 @@ function Audit-CISMAz210
 			# Validation
 			if ($BetaSettingsObject.EnableAdminConsentRequests -eq $false)
 			{
-				$finalobject = Build-CISMAz210("EnableAdminConsentRequests: $($BetaSettingsObject.EnableAdminConsentRequests)")
+				$finalobject = Build-CISMAz5153("EnableAdminConsentRequests: $($BetaSettingsObject.EnableAdminConsentRequests)")
 				return $finalobject
 			}
 			else
@@ -69,4 +69,4 @@ function Audit-CISMAz210
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz210
+return Audit-CISMAz5153

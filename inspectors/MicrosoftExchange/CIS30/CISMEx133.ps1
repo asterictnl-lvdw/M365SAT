@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
 # Purpose: Ensure 'External sharing' of calendars is not available
 # Author: Leonardo van de Weteringh
@@ -11,12 +11,12 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMEx230($findings)
+function Build-CISMEx133($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx230"
-		FindingName	     = "CIS MEx 2.3 - External sharing of calendars is available!"
+		FindingName	     = "CIS MEx 1.3.3 - External sharing of calendars is available!"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "7"
 		Description	     = "Attackers often spend time learning about organizations before launching an attack. Publicly available calendars can help attackers understand organizational relationships and determine when specific users may be more vulnerable to an attack, such as when they are traveling."
@@ -34,7 +34,7 @@ function Build-CISMEx230($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx230
+function Audit-CISMEx133
 {
 	try
 	{
@@ -51,7 +51,6 @@ function Audit-CISMEx230
 			$calendar = Get-MailboxCalendarFolder -Identity "$($mailbox.PrimarySmtpAddress):\$calendarFolder"
 			if ($calendar.PublishEnabled)
 			{
-				Write-Warning "Calendar publishing is enabled for $($mailbox.PrimarySmtpAddress) on $($calendar.PublishedCalendarUrl)"
 				$affectedmailboxes += "Calendar publishing is enabled for $($mailbox.PrimarySmtpAddress) on $($calendar.PublishedCalendarUrl)"
 			}
 		}
@@ -59,8 +58,8 @@ function Audit-CISMEx230
 		# Validation
 		if ($ExchangeSetting.Enabled -eq $true -or $affectedmailboxes.Count -igt 0)
 		{
-			$affectedmailboxes | Format-Table -AutoSize | Out-File "$path\CISMEx230CalendarSharingMailboxes.txt"
-			$finalobject = Build-CISMEx230($affectedmailboxes.Count)
+			$affectedmailboxes | Format-Table -AutoSize | Out-File "$path\CISMEx133CalendarSharingMailboxes.txt"
+			$finalobject = Build-CISMEx133($affectedmailboxes.Count)
 			return $finalobject
 		}
 		return $null
@@ -71,4 +70,4 @@ function Audit-CISMEx230
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx230
+return Audit-CISMEx133

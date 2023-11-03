@@ -47,7 +47,7 @@ function Connect-M365SAT
 		if (!$bool3)
 		{
 			break
-		}
+		}		
 		$bool4 = Invoke-MicrosoftSharepointCredentials($OrgName, $Credential)
 		if (!$bool4)
 		{
@@ -110,7 +110,7 @@ function Connect-M365SAT
 		if (!$bool2)
 		{
 			break
-		}
+		}		
 		$bool3 = Invoke-MicrosoftExchangeLite
 		if (!$bool3)
 		{

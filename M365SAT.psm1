@@ -88,6 +88,11 @@ function Get-M365SATReport
 		[Parameter(Mandatory = $false,
 				   HelpMessage = 'Skips Module Updates (Experimental)')]
 		[switch]$SkipChecks,
+		[switch]$UseExpirimentalScanner,
+		[Parameter(Mandatory = $true,
+				   HelpMessage = 'Choose the Report Format. Default is CISV3. CISV2/CISV3')]
+		[ValidateSet('CISV2', 'CISV3', IgnoreCase = $true)]
+		[string]$AuditType = "CISV3",
 		[switch]$SkipLogin,
 		[Parameter(Mandatory = $false,
 				   HelpMessage = 'Uses Custom Modules')]
@@ -159,7 +164,7 @@ function Get-M365SATReport
 	Write-Host "$(Get-Date): Initiating Connections..."
 	if (!$SkipLogin.IsPresent)
 	{
-		$OrgName = Connect-M365SAT($Username,$Password)
+		$OrgName = Connect-M365SAT($Username, $Password)
 	}
 	else
 	{
@@ -170,16 +175,32 @@ function Get-M365SATReport
 	if ($UseCustomModules.IsPresent)
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -Modules $Modules -CustomModules $UseCustomModules #Gets list of all inspectors
-		Write-Host "$(Get-Date): Executing Inspectors..."
-		$object = Invoke-M365SATCustomChecks -inspectors $inspectorlist -Directory $Directory
+		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -Modules $Modules -CustomModules $UseCustomModules -AuditType $AuditType #Gets list of all inspectors
+		if ($UseExpirimentalScanner.IsPresent)
+		{
+			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."
+			$object = Invoke-M365SATChecksV2 -inspectors $inspectorlist -Directory $Directory
+		}
+		else
+		{
+			Write-Host "$(Get-Date): Executing Inspectors in SingleThread Mode..."
+			$object = Invoke-M365SATCustomChecks -inspectors $inspectorlist -Directory $Directory
+		}
 	}
 	else
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATChecks -Directory $Directory -Modules $Modules -CustomModules #Gets list of all inspectors
-		Write-Host "$(Get-Date): Executing Inspectors..."
-		$object = Invoke-M365SATChecks -inspectors $inspectorlist -Directory $Directory
+		$inspectorlist = Get-M365SATChecks -Directory $Directory -Modules $Modules -CustomModules -AuditType $AuditType #Gets list of all inspectors
+		if ($UseExpirimentalScanner.IsPresent)
+		{
+			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."
+			$object = Invoke-M365SATChecksV2 -inspectors $inspectorlist -Directory $Directory
+		}
+		else
+		{
+			Write-Host "$(Get-Date): Executing Inspectors in SingleThread Mode..."
+			$object = Invoke-M365SATChecks -inspectors $inspectorlist -Directory $Directory
+		}
 	}
 	Write-Host "$(Get-Date): Generating Report..."
 	

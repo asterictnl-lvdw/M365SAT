@@ -41,7 +41,7 @@ function Audit-CISAz6000
 	{
 		$AffectedSettings = @()
 		# Due to Get-AzDiagnosticSetting issues this only works with the Azure CLI: https://aka.ms/installazurecliwindows
-		$Check1 = Get-AzNetworkWatcher -WarningAction Ignore
+		$Check1 = Get-AzNetworkWatcher -WarningAction SilentlyContinue
 		foreach ($Check in $Check1)
 		{
 			if ($Check.provisioningState -notmatch 'Succeeded')
