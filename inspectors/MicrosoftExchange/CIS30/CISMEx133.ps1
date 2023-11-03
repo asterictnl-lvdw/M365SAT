@@ -34,7 +34,7 @@ function Build-CISMEx133($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx230
+function Audit-CISMEx133
 {
 	try
 	{
@@ -59,7 +59,7 @@ function Audit-CISMEx230
 		if ($ExchangeSetting.Enabled -eq $true -or $affectedmailboxes.Count -igt 0)
 		{
 			$affectedmailboxes | Format-Table -AutoSize | Out-File "$path\CISMEx133CalendarSharingMailboxes.txt"
-			$finalobject = Build-CISMEx230($affectedmailboxes.Count)
+			$finalobject = Build-CISMEx133($affectedmailboxes.Count)
 			return $finalobject
 		}
 		return $null
@@ -70,4 +70,4 @@ function Audit-CISMEx230
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx230
+return Audit-CISMEx133

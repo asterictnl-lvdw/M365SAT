@@ -89,6 +89,10 @@ function Get-M365SATReport
 				   HelpMessage = 'Skips Module Updates (Experimental)')]
 		[switch]$SkipChecks,
 		[switch]$UseExpirimentalScanner,
+		[Parameter(Mandatory = $true,
+				   HelpMessage = 'Choose the Report Format. Default is CISV3. CISV2/CISV3')]
+		[ValidateSet('CISV2', 'CISV3', IgnoreCase = $true)]
+		[string]$AuditType = "CISV3",
 		[switch]$SkipLogin,
 		[Parameter(Mandatory = $false,
 				   HelpMessage = 'Uses Custom Modules')]
@@ -171,7 +175,7 @@ function Get-M365SATReport
 	if ($UseCustomModules.IsPresent)
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -Modules $Modules -CustomModules $UseCustomModules #Gets list of all inspectors
+		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -Modules $Modules -CustomModules $UseCustomModules -AuditType $AuditType #Gets list of all inspectors
 		if ($UseExpirimentalScanner.IsPresent)
 		{
 			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."
@@ -186,7 +190,7 @@ function Get-M365SATReport
 	else
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATChecks -Directory $Directory -Modules $Modules -CustomModules #Gets list of all inspectors
+		$inspectorlist = Get-M365SATChecks -Directory $Directory -Modules $Modules -CustomModules -AuditType $AuditType #Gets list of all inspectors
 		if ($UseExpirimentalScanner.IsPresent)
 		{
 			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."

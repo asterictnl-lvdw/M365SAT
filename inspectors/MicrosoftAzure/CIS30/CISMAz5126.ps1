@@ -1,7 +1,7 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure 'LinkedIn account connections' is disabled
 # Author: Leonardo van de Weteringh
@@ -13,12 +13,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz1118($findings)
+function Build-CISMAz5126($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1118"
-		FindingName	     = "CIS MAz 1.1.18 - LinkedIn Account Connections is enabled!"
+		ID			     = "CISMAz5126"
+		FindingName	     = "CIS MAz 5.1.2.6 - LinkedIn Account Connections is enabled!"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "5"
 		Description	     = "Disabling LinkedIn integration prevents potential phishing attacks and risk scenarios where an external party could accidentally disclose sensitive information."
@@ -36,7 +36,7 @@ function Build-CISMAz1118($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1118
+function Audit-CISMAz5126
 {
 	try
 	{
@@ -51,7 +51,7 @@ function Audit-CISMAz1118
 		}
 		if ($AffectedOptions.count -igt 0)
 		{
-			$finalobject = Build-CISMAz1118($AffectedOptions)
+			$finalobject = Build-CISMAz5126($AffectedOptions)
 			return $finalobject
 		}
 		return $null
@@ -131,4 +131,4 @@ function Invoke-MultiMicrosoftAPI
 	}
 	return $Response
 }
-return Audit-CISMAz1118
+return Audit-CISMAz5126

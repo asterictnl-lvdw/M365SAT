@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
 # Purpose: Ensure MailTips are enabled for end users
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMEx4110($findings)
+function Build-CISMEx652($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMEx4110"
-		FindingName	     = "CIS MEx 4.11 - MailTips is not enabled for end users"
+		ID			     = "CISMEx652"
+		FindingName	     = "CIS MEx 6.5.2 - MailTips is not enabled for end users"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "8"
 		Description	     = "MailTips assist end users with identifying strange patterns to emails they send. By having this disabled end-users are at risk exfiltrating information or doing malicious things without knowing or without being warned."
@@ -36,7 +36,7 @@ function Build-CISMEx4110($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx4110
+function Audit-CISMEx652
 {
 	try
 	{
@@ -60,7 +60,7 @@ function Audit-CISMEx4110
 		}
 		if ($ExchangeMailTipsData.count -igt 0)
 		{
-			$endobject = Build-CISMEx4110($ExchangeMailTipsData)
+			$endobject = Build-CISMEx652($ExchangeMailTipsData)
 			Return $endobject
 		}
 		
@@ -72,4 +72,4 @@ function Audit-CISMEx4110
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx4110
+return Audit-CISMEx652

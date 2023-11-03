@@ -1,7 +1,7 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Checks if 'Number of methods required to reset' is set to '2'
 # Author: Leonardo van de Weteringh
@@ -13,12 +13,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz118($findings)
+function Build-CISMAz5241($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz118"
-		FindingName	     = "CISM Az 1.1.8 - Self Service Password Reset is not set to be enabled for all users"
+		ID			     = "CISMAz5241"
+		FindingName	     = "CIS MAz 5.2.4.1 - Self Service Password Reset is not set to be enabled for all users"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "9"
 		Description	     = "Users will no longer need to engage the helpdesk for password resets, and the password reset mechanism will automatically block common, easily guessable passwords."
@@ -41,7 +41,7 @@ function Build-CISMAz118($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz118
+function Audit-CISMAz5241
 {
 	try
 	{
@@ -51,7 +51,7 @@ function Audit-CISMAz118
 		# Validation
 		if ($SSPRSetting.enablementType -ne 2)
 		{
-			$finalobject = Build-CISMAz118($SSPRSetting.enablementType)
+			$finalobject = Build-CISMAz5241($SSPRSetting.enablementType)
 			return $finalobject
 		}
 		return $null
@@ -131,4 +131,4 @@ function Invoke-MultiMicrosoftAPI
 	}
 	return $Response
 }
-return Audit-CISMAz118
+return Audit-CISMAz5241

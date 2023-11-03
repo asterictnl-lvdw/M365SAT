@@ -1,8 +1,8 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
-# Purpose: Checks common malicious attachments and if they are filtered properly
+# Purpose: Forms of mail forwarding are not blocked and/or not disabled
 # Author: Leonardo van de Weteringh
 
 # New Error Handler Will be Called here
@@ -11,12 +11,12 @@ Import-Module PoShLog
 # Determine OutPath
 $path = @($OutPath)
 
-function Build-CISMEx430($findings)
+function Build-CISMEx621($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMEx430"
-		FindingName	     = "CIS MEx 4.3 - Forms of mail forwarding are not blocked and/or not disabled"
+		ID			     = "CISMEx621"
+		FindingName	     = "CIS MEx 6.2.1 - Forms of mail forwarding are not blocked and/or not disabled"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "6"
 		Description	     = "Attackers often create these rules to exfiltrate data from your tenancy, this could be accomplished via access to an end-user account or otherwise. An insider could also use one of these methods as an secondary channel to exfiltrate sensitive data."
@@ -36,15 +36,15 @@ function Build-CISMEx430($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx430
+function Audit-CISMEx621
 {
 	try
 	{
-		$TransportRules = Get-TransportRule | Where-Object { $_.RedirectMessageTo -ne $null } | ft Name, RedirectMessageTo
+		$TransportRules = Get-TransportRule | Where-Object { $_.RedirectMessageTo -ne $null } | Format-Table Name, RedirectMessageTo
 		if ($TransportRules.Count -igt 0)
 		{
-			$TransportRules | Format-List | Out-File -FilePath "$path\CISMEx430-AffectedTransportRules.txt"
-			$finalobject = Build-CISMEx430($TransportRules)
+			$TransportRules | Format-List | Out-File -FilePath "$path\CISMEx621-AffectedTransportRules.txt"
+			$finalobject = Build-CISMEx621($TransportRules)
 			return $finalobject
 		}
 		else
@@ -58,4 +58,4 @@ function Audit-CISMEx430
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx430
+return Audit-CISMEx621

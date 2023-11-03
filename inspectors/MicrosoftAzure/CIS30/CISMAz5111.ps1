@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Checks if Secure Defaults is enabled or disabled within the tenant
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz111($findings)
+function Build-CISMAz5111($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz111"
-		FindingName	     = "CISM Az 1.1.1 - The Security Defaults are not enabled on Azure Active Directory Tenant"
+		ID			     = "CISMAz5111"
+		FindingName	     = "CISMAz 5.1.1.1 - The Security Defaults are not enabled on Azure Active Directory Tenant"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "4"
 		Description	     = "Security defaults in Azure Active Directory (Azure AD) make it easier to be secure and help protect your organization. Security defaults contain preconfigured security settings for common attacks."
@@ -37,7 +37,7 @@ function Build-CISMAz111($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz111
+function Audit-CISMAz5111
 {
 	try
 	{
@@ -47,7 +47,7 @@ function Audit-CISMAz111
 		# Validation
 		if ($SecureDefaultsState.isEnabled -eq $false)
 		{
-			$finalobject = Build-CISMAz111($SecureDefaultsState.isEnabled)
+			$finalobject = Build-CISMAz5111($SecureDefaultsState.isEnabled)
 			return $finalobject
 		}
 		return $null
@@ -58,4 +58,4 @@ function Audit-CISMAz111
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz111
+return Audit-CISMAz5111

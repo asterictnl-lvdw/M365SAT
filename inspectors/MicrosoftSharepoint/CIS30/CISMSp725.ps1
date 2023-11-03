@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Checks if Sharepoint Guest Users cannot reshare items
 # Author: Leonardo van de Weteringh
@@ -11,12 +11,12 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMSp360($findings)
+function Build-CISMSp725($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMSp360"
-		FindingName	     = "CIS MSp 3.6 - SharePoint Guest Users Resharing Permitted"
+		ID			     = "CISMSp725"
+		FindingName	     = "CIS MSp 7.2.5 - SharePoint Guest Users Resharing Permitted"
 		ProductFamily    = "Microsoft SharePoint"
 		RiskScore	     = "20"
 		Description	     = "Sharing and collaboration are key; however, file, folder, or site collection owners should have the authority over what external users get shared with to prevent unauthorized disclosures of information."
@@ -34,7 +34,7 @@ function Build-CISMSp360($findings)
 	}
 }
 
-function Audit-CISMSp360
+function Audit-CISMSp725
 {
 	Try
 	{
@@ -44,7 +44,7 @@ function Audit-CISMSp360
 		{
 			If ($PreventExternalUsers -eq $False)
 			{
-				$endobject = Build-CISMSp360("PreventExternalUsersFromResharing: $($PreventExternalUsers)")
+				$endobject = Build-CISMSp725("PreventExternalUsersFromResharing: $($PreventExternalUsers)")
 				return $endobject
 			}
 			Else
@@ -62,6 +62,6 @@ function Audit-CISMSp360
 	
 }
 
-return Audit-CISMSp360
+return Audit-CISMSp725
 
 

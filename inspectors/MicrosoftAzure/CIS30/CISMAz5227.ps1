@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Enable Azure AD Identity Protection sign-in risk policies
 # Author: Leonardo van de Weteringh
@@ -8,12 +8,12 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
-function Build-CISMAz1113($findings)
+function Build-CISMAz5227($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1113"
-		FindingName	     = "CIS MAz 1.1.13 - Verify if you have an Azure AD Identity Protection sign-in risk policy enabled"
+		ID			     = "CISMAz5227"
+		FindingName	     = "CIS MAz 5.2.2.7 - Verify if you have an Azure AD Identity Protection sign-in risk policy enabled"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Turning on the sign-in risk policy ensures that suspicious sign-ins are challenged for multi-factor authentication. "
@@ -31,7 +31,7 @@ function Build-CISMAz1113($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1113
+function Audit-CISMAz5227
 {
 	try
 	{
@@ -73,7 +73,7 @@ function Audit-CISMAz1113
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz1113($Violation)
+			$finalobject = Build-CISMAz5227($Violation)
 			return $finalobject
 		}
 		return $null
@@ -84,4 +84,4 @@ function Audit-CISMAz1113
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz1113
+return Audit-CISMAz5227

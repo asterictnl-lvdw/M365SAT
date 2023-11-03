@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure Microsoft Azure Management is limited to administrative roles
 # Author: Leonardo van de Weteringh
@@ -8,12 +8,12 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
-function Build-CISMAz1121($findings)
+function Build-CISMAz5228($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1121"
-		FindingName	     = "CIS MAz 1.1.21 - Ensure Microsoft Azure Management is limited to administrative roles"
+		ID			     = "CISMAz5228"
+		FindingName	     = "CIS MAz 5.2.2.8 - Ensure Microsoft Azure Management is limited to administrative roles"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Blocking sign-in to Azure Management applications and portals enhances security of sensitive data by restricting access to privileged users. This mitigates potential exposure due to administrative errors or software vulnerabilities, as well as acting as a defense in depth measure against security breaches."
@@ -31,7 +31,7 @@ function Build-CISMAz1121($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1121
+function Audit-CISMAz5228
 {
 	try
 	{
@@ -69,7 +69,7 @@ function Audit-CISMAz1121
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz1121($Violation)
+			$finalobject = Build-CISMAz5228($Violation)
 			return $finalobject
 		}
 		return $null
@@ -80,4 +80,4 @@ function Audit-CISMAz1121
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz1121
+return Audit-CISMAz5228

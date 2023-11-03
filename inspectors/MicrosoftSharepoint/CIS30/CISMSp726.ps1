@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Ensure SharePoint external sharing is managed through domain whitelist/blacklists
 # Author: Leonardo van de Weteringh
@@ -11,11 +11,11 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMSp610($findings)
+function Build-CISMSp726($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMSp610"
+		ID			     = "CISMSp726"
 		FindingName	     = "CIS MSp 6.1 - SharePoint external sharing is not managed through domain whitelist/blacklists"
 		ProductFamily    = "Microsoft SharePoint"
 		RiskScore	     = "5"
@@ -34,7 +34,7 @@ function Build-CISMSp610($findings)
 }
 
 
-function Audit-CISMSp610
+function Audit-CISMSp726
 {
 	Try
 	{
@@ -43,7 +43,7 @@ function Audit-CISMSp610
 		If ($ShareSettings -ne "AllowList")
 		{
 			$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
-			$endobject = Build-CISMSp610($message)
+			$endobject = Build-CISMSp726($message)
 			return $endobject
 		}
 		
@@ -58,6 +58,6 @@ function Audit-CISMSp610
 	
 }
 
-return Audit-CISMSp610
+return Audit-CISMSp726
 
 

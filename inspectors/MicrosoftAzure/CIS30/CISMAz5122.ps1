@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure third party integrated applications are not allowed
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz220($findings)
+function Build-CISMAz5122($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz220"
-		FindingName	     = "CIS MAz 2.2 - Third party integrated applications are allowed!"
+		ID			     = "CISMAz5122"
+		FindingName	     = "CIS MAz 5.1.2.2 - Third party integrated applications are allowed!"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Third party integrated applications connection to services should be disabled, unless there is a very clear value and robust security controls are in place. While there are legitimate uses, attackers can grant access from breached accounts to third party applications to exfiltrate data from your tenancy without having to maintain the breached account."
@@ -35,7 +35,7 @@ function Build-CISMAz220($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz220
+function Audit-CISMAz5122
 {
 	try
 	{
@@ -46,7 +46,7 @@ function Audit-CISMAz220
 		# Validation
 		if ($AuthPolicy.DefaultUserRolePermissions.AllowedToCreateApps -eq $true)
 		{
-			$finalobject = Build-CISMAz220("AllowedToCreateApps: $($AuthPolicy.DefaultUserRolePermissions.AllowedToCreateApps)")
+			$finalobject = Build-CISMAz5122("AllowedToCreateApps: $($AuthPolicy.DefaultUserRolePermissions.AllowedToCreateApps)")
 			return $finalobject
 		}
 		return $null
@@ -57,4 +57,4 @@ function Audit-CISMAz220
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz220
+return Audit-CISMAz5122

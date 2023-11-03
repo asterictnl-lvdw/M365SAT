@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Enable Azure AD Identity Protection user risk policies
 # Author: Leonardo van de Weteringh
@@ -8,12 +8,12 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
-function Build-CISMAz1114($findings)
+function Build-CISMAz5226($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1114"
-		FindingName	     = "CIS MAz 1.1.14 - Verify if you have an Azure AD Identity Proteciton user risk policy enabled"
+		ID			     = "CISMAz5226"
+		FindingName	     = "CIS MAz 5.2.2.6 - Verify if you have an Azure AD Identity Proteciton user risk policy enabled"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "With the user risk policy turned on, Azure AD detects the probability that a user account has been compromised. Administrators can configure a user risk conditional access policy to automatically respond to a specific user risk level."
@@ -31,7 +31,7 @@ function Build-CISMAz1114($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1114
+function Audit-CISMAz5226
 {
 	try
 	{
@@ -73,7 +73,7 @@ function Audit-CISMAz1114
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz1114($Violation)
+			$finalobject = Build-CISMAz5226($Violation)
 			return $finalobject
 		}
 		return $null
@@ -84,4 +84,4 @@ function Audit-CISMAz1114
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz1114
+return Audit-CISMAz5226

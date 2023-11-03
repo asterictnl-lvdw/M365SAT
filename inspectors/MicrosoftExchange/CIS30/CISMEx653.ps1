@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
 # Purpose: Ensure additional storage providers are restricted in Outlook on the web
 # Author: Leonardo van de Weteringh
@@ -11,12 +11,12 @@ Import-Module PoShLog
 # Determine OutPath
 $path = @($OutPath)
 
-function Build-CISMEx650($findings)
+function Build-CISMEx653($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMEx650"
-		FindingName	     = "CIS MEx 6.5 - Additional storage providers are not restricted in Outlook on the Web"
+		ID			     = "CISMEx653"
+		FindingName	     = "CIS MEx 6.5.3 - Additional storage providers are not restricted in Outlook on the Web"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "15"
 		Description	     = "By default additional storage providers are allowed in Office on the Web (such as Box, Dropbox, Facebook, Google Drive, OneDrive Personal, etc.). This could lead to information leakage and additional risk of infection from organizational non-trusted storage providers. Restricting this will inherently reduce risk as it will narrow opportunities for infection and data leakage."
@@ -34,7 +34,7 @@ function Build-CISMEx650($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx650
+function Audit-CISMEx653
 {
 	try
 	{
@@ -50,7 +50,7 @@ function Audit-CISMEx650
 		if ($PolicyViolation.count -igt 0)
 		{
 			
-			$finalobject = Build-CISMEx650($PolicyViolation)
+			$finalobject = Build-CISMEx653($PolicyViolation)
 			return $finalobject
 		}
 		return $null
@@ -61,4 +61,4 @@ function Audit-CISMEx650
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx650
+return Audit-CISMEx653

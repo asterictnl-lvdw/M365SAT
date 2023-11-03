@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
 # Purpose: Ensure modern authentication for Exchange Online is enabled
 # Author: Leonardo van de Weteringh
@@ -8,12 +8,12 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
-function Build-CISMEx120($findings)
+function Build-CISMEx651($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMEx120"
-		FindingName	     = "CIS MEx 1.2 - Modern Authentication for Exchange Online is disabled!"
+		ID			     = "CISMEx651"
+		FindingName	     = "CIS MEx 6.5.1 - Modern Authentication for Exchange Online is disabled!"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "3"
 		Description	     = "Strong authentication controls, such as the use of multifactor authentication, may be circumvented if basic authentication is used by Exchange Online email clients such as Outlook 2016 and Outlook 2013. Enabling modern authentication for Exchange Online ensures strong authentication mechanisms are used when establishing sessions between email clients and Exchange Online."
@@ -32,7 +32,7 @@ function Build-CISMEx120($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMEx120
+function Audit-CISMEx651
 {
 	try
 	{
@@ -50,7 +50,7 @@ function Audit-CISMEx120
 		# Validation
 		if ($AffectedOptions.Count -ne 0)
 		{
-			$finalobject = Build-CISMEx120($AffectedOptions)
+			$finalobject = Build-CISMEx651($AffectedOptions)
 			return $finalobject
 		}
 		return $null
@@ -61,4 +61,4 @@ function Audit-CISMEx120
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMEx120
+return Audit-CISMEx651

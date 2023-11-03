@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz1111($findings)
+function Build-CISMAz5223($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1111"
-		FindingName	     = "CIS MAz 1.1.11 - No Conditional Access policies to block legacy authentication"
+		ID			     = "CISMAz5223"
+		FindingName	     = "CIS MAz 5.2.2.3 - No Conditional Access policies to block legacy authentication"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "8.2"
 		Description	     = "Legacy authentication protocols do not support multi-factor authentication. These protocols are often used by attackers because of this deficiency. Blocking legacy authentication makes it harder for attackers to gain access."
@@ -35,7 +35,7 @@ function Build-CISMAz1111($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1111
+function Audit-CISMAz5223
 {
 	try
 	{
@@ -91,7 +91,7 @@ function Audit-CISMAz1111
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz1111($Violation)
+			$finalobject = Build-CISMAz5223($Violation)
 			return $finalobject
 		}
 		return $null
@@ -102,4 +102,4 @@ function Audit-CISMAz1111
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz1111
+return Audit-CISMAz5223

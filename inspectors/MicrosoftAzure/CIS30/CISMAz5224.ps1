@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz113($findings)
+function Build-CISMAz5224($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz113"
-		FindingName	     = "CIS MAz 1.1.3 - Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users"
+		ID			     = "CISMAz5224"
+		FindingName	     = "CIS MAz 5.2.2.4 - Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Forcing a time out for MFA will help ensure that sessions are not kept alive for an indefinite period of time, ensuring that browser sessions are not persistent will help in prevention of drive-by attacks in web browsers, this also prevents creation and saving of session cookies leaving nothing for an attacker to take."
@@ -35,7 +35,7 @@ function Build-CISMAz113($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz113
+function Audit-CISMAz5224
 {
 	try
 	{
@@ -86,7 +86,7 @@ function Audit-CISMAz113
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz113($Violation)
+			$finalobject = Build-CISMAz5224($Violation)
 			return $finalobject
 		}
 		return $null
@@ -97,4 +97,4 @@ function Audit-CISMAz113
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz113
+return Audit-CISMAz5224

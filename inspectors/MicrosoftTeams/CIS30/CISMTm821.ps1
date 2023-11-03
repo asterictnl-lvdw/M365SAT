@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Teams
 # Purpose: Ensure 'external access' is restricted in the Teams admin center
 # Author: Leonardo van de Weteringh
@@ -11,16 +11,16 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMTm330($findings)
+function Build-CISMTm821($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMTm330"
-		FindingName	     = "CISM Tm 3.3 - External access is not restricted in the Teams admin center!"
+		ID			     = "CISMTm821"
+		FindingName	     = "CISM Tm 8.2.1 - External access is not restricted in the Teams admin center!"
 		ProductFamily    = "Microsoft Teams"
 		RiskScore	     = "8"
 		Description	     = "Allowing users to communicate with Skype or Teams users outside of an organization presents a potential security threat as external users can interact with organization users over Skype for Business or Teams. While legitimate, productivity-improving scenarios exist, they are outweighed by the risk of data loss, phishing, and social engineering attacks against organization users via Teams. Therefore, it is recommended to restrict external communications in order to minimize the risk of security incidents."
-		Remediation	     = "Use the PowerShell script to disallow External Access"
+		Remediation	     = "Use the PowerShell script to disallow External Communication"
 		PowerShellScript = 'Set-CsTenantFederationConfiguration -AllowTeamsConsumer $false -AllowPublicUsers $false -AllowFederatedUsers $false'
 		DefaultValue	 = "All True"
 		ExpectedValue    = "All False"
@@ -34,7 +34,7 @@ function Build-CISMTm330($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMTm330
+function Audit-CISMTm821
 {
 	try
 	{
@@ -58,7 +58,7 @@ function Audit-CISMTm330
 		}
 		if ($ViolatedTeamsSettings.Count -igt 0)
 		{
-			$endobject = Build-CISMTm330($ViolatedTeamsSettings)
+			$endobject = Build-CISMTm821($ViolatedTeamsSettings)
 			return $endobject
 		}
 		return $null
@@ -69,4 +69,4 @@ function Audit-CISMTm330
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMTm330
+return Audit-CISMTm821

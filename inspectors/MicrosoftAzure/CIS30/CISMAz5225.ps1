@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure Sign-in frequency is enabled and browser sessions are not persistent for Administrative users
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz116($findings)
+function Build-CISMAz5225($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz116"
-		FindingName	     = "CIS MAz 1.1.6 - Phishing-resistant MFA strength must be required for Administrators"
+		ID			     = "CISMAz5225"
+		FindingName	     = "CIS MAz 5.2.2.5 - Phishing-resistant MFA strength must be required for Administrators"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "8.2"
 		Description	     = "Sophisticated attacks targeting MFA are more prevalent as the use of it becomes more widespread. These 3 methods are considered phishing-resistant as they remove passwords from the login workflow. It also ensures that public/private key exchange can only happen between the devices and a registered provider which prevents login to fake or phishing websites.."
@@ -35,7 +35,7 @@ function Build-CISMAz116($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz116
+function Audit-CISMAz5225
 {
 	try
 	{
@@ -78,7 +78,7 @@ function Audit-CISMAz116
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz116($Violation)
+			$finalobject = Build-CISMAz5225($Violation)
 			return $finalobject
 		}
 		return $null
@@ -89,4 +89,4 @@ function Audit-CISMAz116
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz116
+return Audit-CISMAz5225

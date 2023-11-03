@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure multifactor authentication is enabled for all non-administrative users
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz114($findings)
+function Build-CISMAz5222($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz114"
-		FindingName	     = "CIS MAz 1.1.4 - MultiFactor Authentication (MFA) is not enabled for all users non-administrative roles"
+		ID			     = "CISMAz5222"
+		FindingName	     = "CIS MAz 5.2.2.2 - MultiFactor Authentication (MFA) is not enabled for all users non-administrative roles"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "15"
 		Description	     = "Multifactor authentication requires an individual to present a minimum of two separate forms of authentication before access is granted. Multifactor authentication provides additional assurance that the individual attempting to gain access is who they claim to be. With multifactor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk."
@@ -35,14 +35,14 @@ function Build-CISMAz114($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz114
+function Audit-CISMAz5222
 {
 	try
 	{
 		$users = ReportUsersNonMFA
 		if ($users.Count -ne 0)
 		{
-			Build-CISMAz114($users.User)
+			Build-CISMAz5222($users.User)
 		}
 		
 	}
@@ -134,4 +134,4 @@ function ReportUsersNonMFA
 	return $ProblemAdminAccounts
 }
 
-return Audit-CISMAz114
+return Audit-CISMAz5222

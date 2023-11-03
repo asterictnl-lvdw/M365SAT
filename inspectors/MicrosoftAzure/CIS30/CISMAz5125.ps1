@@ -1,7 +1,7 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure the option to remain signed in is hidden
 # Author: Leonardo van de Weteringh
@@ -13,12 +13,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz1119($findings)
+function Build-CISMAz5125($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1119"
-		FindingName	     = "CIS MAz 1.1.19 - Remain Signed In Option is not Hidden!"
+		ID			     = "CISMAz5125"
+		FindingName	     = "CIS MAz 5.1.2.5 - Remain Signed In Option is not Hidden!"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Allowing users to select this option presents risk, especially in the event that the user signs into their account on a publicly accessible computer/web browser. In this case it would be trivial for an unauthorized person to gain access to any associated cloud data from that account."
@@ -36,7 +36,7 @@ function Build-CISMAz1119($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1119
+function Audit-CISMAz5125
 {
 	try
 	{
@@ -51,7 +51,7 @@ function Audit-CISMAz1119
 		}
 		if ($AffectedOptions.count -igt 0)
 		{
-			$finalobject = Build-CISMAz1119($AffectedOptions)
+			$finalobject = Build-CISMAz5125($AffectedOptions)
 			return $finalobject
 		}
 		return $null
@@ -131,4 +131,4 @@ function Invoke-MultiMicrosoftAPI
 	}
 	return $Response
 }
-return Audit-CISMAz1119
+return Audit-CISMAz5125

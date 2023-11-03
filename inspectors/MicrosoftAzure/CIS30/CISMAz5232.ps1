@@ -1,7 +1,7 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Checks if a banned password list is used
 # Author: Leonardo van de Weteringh
@@ -12,12 +12,12 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISAz170($findings)
+function Build-CISMAz5232($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz119"
-		FindingName	     = "CISM Az 1.19 - No Custom Bad Password List is used within your organization"
+		ID			     = "CISMAz5232"
+		FindingName	     = "CISM MAz 5.2.3.2 - No Custom Bad Password List is used within your organization"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "5"
 		Description	     = "Enabling a Custom Bad Password List gives your organization further customization on what secure passwords are allowed. Setting a bad password list enables your organization to fine-tune its password policy further, depending on your needs. Removing easy-to-guess passwords increases the security of access to your Azure resources. This control also checks on CIS Microsoft 365 1.1.10 which is for OnPremise Checks"
@@ -40,7 +40,7 @@ function Build-CISAz170($findings)
 	return $inspectorobject
 }
 
-function Audit-CISAz170
+function Audit-CISMAz5232
 {
 	try
 	{
@@ -66,7 +66,7 @@ function Audit-CISAz170
 		}
 		if ($AffectedOptions.count -igt 0)
 		{
-			$finalobject = Build-CISAz170($AffectedOptions)
+			$finalobject = Build-CISMAz5232($AffectedOptions)
 			return $finalobject
 		}
 		return $null
@@ -147,4 +147,4 @@ function Invoke-MultiMicrosoftAPI
 	return $Response
 }
 
-return Audit-CISAz170
+return Audit-CISMAz5232

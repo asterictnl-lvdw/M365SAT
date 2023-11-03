@@ -1,7 +1,7 @@
 #Requires -module Az.Accounts
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Ensure Restrict access to the Azure AD administration portal is set to Yes
 # Author: Leonardo van de Weteringh
@@ -13,12 +13,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz1120($findings)
+function Build-CISMAz5124($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1120"
-		FindingName	     = "CIS MAz 1.1.20 - Access to the Azure AD administration portal is not restricted!"
+		ID			     = "CISMAz5124"
+		FindingName	     = "CIS MAz 5.1.2.4 - Access to the Azure AD administration portal is not restricted!"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "The Azure AD administrative (AAD) portal contains sensitive data and permission settings, which are still enforced based on the user's role. However, an end user may inadvertently change properties or account settings that could result in increased administrative overhead. Additionally, a compromised end user account could be used by a malicious attacker as a means to gather additional information and escalate an attack."
@@ -36,7 +36,7 @@ function Build-CISMAz1120($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz1120
+function Audit-CISMAz5124
 {
 	try
 	{
@@ -51,7 +51,7 @@ function Audit-CISMAz1120
 		}
 		if ($AffectedOptions.count -igt 0)
 		{
-			$finalobject = Build-CISMAz1120($AffectedOptions)
+			$finalobject = Build-CISMAz5124($AffectedOptions)
 			return $finalobject
 		}
 		return $null
@@ -131,4 +131,4 @@ function Invoke-MultiMicrosoftAPI
 	}
 	return $Response
 }
-return Audit-CISMAz1120
+return Audit-CISMAz5124

@@ -11,12 +11,12 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMAz1112($findings)
+function Build-CISMAz5181($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISMAz1112"
-		FindingName	     = "CIS MAz 1.1.12 - Password Synchronization Disabled"
+		ID			     = "CISMAz5181"
+		FindingName	     = "CIS MAz 5.1.8.1 - Password Synchronization Disabled"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "10"
 		Description	     = "Password hash synchronization helps by reducing the number of passwords your users need to maintain to just one and enables leaked credential detection for your hybrid accounts. Leaked credential protection is leveraged through Azure AD Identity Protection and is a subset of that feature which can help identity if an organization's user account passwords have appeared on the dark web or public spaces. Using other options for your directory synchronization may be less resislient as Microsoft can still process sign-ins to 365 with Hash Sync even if a network connection to your on-premises environment is not available."
@@ -34,7 +34,7 @@ function Build-CISMAz1112($findings)
 	}
 }
 
-Function Audit-CISMAz1112
+Function Audit-CISMAz5181
 {
 	Try
 	{
@@ -42,7 +42,7 @@ Function Audit-CISMAz1112
 		$OnPremiseSyncEnabledCheck = Get-MgOrganization | Select-Object OnPremisesSyncEnabled
 		if ($OnPremiseSyncEnabledCheck.OnPremisesSyncEnabled -ne $true)
 		{
-			$endobject = Build-CISMAz1112("Password Synchronization is disabled!")
+			$endobject = Build-CISMAz5181("Password Synchronization is disabled!")
 			Return $endobject
 		}
 		Return $null
@@ -56,6 +56,6 @@ Function Audit-CISMAz1112
 	
 }
 
-Return Audit-CISMAz1112
+Return Audit-CISMAz5181
 
 
