@@ -40,12 +40,10 @@ function Audit-CISMAz210
 	try
 	{
 		# Actual Script
-		$Response = (Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/beta/settings")
-		$ResponseId = ($Response.value | ? {$_.displayName -eq "Consent Policy Settings"}).id
-		if ([string]::IsNullOrEmpty($ResponseId))
+		$Response = Get-MgBetaDirectorySetting | ? { $_.DisplayName -eq 'Consent Policy Settings' } | Select-Object values
+		if (-not [string]::IsNullOrEmpty($Response))
 		{
-			$Response = (Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/beta/settings/$ResponseId/values")
-			$hash = $Response.value
+			$hash = $Response.Values
 			$BetaSettingsObject = [PSCustomObject]@{ } #Create Custom Object
 			# Convert HashTable names to name and assign value to it so we can correctly make the CustomObject
 			foreach ($h in $hash.GetEnumerator())

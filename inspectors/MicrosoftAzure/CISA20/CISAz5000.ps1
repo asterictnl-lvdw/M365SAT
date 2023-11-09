@@ -41,12 +41,12 @@ function Audit-CISAz5000
 	{
 		$AffectedSettings = @()
 		# Due to Get-AzDiagnosticSetting issues this only works with the Azure CLI: https://aka.ms/installazurecliwindows
-		$AzCommand = (Get-Module -Name Az.Monitor).ExportedCommands
+		$AzCommand = (Get-Module -Name Az.Monitor -WarningAction SilentlyContinue).ExportedCommands
 		if ($AzCommand.Count -ne 0)
 		{
-			$Settings = iex "az monitor diagnostic-settings subscription list --subscription $((Get-AzSubscription).Id) | ConvertFrom-Json | Select * -ExpandProperty value | Select * -ExpandProperty logs | Select category,enabled"
-			$Settings2 = Get-AzApplicationInsights | Select-Object location, name, appid, provisioningState, tenantid
-			$resources = Get-AzResource
+			$Settings = Invoke-Expression "az monitor diagnostic-settings subscription list --subscription $((Get-AzSubscription).Id) -WarningAction SilentlyContinue | ConvertFrom-Json | Select * -ExpandProperty value | Select * -ExpandProperty logs | Select category,enabled"
+			$Settings2 = Get-AzApplicationInsights -WarningAction SilentlyContinue | Select-Object location, name, appid, provisioningState, tenantid
+			$resources = Get-AzResource -WarningAction SilentlyContinue
 			foreach ($setting in $Settings)
 			{
 				if ($setting.Enabled -eq $false)
@@ -61,7 +61,7 @@ function Audit-CISAz5000
 			
 			foreach ($resource in $resources)
 			{
-				$diagnosticSetting = Get-AzDiagnosticSetting -ResourceId $resource.id -ErrorAction "SilentlyContinue";
+				$diagnosticSetting = Get-AzDiagnosticSetting -ResourceId $resource.id -ErrorAction "SilentlyContinue" -WarningAction SilentlyContinue;
 				if ([string]::IsNullOrEmpty($diagnosticSetting))
 				{
 					$message = "Diagnostic Settings not configured for resource: " + $resource.Name; Write-Output $message

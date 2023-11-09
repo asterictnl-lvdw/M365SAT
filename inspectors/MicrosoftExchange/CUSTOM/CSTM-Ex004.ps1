@@ -39,7 +39,7 @@ function Audit-CSTM-Ex004
 		$AuthenticationPolicy = Get-AuthenticationPolicy | Select-Object *
 		if ([string]::IsNullOrEmpty($AuthenticationPolicy))
 		{
-			$endobject = Build-CSTM-Ex003("No Authentication Policy Found!")
+			$endobject = Build-CSTM-Ex004("No Authentication Policy Found!")
 			return $endobject
 		}
 		else

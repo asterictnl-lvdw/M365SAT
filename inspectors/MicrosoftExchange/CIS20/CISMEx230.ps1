@@ -18,7 +18,7 @@ function Build-CISMEx230($findings)
 		ID			     = "CISMEx230"
 		FindingName	     = "CIS MEx 2.3 - External sharing of calendars is available!"
 		ProductFamily    = "Microsoft Exchange"
-		RiskScore	     = "9.1"
+		RiskScore	     = "7"
 		Description	     = "Attackers often spend time learning about organizations before launching an attack. Publicly available calendars can help attackers understand organizational relationships and determine when specific users may be more vulnerable to an attack, such as when they are traveling."
 		Remediation	     = "Use the PowerShell Script to enable Modern Authentication for Microsoft Exchange Online. You can also check the text file which mailboxes have Calendar Sharing enabled."
 		PowerShellScript = '$Policy = Get-SharingPolicy | Where-Object { $_.Domains -like " * CalendarSharing*" }; Set-SharingPolicy -Identity $Policy.Name -Enabled $False'
@@ -27,7 +27,7 @@ function Build-CISMEx230($findings)
 		ReturnedValue    = "$findings"
 		Impact		     = "2"
 		Likelihood	     = "5"
-		RiskRating	     = "High"
+		RiskRating	     = "Medium"
 		Priority		 = "Medium"
 		References	     = @(@{ 'Name' = 'Share Microsoft 365 calendars with external users'; 'URL' = "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/share-calendars-with-external-users?view=o365-worldwide" })
 	}

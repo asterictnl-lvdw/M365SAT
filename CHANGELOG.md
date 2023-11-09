@@ -15,7 +15,7 @@ The brand new release is now ready to be tested in beta. Warning: This is a BETA
 -	Categorized all modules within the report and by naming them e.g. {category}-{check}
 -	CVSS 3.1 Scores are added within calculation. Based what could happen if the misconfiguration is abused
 -	All modules have now an unique ID. In the future an list will be made with remediation so you can easily tell which issue has been found and how to remediate it. 
--	Optmized various inspectors’ code
+-	Optmized various inspectors code
 -	Allowed easier authentication by providing username 
 
 ## Known Issues:
@@ -93,19 +93,42 @@ O I have updated the JQuery and FontAwesome dependencies to their latest version
 - In PowerShell 7 the following inspectors do not work: CISMEx230, CISMEx280, CSTM-Ex013, CSTM-Ex014, CSTM-Ex015, CSTM-Ex016, CSTM-Ex023, CSTM-Ex024, CSTM-Ex025, CSTM-Ex026 and CSTM-Ex027. This has to do with some issues within the new EXO commands that are not entirely working properly with PowerShell 7 yet. Only Exchange is impacted for now. We are looking to revert back from EXO to the normal commands in some test-releases to see if that resolves the issue for now and archive the EXO inspectors for later use.
 
 
+# Version 2.1
+Finally after a long while and postponing the release several times I am happy to announce version 2.1 of M365SAT with a bunch of new updates.
+
+## What is new:
+- Updated the Microsoft 365 CIS benchmark to the latest v3.0.0 
+- We added a parameter for the ones who still want to use the CIS v2.0 benchmark of Microsoft 365
+- We have added a multi-threading mode as expirimental function. Do check the limitations, because there are some problems with it. The implementation is done with ThreadJobs. In PS7+ this is already available and for PS5 you must install an additional module in order to make this work. The reason we did this is because we want to make the scanning experience as fast as possible. Since the scans are not depending on eachother we can simply put them in multiple threads. Normal jobs did not seem to work since they create an new session, thus requiring us to authenticate again for each inspector which creates large delays. Since ThreadJobs stay in the same PowerShell windows but create backgroundjobs that stay in the same session we are allowed to re-use the commands.
+- I have added the Likelihood and Priority objects within all the inspectors. This to calculate the RiskScore. Every RiskScore is calculated by multiplying the impact with the likelihood. A RiskScore can be between 0 and 25. Where 0 is always informational and 25 is Critical. For the exact numbers please consult the README.md published on GitHub.
+
+
+## Fixed:
+We fixed some issues with styling in the report as well as some descriptions from CIS misconfigurations
+
+## Changed:
+- I have changed the CVSS with a risk analysis model based on impact x likelihood
+- We have made a change to the priority schema. Things were not as critical or high sometimes that decided us to change things around to allow your organization better prioritizing your findings. We have decided to use a 5x5 Risk Analysis Schema to determine the severity and priority instead of the score.
+- We have modified the sort-object schema as we are now sorting on the RiskScore.
+- We have provided an update to the README.md to make some text more clear
+
+## Removed:
+- We have removed the CVSS score as it was not accurate. Not every CIS thing fixes a vulnerability.
+
+## Known Issues
+ - The sorting of the objects it not yet fixed, the priority is correct, but the riskrating sort is not correctly implemented yet. This will be fixed in the next release (v2.1.1)
+ - It might happen that some sources have to be changed due to the new implementation. This will be fixed in the next release (v2.1.1)
+ - CISMAz1111 is not working in multithreaded mode on PowerShell v5 (INVESTIGATION) there are multiple issues with multithreading mode when executing the inspectors.
+ - There are issues with MultiThreading when running Exchange Cmdlets. Source: https://learn.microsoft.com/en-us/powershell/exchange/invoke-command-workarounds-rest-api?view=exchange-ps we are looking into implementing the workaround to make this work so multithreading will be no issue with these cmdlets. Eventually these cmdlets will be executed in singlethreaded mode afterwards to make sure they succeed all. (INVESTIGATION)
+
+
 # TO-DO IN UPCOMING VERSIONS
-- Change CVS to CWE with a custom score based by Aster calculated with the CVSS V4.0
-- A brand new remediation schema with brand new priorities based on professional advice. 
-- Add the new scripts that enable remediation via Microsoft Graph and the other endpoints
+- We are going to add back the selection of specific Inspector Modules with a parameter
+- Migrate the Microsoft Sharepoint module to PnP PowerShell, due to wider compatibility and better support
+- Allow MultiThreading where possible thanks to BatchJobs
 - Add the posibility for 1-click remediation as you execute the PowerShell command via the browser
 - Take the Exception part into a core module to eliminate the stuff out of the Powershell script
-- Migrate all the Information parts to a different powershell script
-- Impact will be removed / redefined based on the remediation and not on the risk
-- Risk will be based on the CWE and calculated by Aster in combination with the CVSS and a (generic) Risk-Analysis method
-- RemediationScript will be added in the object
 - Directory will be created earlier to get the new path name so the logfiles will be stored in the correct folder and pointed to the correct folder
-- We are seperating some functions as they are serving as a core module in the future which will be a seperate .ps1 file for better managability
-- Powershell 7 Compatibility
 - Make a risk distribution Chart en make the other chart responsive instead of a static chart
 - Every check will be required to give some output (if something is found of course!) and save this to the findings folder within the reports folder
 - We are looking to implement NIST or another framework as well in the future
