@@ -3,7 +3,7 @@
 Written in PowerShell 5.x and PowerShell 7.x as well!
 Current Version: v2.1
 
-Next Scheduled Release: End of December 2023
+Next Scheduled Release: Q1 2024
 
 <div>
   <p align="center">
