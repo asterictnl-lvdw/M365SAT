@@ -1,6 +1,10 @@
 #Fun Banners To Make The Program Awesome!
 function Banner
 {
+  $title = "M365SAT - The Official Microsoft 365 Security Audit Tool"
+  $subtitle = "I wish you happy auditting! :)"
+  $author = "Leonardo van de Weteringh"
+  $version = "Version 2.1.1"
 	$banner1 = @"
 
 ______  _______________________________________________
@@ -9,8 +13,8 @@ __  /|_/ /___/_ <_  __ \______ \ _____ \__  /| |_  /
 _  /  / / ____/ // /_/ / ____/ / ____/ /_  ___ |  /    
 /_/  /_/  /____/ \____/ /_____/  /____/ /_/  |_/_/     
                                                        
-M365SAT - The Official Microsoft 365 Security Audit Tool - Version 2.1 - Leonardo van de Weteringh
-I wish you happy auditting! :)
+$($title) - $($version) - $($author)
+$($subtitle)
 "@
 	$banner2 = @"
 
@@ -20,8 +24,8 @@ I wish you happy auditting! :)
  d8b Y8b Y8b   e `88b,  Y888 888D  e  888 b Y8D  d888888888b      888     
 d888b Y8b Y8b "8",88P'   "88 88"  "8",88P 8edP  d8888888b Y8b     888     
                                                                           
-M365SAT - The Official Microsoft 365 Security Audit Tool - Version 2.1 - Leonardo van de Weteringh
-I wish you happy auditting! :)               
+$($title) - $($version) - $($author)
+$($subtitle)            
 "@
 	
 	$banner3 = @"
@@ -39,8 +43,8 @@ X8888 X8888  88888   "*8%-  "***"  9888%  :8888E   ^""     >  .....      !  "   
 :""888":~"888"     `888*"  '*8"`   9888%    "88&   888"   %8F"   d888"     '%8888888888*"    .~  `%88!` '888*~   '    "*88888888*   
     "~'    "~        ""      `~===*%"`        ""==*""      ^"===*%"`          ^"****""`            `"     ""             ^"***"'     
 
-M365SAT - The Official Microsoft 365 Security Audit Tool - Version 2.1 - Leonardo van de Weteringh
-I wish you happy auditting! :)    
+$($title) - $($version) - $($author)
+$($subtitle)   
 "@
 	
 	$banner4 = @"
@@ -51,8 +55,8 @@ oooo     oooo  ooooooo     ooooooo   oooooooooo oooooooo8      o   ooooooooooo
  88  888  88 88o    o888 88o    o888 ooo    o888       888  8oooo88    888     
 o88o  8  o88o  88ooo88     88ooo88     88ooo88 o88oooo888 o88o  o888o o888o    
                                                                               
-M365SAT - The Official Microsoft 365 Security Audit Tool - Version 2.1 - Leonardo van de Weteringh
-I wish you happy auditting! :)  
+$($title) - $($version) - $($author)
+$($subtitle)
 "@
 	
 	$banner5 = @"                                                 
@@ -68,10 +72,14 @@ I wish you happy auditting! :)
    `YbwP'           `YbwP'      .dP'               88        
                                                   .8P        
                                                   
-M365SAT - The Official Microsoft 365 Security Audit Tool - Version 2.1 - Leonardo van de Weteringh
-I wish you happy auditting! :)  
+$($title) - $($version) - $($author)
+$($subtitle)
 "@
+
+#Actual Script::
 	$banner = @($banner1, $banner2, $banner3, $banner4, $banner5)
 	$bannernumber = (Get-Random -Maximum $banner.length)
-	Write-Host ($banner[$bannernumber]) -ForegroundColor Yellow
+	$bannercolor = @("Red","DarkYellow","Yellow","Green","Blue","Magenta")
+  $bannercolornumber = (Get-Random -Maximum $bannercolor.length)
+  Write-Host ($banner[$bannernumber]) -ForegroundColor ($bannercolor[$bannercolornumber])
 }

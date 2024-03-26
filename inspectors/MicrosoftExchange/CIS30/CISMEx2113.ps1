@@ -43,7 +43,7 @@ function Inspect-CISMEx2113
 	{
 		$Categories = @('InboundDLPHits','OutboundDLPHits','InboundTransportRuleHits','OutboundTransportRuleHits','InboundDLPPolicyRuleHits','OutboundDLPPolicyRuleHits','TopSpamRecipient','TopMailSender','TopMailRecipient','TopMalwareRecipient','TopMalware')
 		#SafeLinks
-		Get-SafeLinksAggregateReport | Format-Table -AutoSize | Out-File "$path\CISMEx2113SecurityThreatsStatusReport.txt"
+		Get-SafeLinksAggregateReport | Format-Table -AutoSize | Out-File "$path\CISMEx2113SecurityThreatsStatusReport.txt" -ErrorAction SilentlyContinue
 		Get-SafeLinksDetailReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt"
 		#ATP
 		Get-MailTrafficATPReport | Format-Table -AutoSize | Out-File -Append  "$path\CISMEx2113SecurityThreatsStatusReport.txt"
@@ -56,8 +56,8 @@ function Inspect-CISMEx2113
 		Get-MailTrafficPolicyReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt"
 		Get-MailFlowStatusReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt"
 		#Content Malware MDO
-		Get-ContentMalwareMdoAggregateReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt"
-		Get-ContentMalwareMdoDetailReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt"
+		Get-ContentMalwareMdoAggregateReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt" -ErrorAction SilentlyContinue
+		Get-ContentMalwareMdoDetailReport | Format-Table -AutoSize | Out-File -Append "$path\CISMEx2113SecurityThreatsStatusReport.txt" -ErrorAction SilentlyContinue
 		
 		$endobject = Build-CISMEx2113("0")
 		Return $endobject

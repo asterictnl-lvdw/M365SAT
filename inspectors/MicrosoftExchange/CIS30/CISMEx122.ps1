@@ -41,18 +41,16 @@ function Audit-CISMEx122
 	{
 		# Actual Script
 		$Count = 0
-		$MBX = Get-EXOMailbox -RecipientTypeDetails SharedMailbox
+		$MBX = Get-Mailbox -RecipientTypeDetails SharedMailbox
 		foreach ($Account in $MBX)
 		{
 			$AccountSetting = Get-MgUser -UserId $Account.ExternalDirectoryObjectId
 			if ($AccountSetting.AccountEnabled -eq $false -or [string]::IsNullOrEmpty($AccountSetting.AccountEnabled))
 			{
-				Write-Host "Shared Mailbox $($AccountSetting.UserPrincipalName) cannot Sign-In!"
 				
 			}
 			else
 			{
-				Write-Host "Shared Mailbox $($AccountSetting.UserPrincipalName) can Sign-In!"
 				$Count++
 			}
 		}

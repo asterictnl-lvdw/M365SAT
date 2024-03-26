@@ -1,18 +1,21 @@
-# TO-DO
-- Change CVS to CWE with a custom score based by Aster calculated with the CVSS V4.0
-- A brand new remediation schema with brand new priorities based on professional advice. 
-- Add the new scripts that enable remediation via Microsoft Graph and the other endpoints
-- Add the posibility for 1-click remediation as you execute the PowerShell command via the browser
-- Take the Exception part into a core module to eliminate the stuff out of the Powershell script
-- Migrate all the Information parts to a different powershell script
-- Impact will be removed / redefined based on the remediation and not on the risk
-- Risk will be based on the CWE and calculated by Aster in combination with the CVSS and a (generic) Risk-Analysis method
-- RemediationScript will be added in the object
-- Directory will be created earlier to get the new path name so the logfiles will be stored in the correct folder and pointed to the correct folder
-- We are seperating some functions as they are serving as a core module in the future which will be a seperate .ps1 file for better managability
-- Powershell 7 Compatibility
-- Make a risk distribution Chart en make the other chart responsive instead of a static chart
-- Every check will be required to give some output (if something is found of course!) and save this to the findings folder within the reports folder
-- We are looking to implement NIST or another framework as well in the future
-- Testing a network connection script that allows only this scrip to be run when user is actually online. Get-NetRoute | ? DestinationPrefix -eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState -eq 'Connected' (Which is for checking Network Connection)
-- Fully cross-platform compatibility by removing as many platform dependencies and replacing them by initiating them via API connections.
+## Known Issues and TO-DO (v2.1.1)
+-   The sorting of the objects it not yet fixed, the priority is correct, but the riskrating sort is not correctly implemented yet. This will be fixed in the next release (v2.2)
+-   It might happen that some sources have to be changed due to the new implementation. This will be fixed in the next release (v2.2)
+-   There are some issues regarding the reporting of some inspectors displaying incorrect text. This will fixed in the next release (v2.2)
+-   CISMAz1111 is not working in multithreaded mode on PowerShell v5 (INVESTIGATION) 
+-   There are multiple issues with multithreading mode when executing the inspectors. This is being investigated, but there is no fix available at this moment. When this will be fixed is unknown 
+-   There are issues with MultiThreading when running Exchange Cmdlets. Source: https://learn.microsoft.com/en-us/powershell/exchange/invoke-command-workarounds-rest-api?view=exchange-ps we are looking into implementing the workaround to make this work so multithreading will be no issue with these cmdlets. Eventually these cmdlets will be executed in singlethreaded mode afterwards to make sure they succeed all.
+-   We are going to simplify the selection of inspectors, since this is complex and can be done much simpler (v2.2)
+-   We are going to start using PnP.Powershell alongside the Microsoft Sharepoint module to PnP PowerShell, due to wider compatibility and better support
+-   We are going to widen the compatibility of MultiThreaded-Mode
+-   Add the posibility for 1-click remediation as you execute the PowerShell command via the browser by executing the command in the browser to look at this possibility
+-   The exception will be a seperate module as this is much simpler than raising the same exception everytime.
+-   The main Directory will be created earlier to get the new path name so the logfiles will be stored in the correct folder and pointed to the correct folder
+-   Make a risk distribution Chart en make the other chart responsive instead of a static chart
+-   Every check will be required to give some output (if something is found of course!) and save this to the findings folder within the reports folder
+-   We are looking to implement NIST or another framework as well in the future
+-   Testing a network connection script that allows only this scrip to be run when user is actually online. Get-NetRoute | ? DestinationPrefix-eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState-eq 'Connected' (Which is for checking Network Connection)
+-   Fully cross-platform compatibility by removing as many platform dependencies and replacing them by initiating them via API connections.
+-   E3 / E5 TAG ADDING (E3 Level 1, E3 Level 2, E5 Level 1, E5 Level 2)
+-   Check the URL of some inspectors as they are listed incorrectly within the PowerShell script
+-   There is no detection for government issued environments and I do not know if the script does work for it

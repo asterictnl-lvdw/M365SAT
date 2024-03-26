@@ -21,7 +21,7 @@ function Build-CSTM-Ex015($findings)
 		RiskScore		     = "9"
 		Description	     = "The Exchange Online mailboxes listed above have delegated SendOnBehalfOf permissions to another account."
 		Remediation	     = "This finding refers to individual mailboxes that have SendOnBehalfOf delegated permissions. For these mailboxes, verify that the delegate access is expected, appropriate, and do not violate company policy."
-		PowerShellScript = 'Get-EXOMailbox -ResultSize Unlimited -Properties GrantSendOnBehalfTo | Set-Mailbox -GrantSendOnBehalfTo @{remove="*"}'
+		PowerShellScript = 'Get-Mailbox -ResultSize Unlimited -Properties GrantSendOnBehalfTo | Set-Mailbox -GrantSendOnBehalfTo @{remove="*"}'
 		DefaultValue	 = "0"
 		ExpectedValue    = "0"
 		ReturnedValue    = $findings.ToString()
@@ -41,7 +41,7 @@ Function Inspect-CSTM-Ex015
 	{
 		
 		
-		$GrantSendOnBehalfTo = Get-EXOMailbox -ResultSize Unlimited -Properties GrantSendOnBehalfTo | Where-Object { $_.GrantSendOnBehalfTo -like "*" }
+		$GrantSendOnBehalfTo = Get-Mailbox -ResultSize Unlimited | Where-Object { $_.GrantSendOnBehalfTo -like "*" }
 		
 		if ($GrantSendOnBehalfTo.Count -gt 0)
 		{

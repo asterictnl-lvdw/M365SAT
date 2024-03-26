@@ -18,7 +18,7 @@
 function Check-M365SATModuleDuplicates
 {
 	#Uninstall Modules
-	$ModuleList = @("MicrosoftTeams", "Az", "ExchangeOnlineManagement", "Microsoft.Online.Sharepoint.PowerShell", "Microsoft.Graph","Microsoft.Graph.Beta")
+	$ModuleList = @("MicrosoftTeams", "Az", "ExchangeOnlineManagement", "Microsoft.Online.Sharepoint.PowerShell", "Microsoft.Graph","Microsoft.Graph.Beta","PoShLog")
 	
 	# Get the new module versions for comparing them to to previous one if updated
 	$NewModules = Get-InstalledModule -Name $ModuleList | Select-Object Name, Version | Sort-Object Name

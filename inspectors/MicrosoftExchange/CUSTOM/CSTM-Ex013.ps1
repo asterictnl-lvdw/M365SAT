@@ -39,7 +39,7 @@ Function Inspect-CSTM-Ex013
 	Try
 	{
 		
-		$FullAccess = Get-ExoMailbox -ResultSize Unlimited | Get-EXOMailboxPermission | Where-Object { ($_.User -ne 'NT AUTHORITY\SELF') -and ($_.AccessRights -eq 'FullAccess') }
+		$FullAccess = Get-Mailbox -ResultSize Unlimited | Get-MailboxPermission | Where-Object { ($_.User -ne 'NT AUTHORITY\SELF') -and ($_.AccessRights -eq 'FullAccess') }
 		
 		if ($FullAccess.Count -gt 0)
 		{
