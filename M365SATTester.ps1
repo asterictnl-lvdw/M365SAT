@@ -1,7 +1,9 @@
+#Requires -Version 5.1
+#Requires -RunAsAdministrator
 function ExecuteM365SAT
 {
 	Import-Module .\M365SAT.psd1
-	Get-M365SATReport -OutPath "C:\Out" -SkipChecks -Username "example@contoso.com" -reportType "HTML" -AllowLogging "Warning" -UseCustomModules -AuditType "CISV3"
+	Get-M365SATReport -OutPath "C:\Out" -SkipChecks -Username "example@example.org" -reportType "HTML" -AllowLogging "Warning" -UseCustomModules -AuditType "CISV3"
 	Remove-Module M365SAT
 }
 

@@ -40,7 +40,7 @@ function Inspect-CSTM-Ex023
 {
 	Try
 	{
-		$Mailboxes = Get-EXOCASMailbox -Filter { ImapEnabled -eq $true } | Select-Object @{ n = "Identity"; e = { $_.primarysmtpaddress } }
+		$Mailboxes = Get-CASMailbox -Filter { ImapEnabled -eq $true } | Select-Object @{ n = "Identity"; e = { $_.primarysmtpaddress } }
 		if ($Mailboxes.Count -igt 0)
 		{
 			$Mailboxes | Out-File -FilePath "$path\ExchangeMailboxeswithIMAPEnabled.txt" -Append

@@ -379,6 +379,8 @@ function Get-M365SATHTMLReport
         <link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css' rel='stylesheet' />
         <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-powershell.min.js'></script>
+    	<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+    	<script src='https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0'></script>
         
         <nav class='navbar navbar-custom' >
             <div class='container-fluid'>
@@ -462,7 +464,6 @@ function Get-M365SATHTMLReport
         OUTPUT GENERATION / Summary cards
 
     #>
-	
 	
 	$Output += "
                     <table class='table-summary-results'>
@@ -978,6 +979,82 @@ function Get-M365SATHTMLReport
                 }, 700);
                 }
             </script>
+
+		// Risk Chart 
+			<script>
+        var ctx = document.getElementById('riskChart').getContext('2d');
+
+        // Calculate percentages based on total count
+        var totalFindingsString = '$($object.InspectorsCount)';
+        var totalFindings = parseInt(totalFindingsString);
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Critical', 'High', 'Medium', 'Low', 'Informational'],
+                datasets: [{
+                    label: 'Risk Severity',
+                    backgroundColor: ['#660000', '#FF1100', '#FFC107', '#38761D', '#2986CC'],
+                    data: ['$($CriticalCount)', '$($HighCount)', '$($MediumCount)', '$($LowCount)', '$($InformationalCount)']
+                }]
+            },
+            plugins: [ChartDataLabels],
+            options: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Risk Ratings'
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        type: 'linear',
+                        min: 0,
+                        ticks: {
+                            stepSize: 5,
+                            precision: 0
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        font: {
+                            size: 11,
+                            weight: 'bold'
+                        },
+                        formatter: function (value, context) {
+                            var count = context.dataset.data[context.dataIndex];
+                            var percentage = Math.round(((count / totalFindings) * 100).toFixed(1)) + '%';
+                            return context.chart.data.labels[context.dataIndex] + ': ' + count + '\n' + '(' + percentage + ')';
+                        }
+                    }
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var count = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            var percentage = Math.round(((count / totalFindings) * 100).toFixed(1)) + '%';
+                            return data.labels[tooltipItem.index] + ': ' + count + ' (' + percentage + ')';
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 
         </body>
     </html>"

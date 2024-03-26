@@ -40,7 +40,7 @@ function Audit-CISMEx280
 	{
 		$InstallationOutlookAddInsData = @()
 		
-		$Policy = (Get-EXOMailbox | Select-Object -Unique RoleAssignmentPolicy | ForEach-Object { Get-RoleAssignmentPolicy -Identity $_.RoleAssignmentPolicy | Where-Object { $_.AssignedRoles -like "*Apps*" } } | Select-Object Identity, @{ Name = "AssignedRoles"; Expression = { Get-ExoMailbox | Select-Object -Unique RoleAssignmentPolicy | ForEach-Object { Get-RoleAssignmentPolicy -Identity $_.RoleAssignmentPolicy | Select-Object -ExpandProperty AssignedRoles | Where-Object { $_ -like "*Apps*" } } } })
+		$Policy = (Get-Mailbox | Select-Object -Unique RoleAssignmentPolicy | ForEach-Object { Get-RoleAssignmentPolicy -Identity $_.RoleAssignmentPolicy | Where-Object { $_.AssignedRoles -like "*Apps*" } } | Select-Object Identity, @{ Name = "AssignedRoles"; Expression = { Get-Mailbox | Select-Object -Unique RoleAssignmentPolicy | ForEach-Object { Get-RoleAssignmentPolicy -Identity $_.RoleAssignmentPolicy | Select-Object -ExpandProperty AssignedRoles | Where-Object { $_ -like "*Apps*" } } } })
 		foreach ($AssignedRole in $Policy.AssignedRoles)
 		{
 			if ($AssignedRole -match "My Custom Apps")

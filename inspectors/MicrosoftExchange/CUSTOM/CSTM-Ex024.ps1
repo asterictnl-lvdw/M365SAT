@@ -42,7 +42,7 @@ Function Audit-CSTM-Ex024
 	Try
 	{
 		
-		$mailboxes = Get-ExoMailbox -ResultSize Unlimited
+		$mailboxes = Get-Mailbox -ResultSize Unlimited
 		
 		$knownDomains = (Get-AcceptedDomain).DomainName
 		

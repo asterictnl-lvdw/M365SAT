@@ -6,10 +6,10 @@
 		M365SAT - The Microsoft 365 Security Assessment Tool
     
     .VERSION
-        Version 2.0 stable
+        Version 2.1.1 stable
 
     .RELEASE_DATE
-        14-6-2023
+        25-03-2024
 
 	.DESCRIPTION
        Allows an Administrator to audit Microsoft 365 environments by executing various 'inspector'
@@ -23,7 +23,7 @@
         Output report uses open source components for HTML formatting
         - Bootstrap 5 - MIT License - https://getbootstrap.com/docs/4.0/about/license/
         - Fontawesome 6 - CC BY 4.0 License - https://fontawesome.com/license/free
-        - Leonardo van de Weteringh © 2022
+        - Leonardo van de Weteringh © 2024
         
         ############################################################################
 
@@ -91,8 +91,8 @@ function Get-M365SATReport
 		[switch]$UseExpirimentalScanner,
 		[Parameter(Mandatory = $true,
 				   HelpMessage = 'Choose the Report Format. Default is CISV3. CISV2/CISV3')]
-		[ValidateSet('CISV2', 'CISV3', IgnoreCase = $true)]
-		[string]$AuditType = "CISV3",
+		[ValidateSet('CISV2', 'CISV3', 'Latest', IgnoreCase = $true)]
+		[string]$AuditType = "Latest",
 		[switch]$SkipLogin,
 		[Parameter(Mandatory = $false,
 				   HelpMessage = 'Uses Custom Modules')]

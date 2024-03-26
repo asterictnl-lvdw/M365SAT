@@ -52,19 +52,19 @@ M365SAT is open-source and completely free of charge!
 ## 4. Installation
 M365SAT can be installed the following ways:
 
-- Install-Module M365SAT (Coming in the next release!)
-- By Downloading the latest release and using Import-Module on the psd1 file
-- By Downloading the latest release and using the M365SATTester.ps1 file
+-	Install-Module M365SAT (Coming in the next release!)
+-	By Downloading the latest release and using Import-Module on the psd1 file
+-	By Downloading the latest release and using the M365SATTester.ps1 file
 
 ### 4.1 Modules Installation
 
 The following modules need to be installed in order to make M365SAT work:
-- Az
-- ExchangeOnlineManagement
-- Microsoft.Online.SharePoint.PowerShell
-- Microsoft.Graph
-- MicrosoftTeams
-- PoShLog
+-	Az
+-	ExchangeOnlineManagement
+-	Microsoft.Online.SharePoint.PowerShell
+-	Microsoft.Graph
+-	MicrosoftTeams
+-	PoShLog
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement
@@ -88,10 +88,10 @@ M365SAT is very easy to use. There are two main ways of executing M365SAT:
 ### 5.1 Necessary Privileges to Run
 M365SAT compared to its predecessor it needs less permissions than 365Inspect+. The following permissions can be used to run a successful audit:
 
-- Application Administrator
-- SharePoint Administrator
-- Exchange Administrator
-- Global Reader
+-	Application Administrator
+-	SharePoint Administrator
+-	Exchange Administrator
+-	Global Reader
 
 These permissions are tested with the latest M365SAT version and reported to be working as for 20-7-2023
 
@@ -149,11 +149,11 @@ All Inspector modules are stored in the .\inspectors folder. You can use any ear
 *CSTM-[ProductFamily][ID].ps1*
 
 For ProductFamily we have the following options at the moment:
-- Az (Microsoft Azure)
-- Ex (Microsoft Exchange)
-- O365 (Microsoft 365)
-- Sp (Microsoft Sharepoint)
-- Tms (Microsoft Teams)
+-	Az (Microsoft Azure)
+-	Ex (Microsoft Exchange)
+-	O365 (Microsoft 365)
+-	Sp (Microsoft Sharepoint)
+-	Tms (Microsoft Teams)
 
 ID Should be XXX-format e.g. 001, 002, 003, etc.
 
@@ -220,16 +220,16 @@ return Audit-CSTM-Sp001
 ````
 
 To briefly explain the parts above:
-- 1, Description of your program, including author, purpose, etc.
-- 2, you have the error handling with PoShLog
-- 3, optionally if your script has logs to export you can use the *$path = @($OutPath)* to make sure the logs are being put into the correct folder
-- 4, The 'Build' Function containing the information if violation of the inspector is found the Build function can be executed to create a CustomPSObject to return for the report.
-- 5, the actual script that checks if there is any violation. You always provide $endobject = Build-{Yourinspectorname}(x) and return $endobject. x is the information you want to pass to the build function to fill the PSCustomObject with so the findings can be reported back into the report
+-	1, Description of your program, including author, purpose, etc.
+-	2, you have the error handling with PoShLog
+-	3, optionally if your script has logs to export you can use the *$path = @($OutPath)* to make sure the logs are being put into the correct folder
+-	4, The 'Build' Function containing the information if violation of the inspector is found the Build function can be executed to create a CustomPSObject to return for the report.
+-	5, the actual script that checks if there is any violation. You always provide $endobject = Build-{Yourinspectorname}(x) and return $endobject. x is the information you want to pass to the build function to fill the PSCustomObject with so the findings can be reported back into the report
 
 Some Coding Tips:
- - Use try & catch in case if your inspector has problems the output will return null or an exception will be thrown. The output those errors can be found in the same directory into an additionally created log directory where the errorlogs are placed.
- - Try to use as less code as possible. Long strings of code will delay the overall performance and makes the security assessment much longer than usual
- - If you really want to make beautiful well-formatted PowerShell Inspectors. Take a look at SAPIEN PowerShell Studio. It has a nice Format-Script function that allows you to very much format the script into readable parts to save you time finding issues if there are any.
+ -	Use try & catch in case if your inspector has problems the output will return null or an exception will be thrown. The output those errors can be found in the same directory into an additionally created log directory where the errorlogs are placed.
+ -	Try to use as less code as possible. Long strings of code will delay the overall performance and makes the security assessment much longer than usual
+ -	If you really want to make beautiful well-formatted PowerShell Inspectors. Take a look at SAPIEN PowerShell Studio. It has a nice Format-Script function that allows you to very much format the script into readable parts to save you time finding issues if there are any.
 
 ### 6.2 Developing Additional Modules
 You can develop additional modules and place them either in the .\modules if it is a pre-check module or in the core module if it is an addition to the core of the program. If you develop a new way to output a report into a different file you can place the so-called 'parser' into the .\output folder
@@ -238,9 +238,9 @@ You can develop additional modules and place them either in the .\modules if it 
 Me as a Vulnerability Assessor take security very seriously. Take in mind that this program can execute other inspector modules. That means even malicious scripts can be ran if wanted. I am not responsible for any damage or loss of files if that is the case.
 
 Please use the security best-practices as followed:
-- Use least privilege on the account you audit with. So only the necessary privileges for the audit being used on the account you are provided with,
-- Write-Protect the inspector folder for unauthorized access to make sure your inspectors are not being overwritten with malicious code,
-- Do not place, unless it is trusted, any PowerShell script into the inspectors folder
+-	Use least privilege on the account you audit with. So only the necessary privileges for the audit being used on the account you are provided with,
+-	Write-Protect the inspector folder for unauthorized access to make sure your inspectors are not being overwritten with malicious code,
+-	Do not place, unless it is trusted, any PowerShell script into the inspectors folder
 
 ## 8. License
 

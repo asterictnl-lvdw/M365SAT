@@ -15,17 +15,23 @@ function Get-M365SATChecks($Directory, $Modules, $CustomModules, $AuditType)
 	{
 		$Modules = @("MicrosoftAzure", "MicrosoftExchange", "MicrosoftOffice365", "MicrosoftSharepoint", "MicrosoftTeams")
 	}
-	
-	if ($AuditType.Contains("CISV3"))
+	if ($AuditType.Contains("Latest"))
 	{
 		$Folder = "CIS30"
+		$AzureFolder = "CISA21"
+	}
+	elseif ($AuditType.Contains("CISV3"))
+	{
+		$Folder = "CIS30"
+		$AzureFolder = "CISA21"
 	}
 	else
 	{
 		$Folder = "CIS20"
+		$AzureFolder = "CISA20"
 	}
 	
-	$AzureFolder = "CISA20"
+	
 	
 	#Empty Lists Initialization
 	$listfullinspectors = @()
@@ -117,17 +123,21 @@ function Get-M365SATLocalChecks($Directory, $Modules, $CustomModules, $AuditType
 	{
 		$Modules = @("MicrosoftAzure", "MicrosoftExchange", "MicrosoftOffice365", "MicrosoftSharepoint", "MicrosoftTeams")
 	}
-	
-	if ($AuditType.Contains("CISV3"))
+	if ($AuditType.Contains("Latest"))
 	{
 		$Folder = "CIS30"
+		$AzureFolder = "CISA21"
+	}
+	elseif ($AuditType.Contains("CISV3"))
+	{
+		$Folder = "CIS30"
+		$AzureFolder = "CISA21"
 	}
 	else
 	{
 		$Folder = "CIS20"
+		$AzureFolder = "CISA20"
 	}
-	
-	$AzureFolder = "CISA20"
 	
 	#Empty Lists Initialization
 	$listfullinspectors = @()
