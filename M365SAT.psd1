@@ -12,25 +12,25 @@
 RootModule = 'M365SAT.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.1'
+ModuleVersion = '2.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = 'ecb8dd57-d19d-47cf-863f-d77d9e7e074f'
+GUID = 'd19fde63-5e13-4f5c-bd2d-ba407e0cf260'
 
 # Author of this module
 Author = 'Leonardo van de Weteringh'
 
 # Company or vendor of this module
-CompanyName = 'Aster-ICT'
+CompanyName = 'Karmakstylez'
 
 # Copyright statement for this module
-Copyright = '(c) 2023 Leonardo van de Weteringh. All rights reserved.'
+Copyright = '(c) 2024 Leonardo van de Weteringh. All rights reserved.'
 
 #Description of the functionality provided by this module
-Description = 'A Microsoft 365 Security Audit Tool'
+Description = 'A Microsoft Azure/Microsoft 365 Security Audit Tool'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'

@@ -39,7 +39,7 @@ function Audit-CISMEx612
 	try
 	{
 		# Short Script
-		$MailAudit = Get-EXOMailbox -PropertySets Audit -ResultSize Unlimited |	Select-Object UserPrincipalName, AuditEnabled, AuditAdmin, AuditDelegate, AuditOwner
+		$MailAudit = Get-Mailbox -ResultSize Unlimited | Select-Object UserPrincipalName, AuditEnabled, AuditAdmin, AuditDelegate, AuditOwner
 		$MailboxAuditData = @()
 		$MailboxAudit1 = $MailAudit | Where { $_.AuditEnabled -eq $false }
 		if ($MailboxAudit1 -ne $null)

@@ -42,7 +42,7 @@ function Inspect-CSTM-Ex026
 {
 	Try
 	{
-		$Users = Get-EXOCASMailbox -ResultSize unlimited -Properties SmtpClientAuthenticationDisabled
+		$Users = Get-CASMailbox -ResultSize Unlimited
 		$Mailboxes = ($Users | where { $_.SmtpClientAuthenticationDisabled -eq $true })
 		$Validation = Get-TransportConfig | Select-Object SmtpClientAuthenticationDisabled
 		if ($Validation.SmtpClientAuthenticationDisabled -eq $True -or $Mailboxes.Count -ne 0)

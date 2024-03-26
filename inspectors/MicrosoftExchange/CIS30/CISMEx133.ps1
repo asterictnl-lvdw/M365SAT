@@ -42,11 +42,11 @@ function Audit-CISMEx133
 		$ExchangeSetting = Get-SharingPolicy | Where-Object { $_.Domains -like '*CalendarSharing*' }
 		
 		$affectedmailboxes = @()
-		$mailboxes = Get-EXOMailbox -ResultSize Unlimited
+		$mailboxes = Get-Mailbox -ResultSize Unlimited
 		foreach ($mailbox in $mailboxes)
 		{
 			# Get the name of the default calendar folder (depends on the mailbox's language) 
-			$calendarFolder = [string](Get-ExoMailboxFolderStatistics $mailbox.PrimarySmtpAddress -FolderScope Calendar | Where-Object { $_.FolderType -eq 'Calendar' }).Name
+			$calendarFolder = [string](Get-MailboxFolderStatistics $mailbox.PrimarySmtpAddress -FolderScope Calendar | Where-Object { $_.FolderType -eq 'Calendar' }).Name
 			# Get users calendar folder settings for their default Calendar folder # calendar has the format identity:\<calendar folder name> 
 			$calendar = Get-MailboxCalendarFolder -Identity "$($mailbox.PrimarySmtpAddress):\$calendarFolder"
 			if ($calendar.PublishEnabled)

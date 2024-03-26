@@ -3,7 +3,7 @@ function Check-M365SATModules
 {
 	Write-Warning "[?] Checking Installed Modules..."
 	# Define the set of modules installed and updated from the PowerShell Gallery that we want to maintain
-	$Modules = @("MicrosoftTeams", "Az", "ExchangeOnlineManagement", "Microsoft.Online.Sharepoint.PowerShell", "Microsoft.Graph","Microsoft.Graph.Beta")
+	$Modules = @("MicrosoftTeams", "Az", "ExchangeOnlineManagement", "Microsoft.Online.Sharepoint.PowerShell", "Microsoft.Graph","Microsoft.Graph.Beta","PoShLog")
 	#Check which Modules are Installed Already...
 	$count = 0
 	$installed = Get-InstalledModule

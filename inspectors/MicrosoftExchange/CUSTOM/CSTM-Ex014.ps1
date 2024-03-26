@@ -40,7 +40,7 @@ Function Inspect-CSTM-Ex014
 	{
 		
 		
-		$sendAs = Get-ExoMailbox -ResultSize Unlimited | Get-ExoRecipientPermission | Where-Object { ($_.Trustee -ne 'NT AUTHORITY\SELF') -and ($_.AccessControlType -eq "Allow") -and ($_.AccessRights -eq 'SendAs') }
+		$sendAs = Get-Mailbox -ResultSize Unlimited | Get-RecipientPermission | Where-Object { ($_.Trustee -ne 'NT AUTHORITY\SELF') -and ($_.AccessControlType -eq "Allow") -and ($_.AccessRights -eq 'SendAs') }
 		
 		if ($sendAs.Count -gt 0)
 		{

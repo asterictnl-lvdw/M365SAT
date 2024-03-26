@@ -42,7 +42,7 @@ Function Inspect-CSTM-Ex016
 	Try
 	{
 		
-		$mailboxes = Get-ExoMailbox -ResultSize Unlimited -Properties ForwardingSmtpAddress, DeliverToMailboxAndForward | Where-Object { ($_.ForwardingSmtpAddress -ne $Null) -or ($_.DeliverToMailboxAndForward -ne $False) }
+		$mailboxes = Get-Mailbox -ResultSize Unlimited | Where-Object { ($_.ForwardingSmtpAddress -ne $Null) -or ($_.DeliverToMailboxAndForward -ne $False) }
 		
 		$knownDomains = (Get-AcceptedDomain).DomainName
 		

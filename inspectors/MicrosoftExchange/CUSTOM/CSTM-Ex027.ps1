@@ -44,7 +44,7 @@ function Audit-CSTM-Ex027
 		$finalobject = @()
 		$MailboxPlans = @()
 		$array = @("ActiveSyncEnabled", "PopEnabled", "ImapEnabled", "EwsEnabled", "MapiEnabled")
-		$MailboxPlan = Get-EXOCASMailbox | Select-Object Name, PrimarySmtpAddress #Define the Names
+		$MailboxPlan = Get-CASMailbox | Select-Object Name, PrimarySmtpAddress #Define the Names
 		foreach ($Plan in $MailboxPlan)
 		{
 			$unit = Get-CASMailbox -Identity $Plan.PrimarySmtpAddress | Select-Object Name, ActiveSyncEnabled, ImapEnabled, MAPIEnabled, PopEnabled, PopMessageDeleteEnabled, EwsEnabled
