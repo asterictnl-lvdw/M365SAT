@@ -1,21 +1,17 @@
-## Known Issues and TO-DO (v2.1.1)
--   The sorting of the objects it not yet fixed, the priority is correct, but the riskrating sort is not correctly implemented yet. This will be fixed in the next release (v2.2)
--   It might happen that some sources have to be changed due to the new implementation. This will be fixed in the next release (v2.2)
--   There are some issues regarding the reporting of some inspectors displaying incorrect text. This will fixed in the next release (v2.2)
--   CISMAz1111 is not working in multithreaded mode on PowerShell v5 (INVESTIGATION) 
+## Known Issues and TO-DO (v2.2)
+-   The sorting of the objects it not yet fixed, the priority is correct, but the riskrating sort is not correctly implemented yet. (v2.3 / v3.0)
 -   There are multiple issues with multithreading mode when executing the inspectors. This is being investigated, but there is no fix available at this moment. When this will be fixed is unknown 
 -   There are issues with MultiThreading when running Exchange Cmdlets. Source: https://learn.microsoft.com/en-us/powershell/exchange/invoke-command-workarounds-rest-api?view=exchange-ps we are looking into implementing the workaround to make this work so multithreading will be no issue with these cmdlets. Eventually these cmdlets will be executed in singlethreaded mode afterwards to make sure they succeed all.
--   We are going to simplify the selection of inspectors, since this is complex and can be done much simpler (v2.2)
--   We are going to start using PnP.Powershell alongside the Microsoft Sharepoint module to PnP PowerShell, due to wider compatibility and better support
+-   We are going to start using PnP.Powershell alongside the Microsoft Sharepoint module to PnP PowerShell, due to wider compatibility and better support. This will be implemented in v2.3 or v3.0
 -   We are going to widen the compatibility of MultiThreaded-Mode
--   Add the posibility for 1-click remediation as you execute the PowerShell command via the browser by executing the command in the browser to look at this possibility
+-   Add the posibility for 1-click remediation as you execute the PowerShell command via the browser by executing the command in the browser to look at this possibility (v2.3 / v3.0)
 -   The exception will be a seperate module as this is much simpler than raising the same exception everytime.
 -   The main Directory will be created earlier to get the new path name so the logfiles will be stored in the correct folder and pointed to the correct folder
--   Make a risk distribution Chart en make the other chart responsive instead of a static chart
--   Every check will be required to give some output (if something is found of course!) and save this to the findings folder within the reports folder
--   We are looking to implement NIST or another framework as well in the future
--   Testing a network connection script that allows only this scrip to be run when user is actually online. Get-NetRoute | ? DestinationPrefix-eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState-eq 'Connected' (Which is for checking Network Connection)
--   Fully cross-platform compatibility by removing as many platform dependencies and replacing them by initiating them via API connections.
--   E3 / E5 TAG ADDING (E3 Level 1, E3 Level 2, E5 Level 1, E5 Level 2)
--   Check the URL of some inspectors as they are listed incorrectly within the PowerShell script
--   There is no detection for government issued environments and I do not know if the script does work for it
+-   Make a risk distribution Chart en make the other chart responsive instead of a static chart (v2.3 / v3.0)
+-   The permissions schema of Microsoft Graph will be changed in the next release. Someone else will scan which permissions are neccesary to implement
+-   We are looking to implement NIST or another framework as well in the future (v2.3 / v3.0)
+-   Testing a network connection script that allows only this scrip to be run when user is actually online. Get-NetRoute | ? DestinationPrefix-eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState-eq 'Connected' (Which is for checking Network Connection) (v2.3 / v3.0)
+-   Fully cross-platform compatibility by removing as many platform dependencies and replacing them by initiating them via API connections. (v2.3 / v3.0)
+-   There is no detection for government issued environments and I do not know if the script does work for it (v2.3 / v3.0)
+-   Looking into the implementation with a service principal instead of a global admin account with respective permissions (v2.3 / v3.0)
+-   I am going to look into the legacy CIS benchmarks to improve them and archive them to the online version. The local version will have the latest versions available by then (v2.3 / v3.0)

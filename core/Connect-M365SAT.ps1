@@ -10,123 +10,239 @@ function Connect-M365SAT
 	. $PSScriptRoot\m365connectors\Connect-MicrosoftSharepoint.ps1
 	. $PSScriptRoot\m365connectors\Connect-MicrosoftTeams.ps1
 	
+	# Initialize Variables
+	[bool]$AzureAuth = $false
+	[bool]$GraphAuth = $false
+	[bool]$SecurityComplianceAuth = $false
+	[bool]$ExchangeAuth = $false
+	[bool]$SharepointAuth = $false
+	[bool]$TeamsAuth = $false
+
 	if ($PSVersionTable.PSVersion.Major -igt 5)
 		{
 			Import-Module Microsoft.Online.SharePoint.PowerShell -UseWindowsPowershell
 		}
-	
-	if (![string]::IsNullOrEmpty($Username) -and ![string]::IsNullOrEmpty($Password))
+
+	if ($Modules.Contains("All"))
+	{
+		[Array]$Modules = @("Azure", "Exchange", "Office365", "Sharepoint", "Teams")
+	}	
+	if (![string]::IsNullOrEmpty($Password))
 	{
 		#Authentication Username + Password 
 		#Store Credentials in Variable
 		try
 		{
-			$SecuredPassword = ConvertTo-SecureString -AsPlainText $Password -Force
-			$Credential = New-Object System.Management.Automation.PSCredential $UserName, $SecuredPassword
+			[securestring]$SecuredPassword = ConvertTo-SecureString -AsPlainText $Password -Force
+			[pscredential]$Credential = New-Object System.Management.Automation.PSCredential $UserName, $SecuredPassword
 		}
 		catch
 		{
 			Write-ErrorLog "Could Not Convert Credentials!"
 		}
-		$bool1 = Invoke-MicrosoftAzureCredentials($Credential)
-		if (!$bool1)
-		{
-			break
-		}
-		$OrgName = Invoke-MicrosoftGraphCredentials
-		if ([string]::IsNullOrEmpty($OrgName))
-		{
-			break
-		}
-		$bool2 = Invoke-MicrosoftSecurityComplianceCredentials($Credential)
-		if (!$bool2)
-		{
-			break
-		}
-		$bool3 = Invoke-MicrosoftExchangeCredentials($Credential)
-		if (!$bool3)
-		{
-			break
-		}		
-		$bool4 = Invoke-MicrosoftSharepointCredentials($OrgName, $Credential)
-		if (!$bool4)
-		{
-			break
-		}
-		$bool5 = Invoke-MicrosoftTeamsCredentials($Credential)
-		if (!$bool5)
-		{
-			break
-		}
-		return $OrgName
 	}
-	elseif (![string]::IsNullOrEmpty($Username))
-	{
-		$bool1 = Invoke-MicrosoftAzureUsername($Username)
-		if (!$bool1)
-		{
-			break
+
+	# Make Sure Sharepoint does not get authenticated first, because Sharepoint depends it's name on Microsoft Graph or Microsoft Exchange to get the default domainname automatically.
+	switch ($Modules) {
+		"Azure" {
+			if (![string]::IsNullOrEmpty($Password)){
+				$AzureConnection = Invoke-MicrosoftAzureCredentials($Credential)
+				if (!$AzureConnection)
+				{
+					break
+				}else{
+					$AzureAuth = $true
+				}
+				$GraphOrgName = Invoke-MicrosoftGraphCredentials
+				if ([string]::IsNullOrEmpty($GraphOrgName))
+				{
+					break
+				}else{
+					$GraphAuth = $true
+				}
+			}else{
+				$AzureConnection = Invoke-MicrosoftAzureUsername($Username)
+				if (!$AzureConnection)
+				{
+					break
+				}else{
+					$AzureAuth = $true
+				}
+				$GraphOrgName = Invoke-MicrosoftGraphUsername
+				if ([string]::IsNullOrEmpty($GraphOrgName))
+				{
+					break
+				}else{
+					$GraphAuth = $true
+				}
+			}
 		}
-		$OrgName = Invoke-MicrosoftGraphUsername
-		if ([string]::IsNullOrEmpty($OrgName))
-		{
-			break
+		"Exchange" {	
+			if (![string]::IsNullOrEmpty($Password)){
+				$MSCConnection = Invoke-MicrosoftSecurityComplianceCredentials($Credential)
+				if (!$MSCConnection)
+				{
+					break
+				}else{
+					$SecurityComplianceAuth = $true
+				}
+				$ExchangeOrgName = Invoke-MicrosoftExchangeCredentials($Credential)
+				if ([string]::IsNullOrEmpty($ExchangeOrgName))
+				{
+					break
+				}else{
+					$ExchangeAuth = $True
+				}
+			}else{
+				if ($GraphAuth -ne $true){
+					$GraphOrgName = Invoke-MicrosoftGraphUsername
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}
+				$MSCConnection = Invoke-MicrosoftSecurityComplianceUsername($Username)
+				if (!$MSCConnection)
+				{
+					break
+				}else{
+					$SecurityComplianceAuth = $true
+				}
+				$ExchangeOrgName = Invoke-MicrosoftExchangeUsername($Username)
+				if ([string]::IsNullOrEmpty($ExchangeOrgName))
+				{
+					break
+				}else{
+					$ExchangeAuth = $True
+				}
+			}
 		}
-		$bool2 = Invoke-MicrosoftSecurityComplianceUsername($Username)
-		if (!$bool2)
-		{
-			break
+		"Office365"{
+			if ($AzureAuth -ne $true){
+				if (![string]::IsNullOrEmpty($Password)){
+					$AzureConnection = Invoke-MicrosoftAzureCredentials($Credential)
+					if (!$AzureConnection)
+					{
+						break
+					}else{
+						$AzureAuth = $true
+					}
+				}else{
+					$AzureConnection = Invoke-MicrosoftAzureUsername($Username)
+					if (!$AzureConnection)
+					{
+						break
+					}else{
+						$AzureAuth = $true
+					}
+				}
+			}
+			if ($GraphAuth -ne $true){
+				if (![string]::IsNullOrEmpty($Password)){
+					$GraphOrgName = Invoke-MicrosoftGraphCredentials
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}else{
+					$GraphOrgName = Invoke-MicrosoftGraphUsername
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}
+			}
 		}
-		$bool3 = Invoke-MicrosoftExchangeUsername($Username)
-		if (!$bool3)
-		{
-			break
+		"Sharepoint"{
+			if (![string]::IsNullOrEmpty($Password)){
+				if ($GraphAuth -ne $true){
+					$GraphOrgName = Invoke-MicrosoftGraphCredentials #Microsoft Sharepoint depends on some the Organization Name provided by Microsoft Graph and cannot be provided by Sharepoint itself.
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}
+					else
+					{
+						$GraphAuth = $true
+					}
+				}
+				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
+				$SharepointConnection = Invoke-MicrosoftSharepointCredentials($tenantname, $Credential)
+				if (!$SharepointConnection)
+				{
+					break
+				}else{
+					$SharepointAuth = $true
+				}
+			}else{
+				if ($GraphAuth -ne $true){
+					$GraphOrgName = Invoke-MicrosoftGraphCredentials
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}
+				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
+				$SharepointConnection = Invoke-MicrosoftSharepointUsername($tenantname)
+				if (!$SharepointConnection)
+				{
+					break
+				}else{
+					$SharepointAuth = $true
+				}
+			}
 		}
-		$bool4 = Invoke-MicrosoftSharepointUsername($OrgName)
-		if (!$bool4)
-		{
-			break
+		"Teams"{
+			if (![string]::IsNullOrEmpty($Password)){
+				if($GraphAuth -ne $true){
+					$GraphOrgName = Invoke-MicrosoftGraphCredentials #Microsoft Teams does not output the original default domainname, thus we invoke Graph for this as well
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}
+				$TeamsConnection = Invoke-MicrosoftTeamsCredentials($Credential)
+				if (!$TeamsConnection)
+				{
+					break
+				}else{
+					$TeamsAuth = $true
+				}
+			}else{
+				if($GraphAuth -ne $true){
+					$GraphOrgName = Invoke-MicrosoftGraphCredentials #Microsoft Teams does not output the original default domainname, thus we invoke Graph for this as well
+					if ([string]::IsNullOrEmpty($GraphOrgName))
+					{
+						break
+					}else{
+						$GraphAuth = $true
+					}
+				}
+				$TeamsConnection = Invoke-MicrosoftTeamsUsername($Username)
+				if (!$TeamsConnection)
+				{
+					break
+				}else{
+					$TeamsAuth = $true
+				}
+			}
 		}
-		$bool5 = Invoke-MicrosoftTeamsUsername($Username)
-		if (!$bool5)
-		{
-			break
-		}
-		return $OrgName
 	}
-	else
-	{
-		$bool1 = Invoke-MicrosoftAzureLite
-		if (!$bool1)
-		{
-			break
-		}
-		$OrgName = Invoke-MicrosoftGraphLite
-		if ([string]::IsNullOrEmpty($OrgName))
-		{
-			break
-		}
-		$bool2 = Invoke-MicrosoftSecurityComplianceLite
-		if (!$bool2)
-		{
-			break
-		}		
-		$bool3 = Invoke-MicrosoftExchangeLite
-		if (!$bool3)
-		{
-			break
-		}
-		$bool4 = Invoke-MicrosoftSharepointLite($OrgName)
-		if (!$bool4)
-		{
-			break
-		}
-		$bool5 = Invoke-MicrosoftTeamsLite
-		if (!$bool5)
-		{
-			break
-		}
-		return $OrgName
+	if ($null -ne $ExchangeOrgName){
+		$ExchangeOrgName = $OrgName
+	}else{
+		$GraphOrgName = $OrgName
 	}
-	
+		return $OrgName
 }
+	

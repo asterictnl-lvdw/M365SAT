@@ -135,4 +135,26 @@ Finally after a long while of testing and implementing new stuff, I am happy to 
 ## Removed:
 -   There were no removals done this release
 
-*See the TODO.md for what needs to be done for version 2.2*
+# Version 2.2
+
+## Added
+-   E3 / E5 TAG ADDING (E3 Level 1, E3 Level 2, E5 Level 1, E5 Level 2) including parameters
+-   The 'EnvironmentType' parameter has been added to distinguish Microsoft 365 and Azure from eachother
+-   The 'LicenseMode' parameter has been added to distinguish an E3 from an E5 audit or the otherway around or if you want to audit both that is possible as well now
+-   The 'LicenseLevel' has been added based on the CIS since the CIS defines two types of levels as one has more impact than the other. The user can now choose to only audit on the level 1 parts, or only the level 2 or both
+-   Multiple options to run a script are now possible in the M365SATTester.ps1 file
+## Fixed
+-   The sources of findings have been fixed just as well as some of the descriptions
+-   Some incorrect change have been improved to their latest version in v3.0.0 of the M365 Inspector list
+## Changed
+-   There have been multiple parameters being removed
+-   The BenchmarkVersion has been changed to allow better processing and using only the specific benchmark version instead of all benchmarks
+-   The 'Modules' parameter have been changed
+-   Changed the name of the CustomModules to LocalMode
+-   There have been some changes within the Connection Schema allowing if only specific modules are needing to be scanned that you only need to authenticate the corresponding modules and not all modules anymore instead
+-   We are expirimenting with outputting all findings to .txt file as well and to see what impact it has on performance. If it eats too much memory and affects performance we will remove this in a future release
+## Removed
+-   There were no removals done this release
+## Known Issues
+
+*See the TODO.md for what needs to be done for version 2.3*

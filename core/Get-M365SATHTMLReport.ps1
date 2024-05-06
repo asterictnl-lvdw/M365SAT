@@ -1,20 +1,26 @@
 # . "..\M365SAT.psm1"
 
-$TenantDomain = (Get-AcceptedDomain | ? { $_.Default -eq 'True' }).DomainName
-$Tenant = (Get-AcceptedDomain | ? { $_.Default -eq 'True' }).DomainName.Split('.')[0]
-
 function Get-M365SATHTMLReport
 {
 	Param ($object,
 		$OutPath,
 		$inspectors)
 	
-	
 	# All Attributes must be stated below
 	#Inititialize RootObject Dummy
 	$Icons = @("https://shorturl.at/hlqvV", "https://shorturl.at/kquU1", "https://shorturl.at/pzVX6", "https://shorturl.at/xyHT9", "https://shorturl.at/rFMNO")
 	$ProductFamilies = @("Microsoft Teams", "Microsoft Exchange", "Microsoft Azure", "Microsoft Sharepoint", "Microsoft Office 365")
 	$i = 0
+
+    try{
+        # Microsoft Graph Variant
+        $CompanyName = (Get-MgOrganization).DisplayName
+        $TenantName = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
+    }catch{
+        # Microsoft Exchange Variant
+        $CompanyName = (Get-AcceptedDomain | Where-Object { $_.Default -eq 'True' }).DomainName
+        $TenantName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
+    }
 	
 	#Initialize Objects
 	$ExchangeObject = @()
@@ -34,7 +40,7 @@ function Get-M365SATHTMLReport
 	
 	$StartDate = $object.StartDate
 	$ReportDate = $object.EndDate
-	$Version = "2.0"
+	$Version = "2.2 alpha"
 	
 	# Summary (Critical,High,Medium,Low,Informational)
 	
@@ -114,7 +120,7 @@ function Get-M365SATHTMLReport
         }
 
         .tooltip .tooltiptext::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 100%;
         left: 50%;
@@ -445,14 +451,17 @@ function Get-M365SATHTMLReport
                             "
 	
 	$Output += " <tr><td><strong>Organization &nbsp;</strong> </td>
-                                             <td><strong>: $($Tenant)</strong> </td></tr>
+                                             <td><strong>: $($CompanyName)</strong> </td></tr>
                                              "
-	$Output += " <tr><td><strong>Tenant &nbsp;</strong> </td>
-                             <td><strong>: $($TenantDomain)</strong> </td></tr>
+	$Output += " <tr><td><strong>Tenant Name &nbsp;</strong> </td>
+                             <td><strong>: $($TenantName)</strong> </td></tr>
                              "
 	$Output += " <tr><td><strong>Stats &nbsp;</td></strong>
                              <td><strong>: $AffectedObjects</strong> out of <strong>$($object.InspectorsCount)</strong> executed inspector modules identified possible opportunities for improvement.</td></tr>
                              "
+    $Output += " <tr><td><strong>HealthScore &nbsp;</strong> </td>
+                            <td><strong>: $([math]::Round(100 - (($AffectedObjects/$object.InspectorsCount) * 100)))%</strong></td></tr>
+                            "
 	
 	$Output += "  </table>"
 	
@@ -544,7 +553,7 @@ function Get-M365SATHTMLReport
                 <div class='col-sm-8'>
                     <h6>Configuration Health Index</h6>                  
                     <p>The configuration health index is a weighted value representing your configuration. Not all configuration is 
-                    considered the same. Some configuration is weighted higher than others.<a href='https://github.com/karmakstylez/M365SAT' target='_blank'> See More </a></p>
+                    considered the same. Some configuration is weighted higher than others. <a href='https://github.com/karmakstylez/M365SAT' target='_blank'>See More... </a></p>
 
                 </div>
             </div>                    
@@ -677,7 +686,7 @@ function Get-M365SATHTMLReport
 	
 	ForEach ($Productfamily in $ProductFamilies)
 	{
-		$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object -Descending { Switch -Regex ($_.RiskRating) { 'Critical' { 1 }	'High' { 2 }	'Medium' { 3 }	'Low' { 4 }	'Informational' { 5 } }; $_.RiskScore }
+		$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object -Descending { Switch -Regex ($_.RiskRating) { 'Critical' { 1 }	'High' { 2 } 'Medium' { 3 }	'Low' { 4 }	'Informational' { 5 } }; $_.RiskScore }
 		#$Products = $(foreach ($Product in $object.Findings) { $Product | ? { $_.ProductFamily -eq $Productfamily } }) | Sort-Object -Property {[decimal]$_.CVS}
 		$CollapseId = $($Productfamily).Replace(" ", "_")
 		$Output += "<a name='$($Productfamily)'></a> 
@@ -979,83 +988,6 @@ function Get-M365SATHTMLReport
                 }, 700);
                 }
             </script>
-
-		// Risk Chart 
-			<script>
-        var ctx = document.getElementById('riskChart').getContext('2d');
-
-        // Calculate percentages based on total count
-        var totalFindingsString = '$($object.InspectorsCount)';
-        var totalFindings = parseInt(totalFindingsString);
-
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Critical', 'High', 'Medium', 'Low', 'Informational'],
-                datasets: [{
-                    label: 'Risk Severity',
-                    backgroundColor: ['#660000', '#FF1100', '#FFC107', '#38761D', '#2986CC'],
-                    data: ['$($CriticalCount)', '$($HighCount)', '$($MediumCount)', '$($LowCount)', '$($InformationalCount)']
-                }]
-            },
-            plugins: [ChartDataLabels],
-            options: {
-                legend: {
-                    display: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Risk Ratings'
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        type: 'linear',
-                        min: 0,
-                        ticks: {
-                            stepSize: 5,
-                            precision: 0
-                        },
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    datalabels: {
-                        anchor: 'end',
-                        align: 'end',
-                        font: {
-                            size: 11,
-                            weight: 'bold'
-                        },
-                        formatter: function (value, context) {
-                            var count = context.dataset.data[context.dataIndex];
-                            var percentage = Math.round(((count / totalFindings) * 100).toFixed(1)) + '%';
-                            return context.chart.data.labels[context.dataIndex] + ': ' + count + '\n' + '(' + percentage + ')';
-                        }
-                    }
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem, data) {
-                            var count = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                            var percentage = Math.round(((count / totalFindings) * 100).toFixed(1)) + '%';
-                            return data.labels[tooltipItem.index] + ': ' + count + ' (' + percentage + ')';
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
         </body>
     </html>"
 	
@@ -1064,12 +996,14 @@ function Get-M365SATHTMLReport
 	
 	# Create a new directory for the new report
 	$NewPath = New-CreateDirectory($OutPath)
-	
+	$LogPath = "$($NewPath)\evidence"
+    New-Item -ItemType Directory -Force -Path $LogPath | Out-Null
+
 	#Move All Logs into the newly created path
 	$LogFiles = (Get-ChildItem -Path $OutPath -Filter "*.txt").FullName
 	foreach ($LogFile in $LogFiles)
 	{
-		Move-Item -Path $LogFile -Destination $NewPath -Force
+		Move-Item -Path $LogFile -Destination $LogPath -Force
 	}
 	
 	
@@ -1088,7 +1022,6 @@ function Get-M365SATHTMLReport
 	Invoke-Expression $OutputFile
 	
 }
-
 function New-ZipFile($outpath)
 {
 	try
@@ -1096,7 +1029,7 @@ function New-ZipFile($outpath)
 		$compress = @{
 			Path			 = $OutPath
 			CompressionLevel = "Fastest"
-			DestinationPath  = "$OutPath\$($Tenant)_Report_$(Get-Date -Format "yyyy-MM-dd_hh-mm-ss").zip"
+			DestinationPath  = "$OutPath\$($TenantName)_Report_$(Get-Date -Format "yyyy-MM-dd_hh-mm-ss").zip"
 		}
 		Compress-Archive @compress
 	}
@@ -1115,7 +1048,7 @@ function New-CreateDirectory($OutPath)
 		try
 		{
 			Write-Host "Creating Directory..."
-			$newpath = "$OutPath\$($Tenant)_$(Get-Date -Format "yyyyMMddhhmmss")"
+			$newpath = "$OutPath\$($TenantName)_$(Get-Date -Format "yyyyMMddhhmmss")"
 			New-Item -ItemType Directory -Force -Path $newpath | Out-Null
 			$path = Resolve-Path $newpath
 			return $newpath
@@ -1133,7 +1066,7 @@ function New-CreateDirectory($OutPath)
 		{
 			Write-Host "Creating Parent Directory..."
 			New-Item -ItemType Directory -Force -Path $OutPath | Out-Null
-			$newpath = "$OutPath\$($Tenant)_$(Get-Date -Format "yyyyMMddhhmmss")"
+			$newpath = "$OutPath\$($TenantName)_$(Get-Date -Format "yyyyMMddhhmmss")"
 			Write-Host "Creating Report Directory..."
 			New-Item -ItemType Directory -Force -Path $newpath | Out-Null
 			$path = Resolve-Path $newpath

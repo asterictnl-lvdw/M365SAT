@@ -6,8 +6,9 @@ function Invoke-MicrosoftExchangeCredentials($Credential)
 		Connect-ExchangeOnline -Credential $Credential -ShowBanner:$false -ErrorAction Stop
 		if ((Get-ConnectionInformation) -ne $null)
 		{
+			$OrgName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
 			Write-Host "Connected to Microsoft Exchange!" -ForegroundColor DarkYellow -BackgroundColor Black
-			return $true
+			return $OrgName
 		}
 		else
 		{
@@ -31,8 +32,9 @@ function Invoke-MicrosoftExchangeUsername($Username)
 		Connect-ExchangeOnline -UserPrincipalName $Username -ShowBanner:$false
 		if ((Get-ConnectionInformation) -ne $null)
 		{
+			$OrgName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
 			Write-Host "Connected to Microsoft Exchange!" -ForegroundColor DarkYellow -BackgroundColor Black
-			return $true
+			return $OrgName
 		}
 		else
 		{
@@ -56,8 +58,9 @@ function Invoke-MicrosoftExchangeLite
 		Connect-ExchangeOnline -ShowBanner:$false
 		if ((Get-ConnectionInformation) -ne $null)
 		{
+			$OrgName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
 			Write-Host "Connected to Microsoft Exchange!" -ForegroundColor DarkYellow -BackgroundColor Black
-			return $true
+			return $OrgName
 		}
 		else
 		{
