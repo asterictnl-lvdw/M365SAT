@@ -6,7 +6,7 @@
 		M365SAT - The Microsoft 365 Security Assessment Tool
     
     .VERSION
-        Version 2.1.1 stable
+        Version 2.2 Stable
 
     .RELEASE_DATE
         25-03-2024
@@ -80,36 +80,50 @@ function Get-M365SATReport
 	param
 	(
 		[Parameter(Mandatory = $true,
-				   HelpMessage = 'Path to store the report, e.g. C:\out')]
+			HelpMessage = 'The location to export the Report, e.g. C:\out')]
 		[string]$OutPath,
 		[Parameter(Mandatory = $true,
-				   HelpMessage = 'Enter the Global Administrator Username:')]
+			HelpMessage = 'Enter the Administrator Username:')]
 		[string]$Username,
 		[Parameter(Mandatory = $false,
-				   HelpMessage = 'Skips Module Updates (Experimental)')]
-		[switch]$SkipChecks,
-		[switch]$UseExpirimentalScanner,
+			HelpMessage = 'Enter the Administrator Password:')]
+		[SecureString]$Password,
 		[Parameter(Mandatory = $true,
-				   HelpMessage = 'Choose the Report Format. Default is CISV3. CISV2/CISV3')]
-		[ValidateSet('CISV2', 'CISV3', 'Latest', IgnoreCase = $true)]
-		[string]$AuditType = "Latest",
-		[switch]$SkipLogin,
+			HelpMessage = 'Choose Environment to Audit: M365 / AZURE / CUSTOM / ALL')]
+		[ValidateSet('M365', 'AZURE', 'CUSTOM', 'ALL', IgnoreCase = $true)]
+		[string[]]$EnvironmentType = "ALL",
+		[Parameter(Mandatory = $true,
+			HelpMessage = 'Choose Benchmark Version: 3 / 2 / LATEST')]
+		[ValidateSet(3, 2, 'LATEST', IgnoreCase = $true)]
+		[string]$BenchmarkVersion = "LATEST",
+		[Parameter(Mandatory = $true,
+			HelpMessage = 'Available Modules: Azure / Exchange / Office365 / Sharepoint / Teams / All')]
+		[ValidateSet('Azure', 'Exchange', 'Office365', 'Sharepoint', 'Teams', 'All', IgnoreCase = $true)]
+		[String[]]$Modules = "All",
 		[Parameter(Mandatory = $false,
-				   HelpMessage = 'Uses Custom Modules')]
-		[switch]$UseCustomModules,
+			HelpMessage = 'Choose Benchmark License Mode: E3 / E5 / All')]
+		[ValidateSet("E3", "E5", 'All', IgnoreCase = $true)]
+		[string]$LicenseMode = "All",
+		[Parameter(Mandatory = $false,
+		HelpMessage = 'Choose Benchmark Level: L1 / L2 / All')]
+		[ValidateSet("L1", "L2", 'All', IgnoreCase = $true)]
+		[string]$LicenseLevel = "All",
 		[Parameter(Mandatory = $true,
-				   HelpMessage = 'Choose the Report Format. Default is HTML. HTML / CSV / XML / CSMS')]
+			HelpMessage = 'Choose the Report Format.  HTML / CSV / XML / CSMS')]
 		[ValidateSet('HTML', 'CSV', 'XML', 'CSMS', IgnoreCase = $true)]
 		[string]$reportType = "HTML",
 		[Parameter(Mandatory = $false,
-				   HelpMessage = 'New Debug Logger Verbose / Debug / Info / Warning / Error / Fatal')]
+			HelpMessage = 'Log Message Level: Verbose / Debug / Info / Warning / Error / Fatal')]
 		[ValidateSet('Verbose', 'Debug', 'Info', 'Warning', 'Error', 'Fatal', IgnoreCase = $true)]
 		[string]$AllowLogging = "Warning",
 		[Parameter(Mandatory = $false,
-				   HelpMessage = 'Available Modules: MicrosoftAzure / MicrosoftExchange / MicrosoftOffice365 / MicrosoftSharepoint / MicrosoftTeams / All')]
-		[ValidateSet('MicrosoftAzure', 'MicrosoftExchange', 'MicrosoftOffice 365', 'MicrosoftSharepoint', 'MicrosoftTeams', 'All', IgnoreCase = $true)]
-		[string]$Modules = "All",
-		[string]$Password
+			HelpMessage = 'Skips Module Updates (Experimental)')]
+		[switch]$SkipChecks,
+		[Parameter(Mandatory = $false,
+			HelpMessage = 'Use the Expirimental MultiThreaded Scanner (Not Recommended!)')]
+		[switch]$ExpirimentalMode,
+		[switch]$LocalMode,
+		[switch]$SkipLogin
 	)
 	
 	# Variables
@@ -164,7 +178,7 @@ function Get-M365SATReport
 	Write-Host "$(Get-Date): Initiating Connections..."
 	if (!$SkipLogin.IsPresent)
 	{
-		$OrgName = Connect-M365SAT($Username, $Password)
+		$OrgName = Connect-M365SAT($Username, $Password, $Modules)
 	}
 	else
 	{
@@ -172,11 +186,11 @@ function Get-M365SATReport
 		$OrgName = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
 	}
 	
-	if ($UseCustomModules.IsPresent)
+	if ($LocalMode.IsPresent)
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -Modules $Modules -CustomModules $UseCustomModules -AuditType $AuditType #Gets list of all inspectors
-		if ($UseExpirimentalScanner.IsPresent)
+		$inspectorlist = Get-M365SATLocalChecks -Directory $Directory -EnvironmentType $EnvironmentType -BenchmarkVersion $BenchmarkVersion -Modules $Modules -LicenseMode $LicenseMode -LicenseLevel $LicenseLevel -CustomModules $UseCustomModules #Gets list of all inspectors
+		if ($ExpirimentalMode.IsPresent)
 		{
 			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."
 			$object = Invoke-M365SATChecksV2 -inspectors $inspectorlist -Directory $Directory
@@ -190,14 +204,18 @@ function Get-M365SATReport
 	else
 	{
 		Write-Host "$(Get-Date): Getting Inspectors..."
-		$inspectorlist = Get-M365SATChecks -Directory $Directory -Modules $Modules -CustomModules -AuditType $AuditType #Gets list of all inspectors
-		if ($UseExpirimentalScanner.IsPresent)
+		$inspectorlist = Get-M365SATChecks -Directory $Directory -EnvironmentType $EnvironmentType -BenchmarkVersion $BenchmarkVersion -Modules $Modules -LicenseMode $LicenseMode -LicenseLevel $LicenseLevel -CustomModules $UseCustomModules #Gets list of all inspectors
+		if ($ExpirimentalMode.IsPresent)
 		{
+			Write-Host "$(Get-Date): Creating Directories..."
+			New-Item -ItemType Directory -Force -Path "$($OutPath)\evidence" | Out-Null
 			Write-Host "$(Get-Date): Executing Inspectors in MultiThread Mode..."
 			$object = Invoke-M365SATChecksV2 -inspectors $inspectorlist -Directory $Directory
 		}
 		else
 		{
+			Write-Host "$(Get-Date): Creating Directories..."
+			New-Item -ItemType Directory -Force -Path "$($OutPath)\evidence" | Out-Null
 			Write-Host "$(Get-Date): Executing Inspectors in SingleThread Mode..."
 			$object = Invoke-M365SATChecks -inspectors $inspectorlist -Directory $Directory
 		}
@@ -218,7 +236,7 @@ function Get-M365SATReport
 	
 	
 	Write-Host "$(Get-Date): Disconnecting Modules..."
-	Disconnect-M365SAT # Disconnect All Modules after cleanup
+	Disconnect-M365SAT -Modules $Modules # Disconnect All Modules after cleanup
 	Write-Host "$(Get-Date): Cleaning Up..."
 	Invoke-M365SATCleanup
 	Close-Logger

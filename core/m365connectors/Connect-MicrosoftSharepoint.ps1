@@ -1,9 +1,9 @@
-function Invoke-MicrosoftSharepointCredentials($OrgName, $Credential)
+function Invoke-MicrosoftSharepointCredentials($tenantname, $Credential)
 {
 	try
 	{
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$OrgName-admin.sharepoint.com" -Credential $Credential -ErrorAction Stop
+		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -Credential $Credential -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -23,12 +23,12 @@ function Invoke-MicrosoftSharepointCredentials($OrgName, $Credential)
 	
 }
 
-function Invoke-MicrosoftSharepointUsername($OrgName)
+function Invoke-MicrosoftSharepointUsername($tenantname)
 {
 	try
 	{
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$OrgName-admin.sharepoint.com" -ErrorAction Stop
+		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -48,12 +48,12 @@ function Invoke-MicrosoftSharepointUsername($OrgName)
 	
 }
 
-function Invoke-MicrosoftSharepointLite($OrgName)
+function Invoke-MicrosoftSharepointLite($tenantname)
 {
 	try
 	{
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$OrgName-admin.sharepoint.com" -ErrorAction Stop
+		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
