@@ -1,13 +1,9 @@
 # M365SAT
-[![Maintenance](https://img.shields.io/badge/Maintained-yes-green.svg)](https://github.com/asterictnl-lvdw/M365SAT)
-[![GitHub](https://img.shields.io/github/license/asterictnl-lvdw/M365SAT)](https://github.com/asterictnl-lvdw/M365SAT/blob/main/LICENSE)
-[![Documentation](https://img.shields.io/badge/Documentation-complete-green.svg?style=flat)](https://github.com/asterictnl-lvdw/M365SAT/)
-## The Next Generation Microsoft 365/Azure Security Assessment Tool
-[![made-with-powershell](https://img.shields.io/badge/Made%20with-Powershell-1f425f.svg?logo=Powershell)](https://github.com/powershell/powershell)
+## The Official Microsoft 365 Security Assessment Tool
+Written in PowerShell 5.x and PowerShell 7.x as well!
+Current Version: v2.1
 
-### Current Version: v2.2
-
-Next Scheduled Release: Unknown
+Next Scheduled Release: End of December 2023
 
 <div>
   <p align="center">
@@ -254,6 +250,3 @@ M365SAT is an open-source and free software released under the [MIT License](htt
 * [CISSecurity](https://www.cisecurity.org/cis-benchmarks/): For providing the Azure and Microsoft 365 benchmarks to make the inspector modules
 * [cammurray](https://github.com/cammurray/orca): For the reporting structure
 * [OfficeDev](https://github.com/OfficeDev/MCCA): For the reporting structure
-
-## 9. Donation
-Donations are always welcome! Feel free to Donate to me through PayPal!
