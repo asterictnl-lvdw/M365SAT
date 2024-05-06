@@ -59,8 +59,9 @@ function Invoke-MicrosoftSecurityComplianceLite
 		$Result = Get-PolicyConfig
 		if ($?)
 		{
+			$OrgName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
 			Write-Host "Connected to Microsoft Security & Compliance!" -ForegroundColor DarkYellow -BackgroundColor Black
-			return $true
+			return $OrgName
 		}
 		else
 		{

@@ -1,4 +1,4 @@
-Me as a Vulnerability Assessor take security very seriously. Take in mind that this program can execute other powershell scripts as well. This means it can even execute malicious scripts unknownwillingly. Please ensure you only download the GitHub package from my repo to ensure security. I am not responsible for any damage or loss of files if that is the case. 
+Me as a Cyber Security Specialist take security very seriously. Take in mind that this program can execute other powershell scripts as well. This means it can even execute malicious scripts unknownwillingly. Please ensure you only download the GitHub package from my repo to ensure security. I am not responsible for any damage or loss of files if that is the case. 
 
 Please use the security best-practices as followed:
 -   Use least privilege on the account you audit with. So only the necessary privileges for the audit being used on the account you are provided with,
