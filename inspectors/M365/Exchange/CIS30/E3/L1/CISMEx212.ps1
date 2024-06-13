@@ -17,8 +17,8 @@ function Build-CISMEx212($findings)
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx212"
 		FindingName	     = "CIS MEx 2.1.2 - Common Attachment Types Filter is disabled!"
-		ProductFamily    = "Microsoft Teams"
-		RiskScore	     = "9.6"
+		ProductFamily    = "Microsoft Exchange"
+		RiskScore	     = "3"
 		Description	     = "The Common Attachment Types Filter lets a user block known and custom malicious file types from being attached to emails."
 		Remediation	     = "Run the following Exchange Online PowerShell command"
 		PowerShellScript = 'Set-MalwareFilterPolicy -Identity Default -EnableFileFilter $true'

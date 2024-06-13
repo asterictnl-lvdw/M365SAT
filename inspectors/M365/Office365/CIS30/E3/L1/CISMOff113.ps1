@@ -11,7 +11,7 @@ Import-Module PoShLog
 #Call the OutPath Variable here
 $path = @($OutPath)
 
-function Build-CISMOff112($findings)
+function Build-CISMOff113($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
@@ -35,7 +35,7 @@ function Build-CISMOff112($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMOff112
+function Audit-CISMOff113
 {
 	Try
 	{
@@ -51,7 +51,7 @@ function Audit-CISMOff112
 		If ($num_global_admins -lt 2 -or $num_global_admins -igt 4)
 		{
 			$global_admins | Format-Table -AutoSize | Out-File "$path\CISMOff113-GlobalAdmins.txt"
-			$endobject = Build-CISMOff112($num_global_admins)
+			$endobject = Build-CISMOff113($num_global_admins)
 			Return $endobject
 		}
 		
@@ -66,6 +66,6 @@ function Audit-CISMOff112
 	
 }
 
-return Audit-CISMOff112
+return Audit-CISMOff113
 
 

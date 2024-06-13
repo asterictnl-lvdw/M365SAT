@@ -16,7 +16,7 @@ function Build-CISMEx331($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx331"
-		FindingName	     = "CIS MEx 3.3.1 - No SharePoint Online Data Classification Policies Set!"
+		FindingName	     = "CIS MEx 3.3.1 - No SharePoint Online Information Protection policies are set up and used!"
 		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "8"
 		Description	     = "By categorizing and applying policy-based protection, SharePoint Online Data Classification Policies can help reduce the risk of data loss or exposure, and enable more effective incident response if a breach does occur."

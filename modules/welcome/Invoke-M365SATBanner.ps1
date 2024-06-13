@@ -4,7 +4,7 @@ function Banner
   $title = "M365SAT - The Official Microsoft 365 Security Audit Tool"
   $subtitle = "I wish you happy auditting! :)"
   $author = "Leonardo van de Weteringh"
-  $version = "Version 2.1.1"
+  $version = "Version 2.2 alpha"
 	$banner1 = @"
 
 ______  _______________________________________________

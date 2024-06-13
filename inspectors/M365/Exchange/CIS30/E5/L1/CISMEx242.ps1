@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Exchange
 # Purpose: Ensure Priority accounts have 'Strict protection' presets applied
 # Author: Leonardo van de Weteringh

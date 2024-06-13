@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Microsoft 365 v3.0.0
 # Product Family: Microsoft Azure
 # Purpose: Checks if Password Sync is enabled or not
 # Author: Leonardo van de Weteringh
