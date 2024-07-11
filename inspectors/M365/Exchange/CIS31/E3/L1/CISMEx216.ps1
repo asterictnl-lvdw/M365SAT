@@ -21,7 +21,7 @@ function Build-CISMEx216($findings)
 		RiskScore	     = "3"
 		Description	     = "A blocked account is a good indication that the account in question has been breached and an attacker is using it to send spam emails to other people."
 		Remediation	     = "Run the following PowerShell command"
-		PowerShellScript = '$BccEmailAddress = @("<INSERT-EMAIL>"); $NotifyEmailAddress = @("<INSERT-EMAIL>"); Set-HostedOutboundSpamFilterPolicy -Identity Default BccSuspiciousOutboundAdditionalRecipients $BccEmailAddress -BccSuspiciousOutboundMail $true -NotifyOutboundSpam $true -NotifyOutboundSpamRecipients $NotifyEmailAddress'
+		PowerShellScript = '$BccEmailAddress = @(""); $NotifyEmailAddress = @(""); Set-HostedOutboundSpamFilterPolicy -Identity Default -BccSuspiciousOutboundAdditionalRecipients $BccEmailAddress -BccSuspiciousOutboundMail $true -NotifyOutboundSpam $true -NotifyOutboundSpamRecipients $NotifyEmailAddress'
 		DefaultValue	 = "BccSuspiciousOutboundMail: False / NotifyOutboundSpam: False"
 		ExpectedValue    = "BccSuspiciousOutboundMail: True / NotifyOutboundSpam: True"
 		ReturnedValue    = $findings
