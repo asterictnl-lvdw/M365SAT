@@ -126,6 +126,6 @@ function Inspect-CISMEx2114
 	
 }
 
-return Inspect-CISMEx212
+return Inspect-CISMEx2114
 
 
