@@ -40,7 +40,7 @@ function Build-CISMEx621($findings)
 function Audit-CISMEx621
 {
 	try
-	
+	{
 		$TransportRules = Get-TransportRule | Where-Object { $_.RedirectMessageTo -ne $null } | Select-Object Name, RedirectMessageTo
 		$OutboundSpamFilterPolicy = Get-HostedOutboundSpamFilterPolicy | Select-Object Name, AutoForwardingMode
 		if ($TransportRules.Count -igt 0)
