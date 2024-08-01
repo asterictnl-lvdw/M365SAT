@@ -8,6 +8,9 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
+# Determine OutPath
+$path = @($OutPath)
+
 function Build-CISMSp722($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
