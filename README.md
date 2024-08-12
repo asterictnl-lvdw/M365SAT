@@ -1,9 +1,11 @@
 # M365SAT
 ## The Official Microsoft 365 Security Assessment Tool
 Written in PowerShell 5.x and PowerShell 7.x as well!
+
 Current Version: v2.3 Alpha
 
 Next Scheduled Release: Q4 (September 2023)
+
 Next Release Version: v2.3
 
 <div>
