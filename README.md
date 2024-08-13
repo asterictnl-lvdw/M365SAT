@@ -1,6 +1,6 @@
 # M365SAT
 ## The Official Microsoft 365 Security Assessment Tool
-Written in PowerShell 5.x and PowerShell 7.x as well!
+Written in PowerShell 7 and 5.1
 
 Current Version: v2.3 Alpha
 
@@ -61,6 +61,9 @@ The following modules need to be installed in order to make M365SAT work:
 -	Microsoft.Graph
 -	MicrosoftTeams
 -	PoShLog
+
+#### 3.1.1 Installation PowerShell 7.x
+PowerShell 7.x works with all the latest modules.
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement
@@ -70,6 +73,22 @@ Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
 Install-Module -Name MicrosoftTeams
 Install-Module -Name PoShLog
 ```
+
+#### 3.1.2 Installation PowerShell 5.1
+Microsoft PowerShell 5.1 does not work properly with Az.Accounts 3.x.x or later, due to the new mechanism of authentication it conflicts with the ExchangeOnlineManagement modules. 2.19.0 is the latest working version with PowerShell 5.1. 
+```
+Install-Module -Name Az
+Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell
+Install-Module -Name Microsoft.Graph -AllowClobber -Force
+Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
+Install-Module -Name MicrosoftTeams
+Install-Module -Name PoShLog
+```
+Remove from here the `3.x.x` folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
+
+Run `Install-Module -Name Az.Accounts -RequiredVersion 2.19.0` to install the working PowerShell 5.1 version. 
+
 PoShLog is required in order to make logging work.
 
 ### 3.2 Method 1: Install-Module
