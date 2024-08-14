@@ -17,14 +17,14 @@ function Build-CISMAz5111($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMAz5111"
-		FindingName	     = "CISMAz 5.1.1.1 - The Security Defaults are not enabled on Azure Active Directory Tenant"
+		FindingName	     = "CISMAz 5.1.1.1 - The Security Defaults are enabled on Azure Active Directory Tenant"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "4"
 		Description	     = "Security defaults in Azure Active Directory (Azure AD) make it easier to be secure and help protect your organization. Security defaults contain preconfigured security settings for common attacks."
-		Remediation	     = "Use the PowerShell Script to enable Security Defaults on Microsoft Azure Active Directory"
-		PowerShellScript = '$body = $body = (@{"isEnabled"="true"} | ConvertTo-Json) ;Invoke-MgGraphRequest -Method PATCH https://graph.microsoft.com/beta/policies/identitySecurityDefaultsEnforcementPolicy -Body $body'
+		Remediation	     = "Use the PowerShell Script to disable Security Defaults on Microsoft Azure Active Directory"
+		PowerShellScript = '$body = $body = (@{"isEnabled"="false"} | ConvertTo-Json) ;Invoke-MgGraphRequest -Method PATCH https://graph.microsoft.com/beta/policies/identitySecurityDefaultsEnforcementPolicy -Body $body'
 		DefaultValue	 = "True for tenants created later than 2019, False for tenants created before 2019"
-		ExpectedValue    = "True"
+		ExpectedValue    = "False"
 		ReturnedValue    = "$findings"
 		Impact		     = "4"
 		Likelihood	     = "1"
@@ -44,7 +44,7 @@ function Audit-CISMAz5111
 		$SecureDefaultsState = Get-MgPolicyIdentitySecurityDefaultEnforcementPolicy
 		
 		# Validation
-		if ($SecureDefaultsState.isEnabled -eq $false)
+		if ($SecureDefaultsState.isEnabled -eq $true)
 		{
 			$SecureDefaultsState | Format-Table -AutoSize | Out-File "$path\CISMAz5111-SecureDefaultEnforcementPolicy.txt"
 			$finalobject = Build-CISMAz5111($SecureDefaultsState.isEnabled)
