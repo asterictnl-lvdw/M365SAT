@@ -6,10 +6,10 @@
 		M365SAT - The Microsoft 365 Security Assessment Tool
     
     .VERSION
-        Version 2.2 Stable
+        Version 2.3 Alpha
 
     .RELEASE_DATE
-        25-03-2024
+        07-05-2024
 
 	.DESCRIPTION
        Allows an Administrator to audit Microsoft 365 environments by executing various 'inspector'
@@ -223,13 +223,19 @@ function Get-M365SATReport
 	Write-Host "$(Get-Date): Generating Report..."
 	
 	# This to make sure you will get a report after all. JSON , CSV and the other output formats are coming in the next release!
-	if ($reportType -ne "HTML")
+	if ($reportType -eq "CSV")
 	{
-		Write-WarningLog "Currently there is no other output supported. "
-		$reportType = "HTML"
+		. $PSScriptRoot\core\Get-M365SATCSVReport.ps1
+		Get-M365SATCSVReport -object $object -OutPath $OutPath -Inspectors $inspectorlist
 	}
-	if ($reportType -eq "HTML")
+	elseif ($reportType -eq "HTML")
 	{
+		. $PSScriptRoot\core\Get-M365SATHTMLReport.ps1
+		Get-M365SATHTMLReport -object $object -OutPath $OutPath -Inspectors $inspectorlist
+	}
+	else
+	{
+		Write-Warning "Currently we only support .CSV and .HTML reporting. Defaulting to .HTML..."
 		. $PSScriptRoot\core\Get-M365SATHTMLReport.ps1
 		Get-M365SATHTMLReport -object $object -OutPath $OutPath -Inspectors $inspectorlist
 	}

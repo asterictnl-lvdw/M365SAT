@@ -1,9 +1,12 @@
 # M365SAT
 ## The Official Microsoft 365 Security Assessment Tool
-Written in PowerShell 5.x and PowerShell 7.x as well!
-Current Version: v2.2
+Written in PowerShell 7 and 5.1
 
-Next Scheduled Release: Unknown
+Current Version: v2.3 Alpha
+
+Next Scheduled Release: Q4 (September 2023)
+
+Next Release Version: v2.3
 
 <div>
   <p align="center">
@@ -58,16 +61,51 @@ The following modules need to be installed in order to make M365SAT work:
 -	Microsoft.Graph
 -	MicrosoftTeams
 -	PoShLog
+
+#### 3.1.1 Installation PowerShell 7.x.x (Windows)
+PowerShell 7.x works with all the latest modules.
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement
 Install-Module -Name Microsoft.Online.SharePoint.PowerShell
-Install-Module -Name Microsoft.Graph
-Install-Module -Name Microsoft.Graph.Beta
+Install-Module -Name Microsoft.Graph -AllowClobber -Force
+Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
 Install-Module -Name MicrosoftTeams
 Install-Module -Name PoShLog
 ```
-PoShLog is required in order to make logging work.
+
+#### 3.1.2 Installation PowerShell 5.1 (Windows)
+Note: *Microsoft PowerShell 5.1 does not work properly with Az.Accounts 3.x.x or later, due to the new mechanism of authentication it conflicts with the ExchangeOnlineManagement modules. 2.19.0 is the latest working version with PowerShell 5.1.*
+```
+Install-Module -Name Az
+Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell
+Install-Module -Name Microsoft.Graph -AllowClobber -Force
+Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
+Install-Module -Name MicrosoftTeams
+Install-Module -Name PoShLog
+```
+1. Remove from here the `3.x.x` folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
+2. Run `Install-Module -Name Az.Accounts -RequiredVersion 2.19.0` to install the working PowerShell 5.1 version.
+
+#### 3.1.3 Installation PowerShell 7.x.x (Linux)
+*Note: This only works starting from v3.0!!!*
+PowerShell 7 works with Linux, the only module that is not working straightforward is Microsoft Sharepoint. Thus will be replaced with PnP when using a Linux environment. For Linux you must follow the instructions below:
+1. Run `sudo pwsh`
+2. In the PowerShell SuperUser session run: `Install-Module -Name PSWSMan`
+3. After installation run the command: `Install-WSMan`
+4. You will be prompted to restart the PowerShell Session. Close the SuperUser session
+5. Install all the modules down below:
+```
+Install-Module -Name Az
+Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
+Install-Module -Name PnP.PowerShell
+Install-Module -Name Microsoft.Graph -AllowClobber -Force
+Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
+Install-Module -Name MicrosoftTeams
+Install-Module -Name PoShLog
+```
+Please keep in mind that there might be things that are not working. Feel free to report any bugs if found.!
 
 ### 3.2 Method 1: Install-Module
 This method is coming in the next major release
