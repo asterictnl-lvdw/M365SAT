@@ -2,11 +2,11 @@
 ## The Official Microsoft 365 Security Assessment Tool
 Written in PowerShell 7 and 5.1
 
-Current Version: v2.3 Alpha
+Current Version: v2.3
 
-Next Scheduled Release: Q4 (September 2023)
+Next Scheduled Release: Q1 (January 2025)
 
-Next Release Version: v2.3
+Next Release Version: v3.0
 
 <div>
   <p align="center">
