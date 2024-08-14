@@ -4,7 +4,8 @@ function Banner
   $title = "M365SAT - The Official Microsoft 365 Security Audit Tool"
   $subtitle = "I wish you happy auditting! :)"
   $author = "Leonardo van de Weteringh"
-  $version = "Version 2.3 alpha"
+  $version = "Version 2.3"
+  $date = "14th of August 2024"
 	$banner1 = @"
 
 ______  _______________________________________________
@@ -13,7 +14,7 @@ __  /|_/ /___/_ <_  __ \______ \ _____ \__  /| |_  /
 _  /  / / ____/ // /_/ / ____/ / ____/ /_  ___ |  /    
 /_/  /_/  /____/ \____/ /_____/  /____/ /_/  |_/_/     
                                                        
-$($title) - $($version) - $($author)
+$($title) - $($version) - $($author) - $($date)
 $($subtitle)
 "@
 	$banner2 = @"
@@ -24,7 +25,7 @@ $($subtitle)
  d8b Y8b Y8b   e `88b,  Y888 888D  e  888 b Y8D  d888888888b      888     
 d888b Y8b Y8b "8",88P'   "88 88"  "8",88P 8edP  d8888888b Y8b     888     
                                                                           
-$($title) - $($version) - $($author)
+$($title) - $($version) - $($author) - $($date)
 $($subtitle)            
 "@
 	
@@ -43,7 +44,7 @@ X8888 X8888  88888   "*8%-  "***"  9888%  :8888E   ^""     >  .....      !  "   
 :""888":~"888"     `888*"  '*8"`   9888%    "88&   888"   %8F"   d888"     '%8888888888*"    .~  `%88!` '888*~   '    "*88888888*   
     "~'    "~        ""      `~===*%"`        ""==*""      ^"===*%"`          ^"****""`            `"     ""             ^"***"'     
 
-$($title) - $($version) - $($author)
+$($title) - $($version) - $($author) - $($date)
 $($subtitle)   
 "@
 	
@@ -55,7 +56,7 @@ oooo     oooo  ooooooo     ooooooo   oooooooooo oooooooo8      o   ooooooooooo
  88  888  88 88o    o888 88o    o888 ooo    o888       888  8oooo88    888     
 o88o  8  o88o  88ooo88     88ooo88     88ooo88 o88oooo888 o88o  o888o o888o    
                                                                               
-$($title) - $($version) - $($author)
+$($title) - $($version) - $($author) - $($date)
 $($subtitle)
 "@
 	
@@ -72,7 +73,7 @@ $($subtitle)
    `YbwP'           `YbwP'      .dP'               88        
                                                   .8P        
                                                   
-$($title) - $($version) - $($author)
+$($title) - $($version) - $($author) - $($date)
 $($subtitle)
 "@
 
