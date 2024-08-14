@@ -41,11 +41,6 @@ function Audit-CISMAz5223
 {
 	try
 	{
-
-		[System.Collections.Hashtable] $StateStrings = @{"enabled" = "On";
-        "enabledForReportingButNotEnforced" = "Report-only";
-        "disabled" = "Off"}
-
 		# Actual Script
 		$Violation = @()
 		$OptimalPolicy = Get-MgIdentityConditionalAccessPolicy |  Where-Object { ($_.Conditions.Users.IncludeUsers -eq 'All') -and ($_.Conditions.Users.ExcludeUsers.Count -igt 1) -and ($_.Conditions.Applications.IncludeApplications -eq "All") -and ($_.Conditions.ClientAppTypes -contains "exchangeActiveSync" -and "other") -and $_.GrantControls.BuiltInControls -eq "block"}
@@ -58,7 +53,6 @@ function Audit-CISMAz5223
 			$OptimalPolicy | Format-Table -AutoSize | Out-File "$path\CISMAz5223-Get-BlockLegacyAuthConditionalAccessPolicy.txt"
 		}
 		
-
 		# Verify if Exchange does not have Legacy Auth enabled
 		$AuthPolicy = Get-AuthenticationPolicy | Format-Table Name -Auto
 		$AuthPolicy | Format-Table -AutoSize | Out-File "$path\CISMAz5223-Get-BlockLegacyAuthConditionalAccessPolicy.txt" -Append
