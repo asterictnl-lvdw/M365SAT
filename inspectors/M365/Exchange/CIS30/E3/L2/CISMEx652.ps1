@@ -42,19 +42,19 @@ function Audit-CISMEx652
 	{
 		$ExchangeMailTipsData = @()
 		Get-OrganizationConfig | Select-Object MailTipsAllTipsEnabled, MailTipsExternalRecipientsTipsEnabled, MailTipsGroupMetricsEnabled, MailTipsLargeAudienceThreshold
-		if ($ExchangeMailTips.MailTipsAllTipsEnabled -match 'True')
+		if ($ExchangeMailTips.MailTipsAllTipsEnabled -match 'False')
 		{
 			$ExchangeMailTipsData += "MailTipsAllTipsEnabled: $($ExchangeMailTips.MailTipsAllTipsEnabled)"
 		}
-		if ($ExchangeMailTips.MailTipsExternalRecipientsTipsEnabled -match 'True')
+		if ($ExchangeMailTips.MailTipsExternalRecipientsTipsEnabled -match 'False')
 		{
 			$ExchangeMailTipsData += "MailTipsExternalRecipientsTipsEnabled: $($ExchangeMailTips.MailTipsExternalRecipientsTipsEnabled)"
 		}
-		if ($ExchangeMailTips.MailTipsGroupMetricsEnabled -match 'True')
+		if ($ExchangeMailTips.MailTipsGroupMetricsEnabled -match 'False')
 		{
 			$ExchangeMailTipsData += "MailTipsGroupMetricsEnabled: $($ExchangeMailTips.MailTipsGroupMetricsEnabled)"
 		}
-		if ($ExchangeMailTips.MailTipsLargeAudienceThreshold -ige 25)
+		if ($ExchangeMailTips.MailTipsLargeAudienceThreshold -ne 25)
 		{
 			$ExchangeMailTipsData += "MailTipsLargeAudienceThreshold: $($ExchangeMailTips.MailTipsLargeAudienceThreshold)"
 		}

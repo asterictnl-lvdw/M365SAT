@@ -18,6 +18,7 @@ function Build-CISMEx213($findings)
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMEx213"
 		FindingName	     = "CIS MEx 2.1.3 - Notifications for internal users sending malware is Disabled"
+		ProductFamily    = "Microsoft Exchange"
 		RiskScore	     = "12"
 		Description	     = "This setting alerts administrators that an internal user sent a message that contained malware. This may indicate an account or machine compromise, that would need to be investigated."
 		Remediation	     = "Configure a MalwareFilterPolicy by using the PowerShellScript"

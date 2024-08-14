@@ -12,18 +12,23 @@ function Check-M365SATModules
 		if ($installed.Name -notcontains $Module)
 		{
 			Write-Host "`n$Module is not installed." -ForegroundColor Red
-			$install = Read-Host -Prompt "Would you like to attempt installation now? (Y|N)"
-			if ($install -eq 'y')
-			{
-				Write-Warning "Trying to install $Module ..."
-				Install-Module $Module -Scope CurrentUser -Force -Confirm:$false -AllowClobber
-				$count++
-			}
+			do { $askyesno = (Read-Host "Do you want to install Module $Module (Y/N)").ToLower() } while ($askyesno -notin @('y','n'))
+				if ($askyesno -eq 'y') {
+					Write-Host "Selected YES, trying to install module $Module"
+					Install-Module $Module -Scope CurrentUser -Force -Confirm:$false -AllowClobber
+					$count++
+					} else {
+					Write-Host "Selected NO , $Module is not installed!"
+					}
 		}
 		else
 		{
 			Write-Host "[+] $Module is installed." -ForegroundColor Green
 			$count++
+		}
+		$installed = Get-InstalledModule -Name $Module
+		if ($installed){
+			Write-Host "$Module version $($installed.Version) is installed!"
 		}
 	}
 	Write-Host "Succesfully Checked all Modules Existence...!"

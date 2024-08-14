@@ -43,36 +43,16 @@ function Audit-CISMAz5223
 	{
 		# Actual Script
 		$Violation = @()
-		$PolicyExistence = Get-MgIdentityConditionalAccessPolicy | Select-Object * | Where-Object { $_.DisplayName -like "*Block legacy*" }
-		$PolicyExistence | Format-Table -AutoSize | Out-File "$path\CISMAz5223-Get-BlockLegacyAuthConditionalAccessPolicy.txt"
-		if ($PolicyExistence.Count -ne 0)
+		$OptimalPolicy = Get-MgIdentityConditionalAccessPolicy |  Where-Object { ($_.Conditions.Users.IncludeUsers -eq 'All') -and ($_.Conditions.Users.ExcludeUsers.Count -igt 1) -and ($_.Conditions.Applications.IncludeApplications -eq "All") -and ($_.Conditions.ClientAppTypes -contains "exchangeActiveSync" -and "other") -and $_.GrantControls.BuiltInControls -eq "block"}
+		if ([string]::IsNullOrEmpty($OptimalPolicy))
 		{
-			foreach ($Policy in $PolicyExistence)
-			{
-				if ($Policy.State -eq "disabled")
-				{
-					$Violation += $Policy.Id
-				}
-				else
-				{
-					#Multiple Checks to determine if the policy is not configured correctly
-					$PolicyInfo = Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/beta/identity/conditionalAccess/policies/$($Policy.Id)"
-					if ($PolicyInfo.conditions.clientAppTypes -ne "all")
-					{
-						$Violation += $Policy.Id
-					}
-					elseif ($PolicyInfo.conditions.applications.includeApplications -ne "All" -or $PolicyInfo.conditions.users.includeUsers -ne "All")
-					{
-						$Violation += $Policy.Id
-					}
-				}
-				
-			}
+			$Violation += "No Conditional Access Policy (Correctly) Configured to block Legacy Authentication"
 		}
 		else
 		{
-			$Violation += "No Conditional Access Policy Configured!"
+			$OptimalPolicy | Format-Table -AutoSize | Out-File "$path\CISMAz5223-Get-BlockLegacyAuthConditionalAccessPolicy.txt"
 		}
+		
 		# Verify if Exchange does not have Legacy Auth enabled
 		$AuthPolicy = Get-AuthenticationPolicy | Format-Table Name -Auto
 		$AuthPolicy | Format-Table -AutoSize | Out-File "$path\CISMAz5223-Get-BlockLegacyAuthConditionalAccessPolicy.txt" -Append
@@ -93,9 +73,9 @@ function Audit-CISMAz5223
 		}
 		
 		# Validation
+
 		if ($Violation.Count -ne 0)
 		{
-			
 			$finalobject = Build-CISMAz5223($Violation)
 			return $finalobject
 		}
