@@ -3,35 +3,35 @@ function Get-M365SATChecks($Directory, $EnvironmentType, $BenchmarkVersion, $Mod
 {
 	try{
 		if($IsLinux){
-			if(Test-Path $Directory/inspectors){
-				rm -rf $Directory/inspectors
+			if(Test-Path $Directory){
+				rm -rf $Directory
 			}
-			wget 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -O $Directory/inspectors.zip
-			unzip $Directory/inspectors.zip
-			mv $Directory/M365SAT-Inspectors-production/inspectors $Directory/inspectors
-			rm -rf $Directory/M365SAT-Inspectors-production
-			rm $Directory/inspectors.zip
+			wget 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -O $PSScriptRoot
+			unzip $PSScriptRoot/inspectors.zip
+			mv $PSScriptRoot/M365SAT-Inspectors-production/inspectors $PSScriptRoot/inspectors
+			rm -rf $PSScriptRoot/M365SAT-Inspectors-production
+			rm $PSScriptRoot/inspectors.zip
 		}
 		elseif($IsWindows){
 			if (Test-Path $Directory/inspectors){
 				Remove-Item -LiteralPath $Directory/inspectors -Force -Recurse
 			}
-			Invoke-WebRequest 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -OutFile $Directory\inspectors.zip
-			Expand-Archive $Directory\inspectors.zip -DestinationPath $Directory -Force
-			Move-Item -LiteralPath $Directory\M365SAT-Inspectors-production\inspectors -Destination $Directory\inspectors -Force
-			Get-ChildItem -Path $Directory\inspectors -Recurse -Force | Unblock-File #So no problems will occur when trying to execute inspectors
-			Remove-Item -LiteralPath $Directory/M365SAT-Inspectors-production -Force -Recurse
-			$tempfiles += "$Directory\inspectors.zip"
+			Invoke-WebRequest 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -OutFile $PSScriptRoot\inspectors.zip
+			Expand-Archive $PSScriptRoot\inspectors.zip -DestinationPath $PSScriptRoot -Force
+			Move-Item -LiteralPath $PSScriptRoot\M365SAT-Inspectors-production\inspectors -Destination $PSScriptRoot\inspectors -Force
+			Get-ChildItem -Path $PSScriptRoot\inspectors -Recurse -Force | Unblock-File #So no problems will occur when trying to execute inspectors
+			Remove-Item -LiteralPath $PSScriptRoot\M365SAT-Inspectors-production -Force -Recurse
+			$tempfiles += "$PSScriptRoot\inspectors.zip"
 		}else{
-			if (Test-Path $Directory/inspectors){
-				Remove-Item -LiteralPath $Directory/inspectors -Force -Recurse
+			if (Test-Path $Directory){
+				Remove-Item -LiteralPath $Directory -Force -Recurse
 			}
-			Invoke-WebRequest 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -OutFile $Directory\inspectors.zip
-			Expand-Archive $Directory\inspectors.zip -DestinationPath $Directory -Force
-			Move-Item -LiteralPath $Directory\M365SAT-Inspectors-production\inspectors -Destination $Directory\inspectors -Force
-			Get-ChildItem -Path $Directory\inspectors -Recurse -Force | Unblock-File #So no problems will occur when trying to execute inspectors
-			Remove-Item -LiteralPath $Directory/M365SAT-Inspectors-production -Force -Recurse
-			$tempfiles += "$Directory\inspectors.zip"
+			Invoke-WebRequest 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -OutFile $PSScriptRoot\inspectors.zip
+			Expand-Archive $PSScriptRoot\inspectors.zip -DestinationPath $PSScriptRoot -Force
+			Move-Item -LiteralPath $PSScriptRoot\M365SAT-Inspectors-production\inspectors -Destination $PSScriptRoot\inspectors -Force
+			Get-ChildItem -Path $PSScriptRoot\inspectors -Recurse -Force | Unblock-File #So no problems will occur when trying to execute inspectors
+			Remove-Item -LiteralPath $PSScriptRoot/M365SAT-Inspectors-production -Force -Recurse
+			$tempfiles += "$PSScriptRoot\inspectors.zip"
 		}
 		Get-M365SATLocalChecks($Directory, $EnvironmentType, $BenchmarkVersion, $Modules, $LicenseMode, $LicenseLevel)
 	}catch{
