@@ -10,9 +10,9 @@ function Get-M365SATChecks($Directory, $EnvironmentType, $BenchmarkVersion, $Mod
 			{
 				mkdir $Directory
 			}
-			wget 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -O $Directory
-			unzip $Directory/inspectors.zip
-			mv $Directory/M365SAT-Inspectors-production/inspectors $Directory
+			wget 'https://github.com/asterictnl-lvdw/M365SAT-Inspectors/archive/refs/heads/production.zip' -O $Directory/inspectors.zip
+			unzip $Directory/inspectors.zip -d $Directory
+			mv $Directory/M365SAT-Inspectors-production/inspectors/* $Directory
 			rm -rf $Directory/M365SAT-Inspectors-production
 			rm $Directory/inspectors.zip
 		}
