@@ -157,4 +157,8 @@ Finally after a long while of testing and implementing new stuff, I am happy to 
 -   There were no removals done this release
 ## Known Issues
 
-*See the TODO.md for what needs to be done for version 2.3*
+# Version 2.3
+- See Releases section for full Changelog
+
+# Version 3.0
+- Coming Soon!
