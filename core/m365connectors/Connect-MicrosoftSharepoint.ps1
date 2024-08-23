@@ -1,9 +1,38 @@
-function Invoke-MicrosoftSharepointCredentials($tenantname, $Credential)
+function Invoke-MicrosoftSharepointCredentials
 {
+	param(
+		[string]$TenantName,
+		[System.Object]$Credential,
+		[string]$Environment
+	)
+
 	try
 	{
+		switch ($Environment) {
+			"USGovGCCHigh" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"USGovDoD" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"GermanyCloud" 
+			{ 
+				$SpEnvironment = 'Germany' 
+			}
+			"China" 
+			{ 
+				$SpEnvironment = 'China' 
+			}
+			default 
+			{ 
+				$SpEnvironment = 'default'
+			}
+		}
+
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -Credential $Credential -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -Credential $Credential -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -23,12 +52,40 @@ function Invoke-MicrosoftSharepointCredentials($tenantname, $Credential)
 	
 }
 
-function Invoke-MicrosoftSharepointUsername($tenantname)
+function Invoke-MicrosoftSharepointUsername
 {
+	param(
+		[string]$TenantName,
+		[string]$Environment
+	)
+
 	try
 	{
+		switch ($Environment) {
+			"USGovGCCHigh" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"USGovDoD" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"GermanyCloud" 
+			{ 
+				$SpEnvironment = 'Germany' 
+			}
+			"China" 
+			{ 
+				$SpEnvironment = 'China' 
+			}
+			default 
+			{ 
+				$SpEnvironment = 'default'
+			}
+		}
+
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -48,12 +105,40 @@ function Invoke-MicrosoftSharepointUsername($tenantname)
 	
 }
 
-function Invoke-MicrosoftSharepointLite($tenantname)
+function Invoke-MicrosoftSharepointLite
 {
+	param(
+		[string]$TenantName,
+		[string]$Environment
+	)
+
 	try
 	{
+		switch ($Environment) {
+			"USGovGCCHigh" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"USGovDoD" 
+			{ 
+				$SpEnvironment = 'ITAR' 
+			}
+			"GermanyCloud" 
+			{ 
+				$SpEnvironment = 'Germany' 
+			}
+			"China" 
+			{ 
+				$SpEnvironment = 'China' 
+			}
+			default 
+			{ 
+				$SpEnvironment = 'default'
+			}
+		}
+
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$tenantname-admin.sharepoint.com" -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
