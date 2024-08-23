@@ -6,10 +6,10 @@
 		M365SAT - The Microsoft 365 Security Assessment Tool
     
     .VERSION
-        Version 2.3 Alpha
+        Version 3.0 Alpha
 
     .RELEASE_DATE
-        07-05-2024
+        08-23-2024
 
 	.DESCRIPTION
        Allows an Administrator to audit Microsoft 365 environments by executing various 'inspector'
@@ -27,12 +27,12 @@
         
         ############################################################################
 
-        URL: <githubURL>
+        URL: https://github.com/asterictnl-lvdw/M365SAT
 
         ############################################################################    
 
 	.LINK
-        github.com/asterlvdw/m365sat
+        https://github.com/asterictnl-lvdw/M365SAT
 
 #>
 
@@ -79,6 +79,10 @@ function Get-M365SATReport
 {
 	param
 	(
+		[Parameter(Mandatory = $false,
+			HelpMessage= 'Environment Type: Default/USGovGCCHigh/USGovDoD/Germany/China')]
+		[ValidateSet('Default', 'USGovGCCHigh', 'USGovDoD', 'Germany', 'China', IgnoreCase = $True)]
+		[string]$Environment = 'Default',
 		[Parameter(Mandatory = $true,
 			HelpMessage = 'The location to export the Report, e.g. C:\out')]
 		[string]$OutPath,
@@ -105,7 +109,7 @@ function Get-M365SATReport
 		[ValidateSet("E3", "E5", 'All', IgnoreCase = $true)]
 		[string]$LicenseMode = "All",
 		[Parameter(Mandatory = $false,
-		HelpMessage = 'Choose Benchmark Level: L1 / L2 / All')]
+			HelpMessage = 'Choose Benchmark Level: L1 / L2 / All')]
 		[ValidateSet("L1", "L2", 'All', IgnoreCase = $true)]
 		[string]$LicenseLevel = "All",
 		[Parameter(Mandatory = $true,
@@ -129,6 +133,7 @@ function Get-M365SATReport
 	# Variables
 	$tempfiles = @()
 	$MaximumFunctionCount = 32768
+	$RootDirectory = "$PSScriptRoot"
 	$Directory = "$PSScriptRoot\inspectors"
 	$DateNow = (Get-Date -Format hhmm-ddMMyyyy)
 	
@@ -161,7 +166,7 @@ function Get-M365SATReport
 	Banner
 	
 	# Create a New Logger
-	Invoke-M365SATLogger($AllowLogging)
+	Invoke-M365SATLogger -AllowLogging $AllowLogging -RootDirectory $RootDirectory
 	
 	Write-Host "$(Get-Date): Checking Existence SkipChecks Parameter..."
 	if (!$SkipChecks.IsPresent)
@@ -178,7 +183,7 @@ function Get-M365SATReport
 	Write-Host "$(Get-Date): Initiating Connections..."
 	if (!$SkipLogin.IsPresent)
 	{
-		$OrgName = Connect-M365SAT($Username, $Password, $Modules)
+		$OrgName = Connect-M365SAT -Username $Username -Password $Password -Modules $Modules -Environment $Environment
 	}
 	else
 	{
