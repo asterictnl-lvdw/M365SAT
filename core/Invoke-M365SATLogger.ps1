@@ -1,10 +1,14 @@
-function Invoke-M365SATLogger($AllowLogging)
+function Invoke-M365SATLogger
 {
+	param(
+		[string]$AllowLogging,
+		[string]$RootDirectory
+	)
 	if ($AllowLogging -eq "Verbose")
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Verbose |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole |
 		Start-Logger
 	}
@@ -12,7 +16,7 @@ function Invoke-M365SATLogger($AllowLogging)
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Debug |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole - |
 		Start-Logger
 		Write-DebugLog "Program Started!"
@@ -21,7 +25,7 @@ function Invoke-M365SATLogger($AllowLogging)
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Info |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole |
 		Start-Logger
 		Write-InfoLog "Program Started!"
@@ -30,7 +34,7 @@ function Invoke-M365SATLogger($AllowLogging)
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Warning |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole |
 		Start-Logger
 		Write-WarningLog "Program Started!"
@@ -39,7 +43,7 @@ function Invoke-M365SATLogger($AllowLogging)
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Error |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole |
 		Start-Logger
 		Write-ErrorLog "Program Started!"
@@ -48,7 +52,7 @@ function Invoke-M365SATLogger($AllowLogging)
 	{
 		New-Logger |
 		Set-MinimumLevel -Value Fatal |
-		Add-SinkFile -Path "$OutPath\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
+		Add-SinkFile -Path "$RootDirectory\log\$($DateNow)_M365SAT.log" -OutputTemplate '{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception} {Properties:j}{NewLine}' |
 		Add-SinkConsole |
 		Start-Logger
 		Write-FatalLog "Program Started!"
