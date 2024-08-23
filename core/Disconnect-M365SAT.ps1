@@ -24,6 +24,8 @@ function Disconnect-M365SAT($Modules)
 			Write-Output "Disconnecting Microsoft Graph..."
 			try
 			{
+				#Revoke all RefreshTokens as a Security Measure
+				Invoke-MgBetaInvalidateAllUserRefreshToken -UserId (Get-MgContext).Account
 				Disconnect-MgGraph | Out-Null
 				$DisconnectGraph = $True
 			}
