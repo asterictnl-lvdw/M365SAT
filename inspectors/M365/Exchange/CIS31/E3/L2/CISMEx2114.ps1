@@ -105,7 +105,7 @@ function Inspect-CISMEx2114
 				Write-Host "$($fpolicy.Identity)"
 				$MissingExtensions = $fpolicy.MissingExtensions.Split(",")
 				Write-Host "There are: $($MissingExtensions.Count) missing"
-				$Violation += "$(fpolicy.Identity) is missing the following extension filters: $($fpolicy.MissingExtensions) \n"
+				$Violation += "$($fpolicy.Identity) is missing the following extension filters: $($fpolicy.MissingExtensions) \n"
 			}
 		}
 		
