@@ -12,7 +12,7 @@
 RootModule = 'M365SAT.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.1.1'
+ModuleVersion = '3.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
