@@ -36,7 +36,7 @@ function CheckAdminPrivBeta
 function Get-OperatingSystem{
 	param
 	(
-		[Parameter(Mandatory = $false,
+		[Parameter(Mandatory = $true,
 			HelpMessage = 'Operating System: Windows / Linux / MacOSX')]
 		[ValidateSet('Windows', 'Linux', 'MacOSX', IgnoreCase = $true)]
 		[string]$OS = 'Windows'
