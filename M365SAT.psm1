@@ -231,12 +231,12 @@ function Get-M365SATReport
 	if ($reportType -eq "CSV")
 	{
 		. $PSScriptRoot\core\Get-M365SATCSVReport.ps1
-		Get-M365SATCSVReport -object $object -OutPath $OutPath -Inspectors $inspectorlist
+		Get-M365SATCSVReport -object $object -OutPath $OutPath -Inspectors $inspectorlist -Modules $Modules
 	}
 	elseif ($reportType -eq "HTML")
 	{
 		. $PSScriptRoot\core\Get-M365SATHTMLReport.ps1
-		Get-M365SATHTMLReport -object $object -OutPath $OutPath -Inspectors $inspectorlist
+		Get-M365SATHTMLReport -object $object -OutPath $OutPath -Inspectors $inspectorlist -Modules $Modules
 	}
 	else
 	{
