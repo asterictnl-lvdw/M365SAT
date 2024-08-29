@@ -3,13 +3,44 @@
 function Get-M365SATHTMLReport
 {
 	Param ($object,
+        $Modules,
 		$OutPath,
 		$inspectors)
 	
 	# All Attributes must be stated below
-	#Inititialize RootObject Dummy
-	$Icons = @("https://shorturl.at/hlqvV", "https://shorturl.at/kquU1", "https://shorturl.at/pzVX6", "https://shorturl.at/xyHT9", "https://shorturl.at/rFMNO")
-	$ProductFamilies = @("Microsoft Teams", "Microsoft Exchange", "Microsoft Azure", "Microsoft Sharepoint", "Microsoft Office 365")
+	#Inititialize Variable
+    $ProductFamilies = [Array]@()
+	$ExchangeObject = @()
+	$TeamsObject = @()
+	$AzureObject = @()
+	$SharepointObject = @()
+    $Icons = @("https://shorturl.at/hlqvV", "https://shorturl.at/kquU1", "https://shorturl.at/pzVX6", "https://shorturl.at/xyHT9", "https://shorturl.at/rFMNO")
+	
+    if ($Modules.Contains("All"))
+	{
+		[List]$ProductFamilies = @("Microsoft Teams", "Microsoft Exchange", "Microsoft Azure", "Microsoft Sharepoint", "Microsoft Office 365")
+	}
+    else
+    {
+        switch($Modules){
+            "Azure"{
+                $ProductFamilies +=  "Microsoft Azure"
+            }
+            "Exchange"{
+                $ProductFamilies += "Microsoft Exchange"
+            }
+            "Office365"{
+                $ProductFamilies += "Microsoft Office 365"
+            }
+            "Sharepoint"{
+                $ProductFamilies += "Microsoft Sharepoint"
+            }
+            "Teams"{
+                $ProductFamilies += "Microsoft Teams"
+            }
+        }
+    }
+
 	$i = 0
 
     try{
@@ -22,11 +53,7 @@ function Get-M365SATHTMLReport
         $TenantName = ((Get-AcceptedDomain |  Where-Object {  { $_.Default -eq 'True' } -and ($_.DomainName -like "*.onmicrosoft.com") -and ($_.DomainName -notlike "*mail.onmicrosoft.com") }).DomainName -split '.onmicrosoft.com')[0]
     }
 	
-	#Initialize Objects
-	$ExchangeObject = @()
-	$TeamsObject = @()
-	$AzureObject = @()
-	$SharepointObject = @()
+
 	
 	#AffectedObjects Definition
 	$AffectedObjects = $(foreach ($Affected in $object.Findings) { $Affected | ? { $_.Priority -and $_.RiskRating -ne $null } }).Count
