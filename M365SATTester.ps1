@@ -1,5 +1,4 @@
 #Requires -Version 5.1
-#Requires -RunAsAdministrator
 function ExecuteM365SAT
 {
 	Import-Module .\M365SAT.psd1
@@ -9,7 +8,7 @@ function ExecuteM365SAT
 	Remove-Module M365SAT -Force
 }
 
-#The script is being designed to work with PowerShell 5.1 where there is no automatic detection of the operating system
+#The script is being designed to work with PowerShell 5.1 where there is no automatic detection of the operating system. For PowerShell 7 $IsLinux $IsWindows can be used.
 function CheckAdminPrivBeta
 {
 	# Check if script is running as Adminstrator and if not use RunAs
@@ -44,4 +43,10 @@ function Get-OperatingSystem{
 	)
 	CheckAdminPrivBeta
 }
-Get-OperatingSystem $args[1]
+if ($args[1] -eq $null){
+	Get-OperatingSystem
+}
+else
+{
+	Get-OperatingSystem $args[1]
+}
