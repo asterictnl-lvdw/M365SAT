@@ -342,7 +342,7 @@ You can develop additional modules and place them in different directories based
 - Output Parsers: If you develop a new method to output a report into a different file format, place the parser in the .\output directory.
 
 ## 6. About M35SAT's Security
-As a Vulnerability Assessor, I take security very seriously. Please be aware that this program can execute various inspector modules, which means that potentially malicious scripts could be run if not properly managed. I am not responsible for any damage or loss of files that may occur in such cases.
+As a Cyber Security Specialist, I take security very seriously. Please be aware that this program can execute various inspector modules, which means that potentially malicious scripts could be run if not properly managed. I am not responsible for any damage or loss of files that may occur in such cases.
 
 To maintain a secure environment, please follow these best practices:
 
