@@ -147,25 +147,87 @@ Only use this method if you already installed all additional modules. Else step 
 
 ### 4.3 Execution Commands
 The execution of M365SAT can be done as followed:
+```
 Get-M365SATReport -OutPath <value> -reportType <HTML/CSV/XML> -Username <username> (-Password <password> -SkipChecks -SkipLogin -UseCustomModules -AllowLogging <Verbose/Debug/Info/Warning/Error/Fatal> -Modules <All/MicrosoftAzure/MicrosoftExchange/MicrosoftOffice365/MicrosoftSharepoint/MicrosoftTeams> )
+```
 
-The following Parameters are Required:
--	-OuthPath *'The location to export the Report, e.g. C:\out'*
--	-Username *'The Administrator Username'*
--	-EnvironmentType *'The environment of users choice, this will run the specific inspectors e.g. M365 / AZURE / CUSTOM / ALL*
--	-BenchmarkVersion *'Determines which CIS benchmark version to audit on e.g. 3 / 2 / LATEST*
--	-Modules *'Determines which modules to use to audit e.g. Azure / Exchange / Office365 / Sharepoint / Teams / All*
--	-reportType *'Determines the report type you want the findings to be exported in e.g. HTML / CSV / XML / CSMS*
+#### 4.3.1 Mandatory Parameters
 
-The optional parameters are:
--	-Password *'The Administrator Password'*
--	-LicenseMode *'The license mode e.g. E3 / E5 / All'*
--	-LicenseLevel *'The benchmark level e.g. L1 / L2 / All'*
--	-AllowLogging *'Sets the logging level of the PoSHLogger e.g. Verbose / Debug / Info / Warning / Error / Fatal'*
--	-SkipChecks *'Skips the module updating and validation steps, only do this when you have updated everything manually'*
--	-ExpirimentalMode *'Use the Expirimental MultiThreaded Scanner (Not Recommended!)'*
--	-LocalMode *'Uses only the local inspectors in the CUSTOM folder or the respective folders in /inspectors folder'*
--	-SkipLogin *'Skips the login process (Not Recommended!). Only use this when you are already logged in into all modules before executing M365SAT'*
+`-OutPath`: Specifies the output path for the exported report.
+
+`-Username`: Mandatory. Enter the administrator username.
+
+`-EnvironmentType`: Mandatory. Choose the environment to audit. Options include:
+
+- M365: Microsoft 365
+- AZURE: Azure
+- CUSTOM: Custom Scripts in the /CUSTOM folder
+- ALL: All environments
+
+`-BenchmarkVersion`: Choose the benchmark version. Options include:
+
+- 3: Benchmark version 3
+- 2: Benchmark version 2
+- LATEST: Latest available benchmark version
+
+`-Modules`: Choose the modules to audit. Options include:
+
+- Azure: Azure
+- Exchange: Exchange
+- Office365: Office 365
+- Sharepoint: SharePoint
+- Teams: Teams
+- All: All modules
+
+`-reportType`: Choose the report format. Options include:
+- HTML: HTML
+- CSV: CSV
+- XML: XML
+- CSMS: CSMS
+
+Note: Only HTML fully works at the moment!
+
+#### 4.3.2 Optional Parameters
+
+`-Environment`: Specifies the environment type. Options include:
+
+- Default: Standard environment
+- USGovGCCHigh: U.S. Government Cloud Computing High
+- USGovDoD: U.S. Government Department of Defense
+- Germany: Germany region
+- China: China region
+
+`-Password`: Enter the administrator password. (Non-MFA Account)
+
+`-LicenseMode`: Choose the benchmark license mode. Options include:
+
+- E3: E3 license
+- E5: E5 license
+- All: All license modes
+
+`-LicenseLevel`: Choose the benchmark level. Options include:
+
+- L1: Level 1
+- L2: Level 2
+- All: All levels
+
+`-AllowLogging`: Specifies the log message level. Options include:
+
+- Verbose: Verbose logging
+- Debug: Debug logging
+- Info: Informational logging
+- Warning: Warning logging
+- Error: Error logging
+- Fatal: Fatal logging
+
+`-SkipChecks`: Skips module updates (experimental).
+
+`-ExpirimentalMode`: Uses the experimental multi-threaded scanner (not recommended).
+
+`-LocalMode`: Enables using the /inspectors folder instead of downloading the inspectors from GitHub.
+
+`-SkipLogin`: Skips login if already authenticated (Not-Recommended).
+
 
 ### 4.4 Execution Examples
 In normal situations when using the standard command to execute a security assessment you will be prompted with graphical login screens where you must sequentially log into. 
