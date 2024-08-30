@@ -1,164 +1,163 @@
-# v1.0.0beta 1-2-2023
-The brand new release is now ready to be tested in beta. Warning: This is a BETA! Some parts of code might be unstable or not working properly. We are aware of issues and they will be eliminated in the stable version.
+## Changelog
 
-## What is New?
--	365Inspect+ has been changed to M365SAT
--	A brand new reporting engine that allows a much better overview of issues within your tenant. Besides that the report looks much more professional.
--	I have created the option to import M365SAT as a module or to run it the old way like 365Inspect+ did by executing a .ps1 script. In the future the release will also be installable through the PowerShell Gallery
--	Thanks to a change in the code less sensitive permissions are needed instead of Global Administrator. Global Reader and SharePoint Administrator will do the job now. SharePoint Administrator is still a sensitive permission, but because in the other roles of SharePoint it is not possible to read various values that are essential to audit SharePoint correctly.
--	We have removed the .json files for now and fused it with the .ps1 scripts. Now when the issue is found it will call a function that will return an PSCustomObject which is must faster than importing .json all the time. Leading to performance optimalization 
--	Some generic optimalization by changing some code within the engine
--	Added more console output where you can directly see if there are issues with inspectors finding things violating policy, etc.
--	The structure of modules is different. Now additional modules can be added to the script if needed. This makes the program even more modular 
--	Fixes output of the PowerShellScript where the remediation script was incorrectly displayed because of double quotes instead of single quotes
--	Added even more remediation powershell script possibilities to allow possibility to automate remediation of most scripts in the future
--	Categorized all modules within the report and by naming them e.g. {category}-{check}
--	CVSS 3.1 Scores are added within calculation. Based what could happen if the misconfiguration is abused
--	All modules have now an unique ID. In the future an list will be made with remediation so you can easily tell which issue has been found and how to remediate it. 
--	Optmized various inspectors code
--	Allowed easier authentication by providing username 
+### Version 1.0.0beta (Released on 1-2-2023)
+**Note:** This is a beta release. Some parts of the code may be unstable or not functioning correctly. We are aware of these issues and are working towards resolving them in the stable release.
 
-## Known Issues:
--	There is an issue with the ErrorLog not correctly capturing the message when an exception is thrown. The ErrorLog will be rewritten in the upcoming release
--	Some of the logs output are not being saved in the correct location. This will be fixed in the upcoming release
--	The online inspector download tool is not working yet, this is because the inspectors have not been published to the GitHub repository yet. 
--	The healthindex is not round and calculated correctly, thus looking a bit ugly, this will be fixed in the upcoming release.
--	There might be duplicates in some of the inspectors. This will be checked and fixed in the upcoming release
--	PowerShell 7 is partially compatible, but could result in a lot of bugs and code not working properly. It is still in the testing phase. If you encounter issues, please switch back to PowerShell 5.x and run the audit there. 
--	The updating mechanism to check for an update of M365SAT is not working properly yet, because it has not been published to GitHub yet. In future releases this will be briefly tested to check if this is working properly.
--	Some documentation might be added later
+#### What’s New?
+- **Rebranding**: 365Inspect+ has been renamed to **M365SAT**.
+- **New Reporting Engine**: Introduces a new reporting engine that provides a better overview of issues within your tenant, resulting in a more professional-looking report.
+- **Module Import Option**: M365SAT can now be imported as a module or run traditionally by executing a `.ps1` script. Future releases will also be available through the PowerShell Gallery.
+- **Reduced Permissions**: M365SAT now requires fewer sensitive permissions. Instead of Global Administrator, Global Reader, and SharePoint Administrator roles are sufficient. Note: SharePoint Administrator is still a sensitive permission due to its necessity for reading specific values for auditing SharePoint correctly.
+- **Performance Optimizations**: Removed `.json` files and integrated their functions within `.ps1` scripts, improving performance by reducing the need for constant file imports.
+- **General Code Optimizations**: Various code optimizations have been made within the engine to enhance performance.
+- **Enhanced Console Output**: Added more console output to directly display if inspectors find any policy violations.
+- **Modular Structure**: The structure of the modules has been updated, allowing additional modules to be easily added, enhancing the program's modularity.
+- **Output Fixes**: Resolved issues where the remediation script was incorrectly displayed due to using double quotes instead of single quotes.
+- **Expanded Remediation Scripts**: Added more PowerShell script options to facilitate automated remediation in future updates.
+- **Module Categorization**: Modules are now categorized within the report by naming conventions such as `{category}-{check}`.
+- **CVSS 3.1 Scores**: Added CVSS 3.1 scores based on potential impacts if a misconfiguration is exploited.
+- **Unique Module IDs**: All modules now have unique IDs. A future release will provide a list of these IDs alongside their remediation steps.
+- **Inspector Code Optimization**: Optimized the code for various inspectors.
+- **Easier Authentication**: Improved user authentication by allowing username input.
 
-## To Implement:
--   Get-NetRoute | ? DestinationPrefix-eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState-eq 'Connected' (Which is for checking Network Connection)
+#### Known Issues:
+- **Error Log Issues**: The error log does not correctly capture messages when exceptions are thrown. This will be addressed in the next release.
+- **Log Output Location**: Some logs are not saved in the correct location. This will be fixed in the next release.
+- **Inspector Download Tool**: The online inspector download tool is not yet operational as the inspectors have not been published to the GitHub repository.
+- **Health Index Calculation**: The health index is not rounded or calculated correctly, causing it to appear inconsistent. This will be fixed in the next release.
+- **Duplicate Inspectors**: There may be duplicate inspectors in some cases. This will be reviewed and corrected in the next release.
+- **PowerShell 7 Compatibility**: Partial compatibility with PowerShell 7, which may result in bugs and non-functional code. If issues are encountered, switch back to PowerShell 5.x for the audit.
+- **Update Mechanism**: The update mechanism to check for M365SAT updates is not yet operational because the tool has not been published to GitHub. This will be tested in future releases.
+- **Incomplete Documentation**: Some documentation may be added later.
 
-# Version 2.0
+#### To Implement:
+- **Network Connection Check**: Adding functionality to check network connections using `Get-NetRoute | ? DestinationPrefix -eq '0.0.0.0/0' | Get-NetIPInterface | Where ConnectionState -eq 'Connected'`.
 
-Finally it is here! After a long time of developing, bugfixing and testing I am finally able to release the v2.0 of Microsoft 365 Security Assessment Tool (M365SAT).
+### Version 2.0
+After extensive development, bug-fixing, and testing, version 2.0 of the Microsoft 365 Security Assessment Tool (M365SAT) is now available.
 
-Many things have been changed, added, removed and fixed. I have made a comprehensive list for you to see what has changed:
+#### What’s New?
+- **Updated CIS Benchmark**: Updated to the latest v2.0.0 for both Microsoft Azure and Microsoft 365.
+- **Benchmark Selection Parameters**: Added parameters to select which benchmark to check. Future updates may include additional benchmarks based on user interest and requirements.
+- **New Inspectors**: Introduced new inspectors that identify more findings in both Microsoft Azure and Microsoft 365 environments.
+- **Removed Duplicates**: Eliminated duplicate inspectors across multiple product families.
+- **Expanded Inspectors**: Increased the number of inspectors from 119 to 177, including custom inspectors.
+- **New Login Mechanism**: Testing a new login mechanism for better management of login-related issues.
+- **Custom API Caller**: Implemented a custom API caller to retrieve settings from Azure tenants and other portals.
+- **M365SATTester Script**: Introduced the `M365SATTester.ps1` script for easy use of M365SAT.
+- **Autodetection for SharePoint Domains**: Enabled autodetection for SharePoint domains, thanks to Soteria.
+- **Remediation Script Copy Button**: Added a copy button for the remediation script to facilitate easy copying.
+- **Improved PowerShell Scripts**: Enhanced the readability of PowerShell scripts, thanks to contributions from Soteria.
+- **Updated Collapse Menus**: Updated collapse menus to a new style using Bootstrap 5 with responsive chevrons for a more professional look.
+- **Additional Read Permissions**: Added more read permissions to Microsoft Graph to access further settings required for the CIS benchmark.
+- **Inspector Updates**: All inspectors have been updated to their latest versions and will be retested upon future updates.
+- **Partial PowerShell 7 Compatibility**: M365SAT now offers partial compatibility with PowerShell 7.
+- **Reduced Permissions**: M365SAT can now be executed with fewer permissions than Global Administrator.
 
-## What is new:
--   Updated the CIS benchmark to the latest v2.0.0 for both Microsoft Azure and Microsoft 365
--   We have added parameters that can select which benchmark you want to check. In the future I will see if I can add another benchmark as well. Please do tell which benchmarks you are interested in so I can see what requirements are needed.
--   Added brand new inspectors that enable new findings for both your Microsoft Azure and Microsoft 365 environment
--   Removed some duplicate inspectors at multiple productfamilies
--   Instead of 119 inspectors we now have 177 inspectors (this includes custom inspectors as well)
--   We are testing a new login mechanism that allows better management when problems occur 
--   We implemented a custom API caller which enables us to gain settings within the Azure tenant and other portals as well.
--   We have added a M365SATTester.ps1 script that can be ran if you want to make use of M365SAT
--   We have enabled autodetection for Sharepoint domains thanks to Soteria
--   We have added a copy button onto the remediation script which allows easy copy of the remediation script where available.
--   We have made the PowerShell scripts better readable thanks to Soteria and some additions
--   We have changed the collapse menu's to a different style thanks to Bootstrap 5 with responsive chevrons for more professionalism
--   We have added more Read permissions to Microsoft Graph to read further settings that are required for the CIS benchmark
--   All Inspectors are working onto their latest version. And will be tested again once updates occur to see if there are any issues.
--   M365SAT is partially compatible with PowerShell 7 now.
--   We have enabled that you can execute M365SAT with lesser permissions now than Global Administrator.
+#### Fixed:
+- **Health Index Calculation**: Corrected the health index calculation to ensure a rounded number that accurately reflects the score.
+- **Priority Display**: Fixed issues with some priorities not displaying correctly due to incorrect sorting of informational notes.
+- **Performance Improvements**: Addressed performance issues with Exchange cmdlets, reducing processing time by utilizing EXO cmdlets.
+- **Logging Issues**: Fixed logging issues where logs were not saved in the correct location, causing errors if the directory was not created.
+- **Email Verification**: Resolved issues with DMARC, DKIM, and SPF record verification, which is now fully handled by PowerShell commands instead of CMD commands.
+- **HTML Report Resizing**: Fixed resizing issues in the HTML report by removing multiple flex classes. Now, objects resize appropriately when the screen size is adjusted.
+- **CVS Sorting**: Corrected the sorting of the CVS.
+- **Report Dates**: Fixed an issue with the start and end dates in the report to ensure accurate date entries.
 
-## Fixed:
--   We have fixed the HealthIndex in the report which is now cleanly a round number and gives now the correct health index. The problem was that the 100 was not deducted by the score resulting in a weaker score than it would be
--   We have fixed issues with some priorities not displaying correctly as some informational noted inspectors were not sorted correctly
--   We have fixed performance related issues with the Exchange cmdlets that have now less time needed to process thanks to the EXO cmdlets.
--   We have fixed some logging issues where logs were not saved in the correct place resulting into errors if the directory was not created
--   Fixed issues with the DMARC, DKIM and SPF records verification which is now done entirely by PowerShell commands instead of CMD commands
--   Fixed resizing issues with the HTML report by removing multiple flex classes. Now if you make your screen smaller the objects will be smaller as well.
--   We have fixed an issue that enabled correctly sorting the CVS 
--   There was an issue with the start and end date in the report, this has been fixed so the correct start-date and end-date is written in the report now
+#### Changed:
+- **File Renaming**: Renamed multiple `.ps1` files for clarity.
+- **Report Structure**: Reorganized the report structure and moved the inspector list to the end to prioritize necessary information.
+- **Dependency Updates**: Updated all dependencies in the HTML report to their latest versions.
+- **Exchange Commands Migration**: Migrated Exchange commands to the new EXO cmdlet commands (V3) for better stability and performance.
+- **Authentication Order**: Changed the authentication order, with Security & Compliance preceding Exchange due to a REST Schema bug that prevents Exchange cmdlets from succeeding when connected before the S&C cmdlet.
+- **Bootstrap and Libraries Update**: Migrated from Bootstrap 4 to Bootstrap 5, enhancing the report's appearance, and updated JQuery and FontAwesome dependencies to their latest versions.
 
-## Changed:
--   We have renamed multiple ps1 files to make their function more readable
--   I have moved some things around in the report structure
--   I have moved the inspector list to the end of the report to display all neccesary information first.
--   Have updated all depedencies into the HTML report to their latest versions.
--   I have migrated the Exchange commands to the new EXO cmdlet commands (V3) for better stability and performance.
--   We have switched the authentication that Security & Compliance goes first and then Exchange due to a bug in the REST Schema that does not allow Exchange cmdlets to succeed when the Exchange cmdlet is being connected before the S&C Cmdlet
-O I have migrated Bootstrap 4 to Bootstrap 5 which enhances the prettiness of the report
-O I have updated the JQuery and FontAwesome dependencies to their latest version without any issues. 
+#### Removed:
+- **Deprecated Modules**: Phased out the PnP PowerShell modules to fully utilize SharePoint cmdlets, and removed AzureADPreview and MicrosoftOnline (MSOL) modules as they will be replaced by Microsoft Graph.
+- **Microsoft InTune Module**: Removed and fully integrated into Microsoft Graph.
+- **Legacy Logging**: Replaced `Write-ErrorLog.ps1` with PoSHLog for cleaner and more effective logging.
 
-## Removed:
--    We have said goodbye to the PnPPowerShell modules for now as we want to take full potential of the Sharepoint Cmdlet
--    We have said goodbye to the AzureADPreview and MicrosoftOnline (MSOL) modules as they will be phased out by Microsoft and replaced by Microsoft Graph
--    We have said goodbye to the Microsoft InTune module which is now fully implemented in Microsoft Graph itself
--    We have removed the Write-ErrorLog.ps1 and replaced it with PoSHLog which allows us better logging as it looks more clean. 
+#### Known Issues and Bugs:
+- **Log File Location**: Log files are not saved in the correct folder. A workaround is to manually open the corresponding text file. This will be fixed in the next release.
+- **CVS Score Inaccuracies**: CVS scores may be incorrect. Scores will be updated based on CWE findings and a custom priority algorithm in future releases.
+- **Manual Authentication Required**: Some modules require manual authentication due to cmdlets not supporting cached credential authentication.
+- **PowerShell Warning**: In PowerShell 5.1, CISAz6000 issues a warning about 'Microsoft.Azure.PowerShell.Cmdlets.Network'. This can be safely ignored, and a fix will be explored in the next release.
+- **Text File Naming**: Not all text files have correct naming. This will be fixed in the next release.
+- **Duplicate Logs**: Some findings may have duplicate logs due to more than 10 objects stored in the array. This will be addressed to ensure correct output in the next release.
+- **Clipboard Function**: The clipboard function does not work with all internet browsers. If issues arise, open the HTML file in a different browser, such as Microsoft Edge.
+- **PowerShell 7 Inspector Issues**: Certain inspectors do not function correctly in PowerShell 7 due to issues with new EXO commands. Only Exchange is affected for now. We are considering reverting to normal commands in test releases to resolve this issue.
 
-## Known Issues and Bugs:
--   Logfiles are not pointed to the correct folder. This will be fixed in the upcoming release. You can manually open the corresponding txt file as a workaround for now. This has to do with the directory created in a later phase as we will create the directory earlier in the upcoming release
--   The CVS might have incorrect scores. I will change the scores based on CWE findings and based onto a custom priority algorithm to determine what has big priority for general users and what has not.
--   Some modules require manual authentication due to their cmdlet does not support cached credentials authentication.
--   On PowerShell 5.1 CISAz6000 gives an warning about 'Microsoft.Azure.PowerShell.Cmdlets.Network'. This can be safely ignored. In the next release I will check if I can supress the issue
--   Not all Text files have the correct naming yet. This will be fixed in the next upcoming release.
--   There might be duplicate logs of some findings. This is due some objects have more than 10 stored into the array. We will be fixing the issue so objects are automatically pointed to output in the next release
--   The Clipboard function does not work with all internet browsers. If you are encountering issues, please open the html file in a different browser e.g. Microsoft Edge
--   In PowerShell 7 the following inspectors do not work: CISMEx230, CISMEx280, CSTM-Ex013, CSTM-Ex014, CSTM-Ex015, CSTM-Ex016, CSTM-Ex023, CSTM-Ex024, CSTM-Ex025, CSTM-Ex026 and CSTM-Ex027. This has to do with some issues within the new EXO commands that are not entirely working properly with PowerShell 7 yet. Only Exchange is impacted for now. We are looking to revert back from EXO to the normal commands in some test-releases to see if that resolves the issue for now and archive the EXO inspectors for later use.
+### Version 2.1
 
-# Version 2.1
-Finally after a long while and postponing the release several times I am happy to announce version 2.1 of M365SAT with a bunch of new updates.
+After extensive testing and implementation, version 2.1 of M365SAT is now available with several updates.
 
-## What is new:
--   Updated the Microsoft 365 CIS benchmark to the latest v3.0.0 
--   We added a parameter for the ones who still want to use the CIS v2.0 benchmark of Microsoft 365
--   We have added a multi-threading mode as expirimental function. Do check the limitations, because there are some problems with it. The implementation is done with ThreadJobs. In PS7+ this is already available and for PS5 you must install an additional module in order to make this work. The reason we did this is because we want to make the scanning experience as fast as possible. Since the scans are not depending on eachother we can simply put them in multiple threads. Normal jobs did not seem to work since they create an new session, thus requiring us to authenticate again for each inspector which creates large delays. Since ThreadJobs stay in the same PowerShell windows but create backgroundjobs that stay in the same session we are allowed to re-use the commands.
--   I have added the Likelihood and Priority objects within all the inspectors. This to calculate the RiskScore. Every RiskScore is calculated by multiplying the impact with the likelihood. A RiskScore can be between 0 and 25. Where 0 is always informational and 25 is Critical. For the exact numbers please consult the README.md published on GitHub.
+#### What’s New?
+- **Updated CIS Benchmark**: The Microsoft 365 CIS benchmark has been updated to version 3.0.0.
+- **Benchmark Selection Parameter**: Added a parameter to allow users to select the CIS v2.0 benchmark for those who wish to use it.
+- **Experimental Multi-threading**: Introduced an experimental multi-threading mode using ThreadJobs for faster scanning. This mode is available in PowerShell 7+ and requires an additional module in PowerShell 5. This feature aims to speed up scanning by running inspectors in parallel within the same session.
+- **RiskScore Calculation**: Added Likelihood and Priority objects to all inspectors for calculating RiskScore. The RiskScore, ranging from 0 to 25, is computed by multiplying impact and likelihood. Refer to the README.md on GitHub for detailed information.
 
-## Fixed:
-We fixed some issues with styling in the report as well as some descriptions from CIS misconfigurations
+#### Fixed:
+- **Styling Issues**: Fixed styling and description issues in the report related to CIS misconfigurations.
 
-## Changed:
--   I have changed the CVSS with a risk analysis model based on impact x likelihood
--   We have made a change to the priority schema. Things were not as critical or high sometimes that decided us to change things around to allow your organization better prioritizing your findings. We have decided to use a 5x5 Risk Analysis Schema to determine the severity and priority instead of the score.
--   We have modified the sort-object schema as we are now sorting on the RiskScore.
--   We have provided an update to the README.md to make some text more clear
+#### Changed:
+- **Risk Analysis Model**: Replaced the CVSS scoring with a risk analysis model based on impact x likelihood.
+- **Priority Schema Update**: Modified the priority schema to use a 5x5 Risk Analysis Schema for better prioritization of findings.
+- **Sorting Schema**: Updated sorting to be based on RiskScore.
+- **README.md Update**: Enhanced the README.md for improved clarity.
 
-## Removed:
--   We have removed the CVSS score as it was not accurate. Not every CIS thing fixes a vulnerability.
+#### Removed:
+- **CVSS Score**: Removed CVSS scores as they were not accurately reflecting the significance of CIS findings.
 
-## Known Issues
--   The sorting of the objects it not yet fixed, the priority is correct, but the riskrating sort is not correctly implemented yet. This will be fixed in the next release (v2.1.1)
--   It might happen that some sources have to be changed due to the new implementation. This will be fixed in the next release (v2.1.1)
--   CISMAz1111 is not working in multithreaded mode on PowerShell v5 (INVESTIGATION) there are multiple issues with multithreading mode when executing the inspectors.
--   There are issues with MultiThreading when running Exchange Cmdlets. Source: https://learn.microsoft.com/en-us/powershell/exchange/invoke-command-workarounds-rest-api?view=exchange-ps we are looking into implementing the workaround to make this work so multithreading will be no issue with these cmdlets. Eventually these cmdlets will be executed in singlethreaded mode afterwards to make sure they succeed all. (INVESTIGATION)
+#### Known Issues:
+- **Object Sorting**: Sorting of objects based on RiskScore is not yet fixed. This will be addressed in the next release (v2.1.1).
+- **Source Changes**: Potential changes in sources due to the new implementation. This will be addressed in the next release (v2.1.1).
+- **CISMAz1111 Multi-threading Issue**: CISMAz1111 does not work in multi-threaded mode on PowerShell v5. Further investigation is needed.
+- **Multi-threading with Exchange Cmdlets**: Issues with multi-threading when running Exchange cmdlets are being investigated. A workaround will be implemented to ensure compatibility.
 
-# Version 2.1.1
-Finally after a long while of testing and implementing new stuff, I am happy to announce version 2.1.1 of M365SAT with a bunch of new updates.
+### Version 2.1.1
 
-## What is new:
--   Updated the Azure Foundations CIS benchmark to the latest v2.1.0 and added as many as possible checks to ensure you can check as much as possible for the CIS Benchmark and expanding coverage.
--   We have added an option in the AuditType parameter called 'Latest' which enabled users to audit their environment based on the latest checks (M365: v3.0.0 and AZ: v2.1.0). This is now also the default option
--   We have fixed some issues regarding some inspectors and removed some uneccesary warning message decreasing performance.
+Following thorough testing and additional updates, version 2.1.1 of M365SAT is now available.
 
-## Fixed:
--   There were some issues regarding time-out that have been investigated and have been fixed in v3.0.0 and v2.1.0. 
+#### What’s New?
+- **Updated Azure Foundations CIS Benchmark**: Updated to version 2.1.0 and expanded coverage with additional checks.
+- **Latest AuditType Parameter**: Added an option in the AuditType parameter to audit based on the latest checks (M365: v3.0.0 and AZ: v2.1.0). This is now the default option.
+- **Inspector Updates**: Addressed issues with some inspectors and removed unnecessary warning messages to improve performance.
 
-## Changed:
--   There are no major changes
+#### Fixed:
+- **Timeout Issues**: Resolved timeout issues that were affecting performance in v3.0.0 and v2.1.0.
 
-## Removed:
--   There were no removals done this release
+#### Changed:
+- **No Major Changes**: No significant changes in this release.
 
-# Version 2.2
+#### Removed:
+- **No Removals**: No modules or features were removed in this release.
 
-## Added
--   E3 / E5 TAG ADDING (E3 Level 1, E3 Level 2, E5 Level 1, E5 Level 2) including parameters
--   The 'EnvironmentType' parameter has been added to distinguish Microsoft 365 and Azure from eachother
--   The 'LicenseMode' parameter has been added to distinguish an E3 from an E5 audit or the otherway around or if you want to audit both that is possible as well now
--   The 'LicenseLevel' has been added based on the CIS since the CIS defines two types of levels as one has more impact than the other. The user can now choose to only audit on the level 1 parts, or only the level 2 or both
--   Multiple options to run a script are now possible in the M365SATTester.ps1 file
-## Fixed
--   The sources of findings have been fixed just as well as some of the descriptions
--   Some incorrect change have been improved to their latest version in v3.0.0 of the M365 Inspector list
-## Changed
--   There have been multiple parameters being removed
--   The BenchmarkVersion has been changed to allow better processing and using only the specific benchmark version instead of all benchmarks
--   The 'Modules' parameter have been changed
--   Changed the name of the CustomModules to LocalMode
--   There have been some changes within the Connection Schema allowing if only specific modules are needing to be scanned that you only need to authenticate the corresponding modules and not all modules anymore instead
--   We are expirimenting with outputting all findings to .txt file as well and to see what impact it has on performance. If it eats too much memory and affects performance we will remove this in a future release
-## Removed
--   There were no removals done this release
-## Known Issues
+### Version 2.2
 
-# Version 2.3
-- See Releases section for full Changelog
+#### Added:
+- **E3/E5 Tags**: Added E3 Level 1, E3 Level 2, E5 Level 1, and E5 Level 2 tags, along with corresponding parameters.
+- **EnvironmentType Parameter**: Introduced the 'EnvironmentType' parameter to differentiate between Microsoft 365 and Azure environments.
+- **LicenseMode Parameter**: Added 'LicenseMode' parameter to distinguish between E3 and E5 audits or to audit both.
+- **LicenseLevel Parameter**: Added 'LicenseLevel' to allow users to audit specific CIS levels (Level 1 or Level 2) or both.
+- **Script Execution Options**: Enhanced `M365SATTester.ps1` to support multiple script execution options.
 
-# Version 3.0
-- Coming Soon!
+#### Fixed:
+- **Sources and Descriptions**: Fixed issues with finding sources and updated descriptions to align with the latest version of the M365 Inspector list.
+
+#### Changed:
+- **Parameter Adjustments**: Removed several parameters and updated the `BenchmarkVersion` parameter for better processing.
+- **Modules Parameter**: Modified the 'Modules' parameter and renamed 'CustomModules' to 'LocalMode'.
+- **Connection Schema**: Updated connection schema to allow authentication for specific modules only.
+- **TXT Output Experiment**: Experimented with outputting findings to `.txt` files. Future updates will assess its impact on performance.
+
+#### Removed:
+- **No Removals**: No features or modules were removed in this release.
+
+### Version 2.3
+
+For detailed changes, please refer to the Releases section.
+
+### Version 3.0
+
+**Coming Soon!**
