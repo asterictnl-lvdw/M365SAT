@@ -97,8 +97,8 @@ function Get-M365SATReport
 		[ValidateSet('M365', 'AZURE', 'CUSTOM', 'ALL', IgnoreCase = $true)]
 		[string[]]$EnvironmentType = "ALL",
 		[Parameter(Mandatory = $true,
-			HelpMessage = 'Choose Benchmark Version: 3 / 2 / LATEST')]
-		[ValidateSet(3, 2, 'LATEST', IgnoreCase = $true)]
+			HelpMessage = 'Choose Benchmark Version: 3 / LATEST')]
+		[ValidateSet(3, 'LATEST', IgnoreCase = $true)]
 		[string]$BenchmarkVersion = "LATEST",
 		[Parameter(Mandatory = $true,
 			HelpMessage = 'Available Modules: Azure / Exchange / Office365 / Sharepoint / Teams / All')]
@@ -108,7 +108,7 @@ function Get-M365SATReport
 			HelpMessage = 'Choose Benchmark License Mode: E3 / E5 / All')]
 		[ValidateSet("E3", "E5", 'All', IgnoreCase = $true)]
 		[string]$LicenseMode = "All",
-		[Parameter(Mandatory = $false,
+		[Parameter(Mandatory = $true,
 			HelpMessage = 'Choose Benchmark Level: L1 / L2 / All')]
 		[ValidateSet("L1", "L2", 'All', IgnoreCase = $true)]
 		[string]$LicenseLevel = "All",

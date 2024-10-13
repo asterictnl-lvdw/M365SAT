@@ -81,10 +81,6 @@ function Get-M365SATLocalChecks($Directory, $EnvironmentType, $BenchmarkVersion,
 
 	# Switch statements
 		switch ($BenchmarkVersion) {
-			2 {	
-				[string]$AzureVersion = "CIS21"
-				[string]$M365Version =  "CIS20"
-			}
 			3 {	
 				[string]$AzureVersion = "CIS30"
 				[string]$M365Version = "CIS30"
@@ -152,14 +148,25 @@ function Get-M365SATLocalChecks($Directory, $EnvironmentType, $BenchmarkVersion,
 				}
 			}
 			"AZURE" {
-				#Unblock All Files
-				Get-ChildItem -Path $Directory\$_ -Recurse | Unblock-File
-				$AzureInspectors = Get-ChildItem $Directory\$AZUREFolder\$AzureVersion\*.ps1
-				foreach ($inspector in $AzureInspectors)
-				{
-					[string]$fullname = $inspector.FullName
-					[string]$name = ($inspector.Name -split ".ps1")[0]
-					$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+				switch ($LicenseLevel) {
+					"L1" {
+						$L1Inspectors = Get-ChildItem $Directory\$AZUREFolder\$AzureVersion\$L1Folder\*.ps1
+						foreach ($inspector in $L1Inspectors)
+						{
+							[string]$fullname = $inspector.FullName
+							[string]$name = ($inspector.Name -split ".ps1")[0]
+							$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+						}
+					}
+					"L2" {
+						$L2Inspectors = Get-ChildItem $Directory\$AZUREFolder\$AzureVersion\$L2Folder\*.ps1 
+						foreach ($inspector in $L2Inspectors)
+						{
+							[string]$fullname = $inspector.FullName
+							[string]$name = ($inspector.Name -split ".ps1")[0]
+							$listfullinspectors += @(@{ 'FullName' = $fullname; 'Name' = $name })
+						}
+					}
 				}
 			}
 			"CUSTOM"{
