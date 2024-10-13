@@ -2,7 +2,7 @@
 # Version: 1.0
 # Benchmark: CIS Azure v2.1.0
 # Product Family: Microsoft Azure
-# Purpose: Ensure that A Multi-factor Authentication Policy Exists for Administrative Groups
+# Purpose: Ensure that A Multi-factor Authentication Policy Exists for All Users
 # Author: Leonardo van de Weteringh
 
 # New Error Handler Will be Called here

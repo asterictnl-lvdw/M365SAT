@@ -43,7 +43,7 @@ function Audit-CISMAz5223
 	{
 		# Actual Script
 		$Violation = @()
-		$OptimalPolicy = Get-MgIdentityConditionalAccessPolicy |  Where-Object { ($_.Conditions.Users.IncludeUsers -eq 'All') -and ($_.Conditions.Users.ExcludeUsers.Count -igt 1) -and ($_.Conditions.Applications.IncludeApplications -eq "All") -and ($_.Conditions.ClientAppTypes -contains "exchangeActiveSync" -and "other") -and $_.GrantControls.BuiltInControls -eq "block"}
+		$OptimalPolicy = Get-MgIdentityConditionalAccessPolicy |  Where-Object { ($_.Conditions.Users.IncludeUsers -eq 'All') -and ($_.Conditions.Users.ExcludeUsers.Count -ige 1) -and ($_.Conditions.Applications.IncludeApplications -eq "All") -and ($_.Conditions.ClientAppTypes -contains "exchangeActiveSync" -and "other") -and $_.GrantControls.BuiltInControls -eq "block"}
 		if ([string]::IsNullOrEmpty($OptimalPolicy))
 		{
 			$Violation += "No Conditional Access Policy (Correctly) Configured to block Legacy Authentication"

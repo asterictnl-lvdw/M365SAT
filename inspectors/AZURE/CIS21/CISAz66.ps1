@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Azure v2.0.0
+# Benchmark: CIS Azure v2.1.0
 # Product Family: Microsoft Azure
 # Purpose: Checks if Logging and Monitoring is compliant by executing various checks
 # Author: Leonardo van de Weteringh
@@ -35,7 +35,7 @@ function Build-CISAz66($findings)
 	return $inspectorobject
 }
 
-function Audit-CISAz6000
+function Audit-CISAz66
 {
 	try
 	{
@@ -53,7 +53,7 @@ function Audit-CISAz6000
 		
 		if ($AffectedSettings.count -ne 0)
 		{
-			$finalobject = Build-CISAz6000($Settings.enabled)
+			$finalobject = Build-CISAz66($Settings.enabled)
 			return $finalobject
 		}
 		return $null

@@ -39,7 +39,6 @@ function Audit-CISAz2119
 {
 	try
 	{
-		# https://management.azure.com/subscriptions/b1e7d08a-3165-4386-b924-7926fe4af0f0
 		$SubScriptionID = Get-AzSubscription
 		$Settings = ((Invoke-AzRestMethod -Method GET -Path "/subscriptions/$($SubScriptionID.id)/providers/Microsoft.Security/securityContacts?api-version=2020-01-01-preview").content | ConvertFrom-Json).properties | select-object alertNotifications -ExpandProperty alertNotifications -ErrorAction SilentlyContinue
 		

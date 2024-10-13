@@ -42,19 +42,24 @@ function Audit-CISAz32
 	try
 	{
 		$violation = @()
-		$contexts = Get-AzStorageAccount -ErrorAction SilentlyContinue | Select-Object StorageAccountName,ResourceGroupName 
-		foreach ($context in $contexts){
+		$StorageAccounts = Get-AzStorageAccount -ErrorAction SilentlyContinue | Select-Object StorageAccountName,ResourceGroupName 
+		foreach ($StorageAccount in $StorageAccounts){
 			try{
-			$StorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $context.ResourceGroupName -Name $context.StorageAccountName -ErrorAction SilentlyContinue).Value[0] 
-			$context = New-AzStorageContext -StorageAccountName $context.StorageAccountName -StorageAccountKey $StorageAccountKey -ErrorAction SilentlyContinue
-			$Container = Get-AzStorageContainer -Context $context -ErrorAction SilentlyContinue
-			$Blobs = $Container | ForEach-Object { Get-AzStorageBlob -Container $_.Name -Context $context }
-			foreach ($Blob in $Blobs){
-				$Check = $Blob | Select-Object -ExpandProperty ICloudBlob | Select-Object -ExpandProperty Properties | Select-Object IsServerEncrypted
-					if ($Check.IsServerEncrypted -eq $False){
-						$violation += $Blob.Name
+				$StorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $StorageAccount.ResourceGroupName -Name $StorageAccount.StorageAccountName -ErrorAction SilentlyContinue -WarningAction SilentlyContinue).Value[0] 
+				$AzStorageContext = New-AzStorageContext -StorageAccountName $StorageAccount.StorageAccountName -StorageAccountKey $StorageAccountKey -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+				$Containers = Get-AzStorageContainer -Context $AzStorageContext -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+				ForEach ($Container in $Containers){
+					[Diagnostics.Trace]::Listeners.Clear()
+					$Blobs = Get-AzStorageBlob -Container $Container.Name -Context $AzStorageContext -WarningAction SilentlyContinue
+					ForEach ($Blob in $Blobs){
+						$Check = $Blob | Select-Object -ExpandProperty ICloudBlob | Select-Object -ExpandProperty Properties | Select-Object IsServerEncrypted
+						if ($Check.IsServerEncrypted -eq $False){
+							$violation += $Blob.Name
+						}
 					}
+					[Diagnostics.Trace]::Listeners.Clear()
 				}
+				
 			}
 			catch
 			{

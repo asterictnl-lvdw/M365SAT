@@ -82,15 +82,15 @@ function Get-M365SATLocalChecks($Directory, $EnvironmentType, $BenchmarkVersion,
 	# Switch statements
 		switch ($BenchmarkVersion) {
 			2 {	
-				[string]$AzureVersion = "CIS20"
+				[string]$AzureVersion = "CIS21"
 				[string]$M365Version =  "CIS20"
 			}
 			3 {	
-				[string]$AzureVersion = "CIS21"
+				[string]$AzureVersion = "CIS30"
 				[string]$M365Version = "CIS30"
 			}
 			"Latest"{
-				[string]$AzureVersion = "CIS21"
+				[string]$AzureVersion = "CIS30"
 				[string]$M365Version = "CIS31"
 			}
 		}
