@@ -51,7 +51,7 @@ function Audit-CISAz99
 		$Violation = @()
 
 		#Java Json REST Requests
-		$JavaJson = (((Invoke-AzRestMethod -Path $WindowsRestMethod ).Content | ConvertFrom-Json).value.properties | Where-Object {$_.name -eq "java"}).majorversions
+		$JavaJson = (((Invoke-AzRestMethod -Path $LinuxRestMethod ).Content | ConvertFrom-Json).value.properties | Where-Object {$_.name -eq "java"}).majorversions
 		$javaversion = $JavaJson[$JavaJson.Length-1].displayVersion
 
 		$Violation = @()

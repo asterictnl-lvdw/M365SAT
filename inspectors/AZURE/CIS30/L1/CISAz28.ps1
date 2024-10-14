@@ -46,7 +46,7 @@ function Audit-CISAz28
 	{
 		$AffectedOptions = @()
 		# Actual Script
-		$MethodsRequired = Invoke-MultiMicrosoftAPI -Url 'https://main.iam.ad.ext.azure.com/api/AuthenticationMethods/PasswordPolicy' -Resource "74658136-14ec-4630-ad9b-26e28ff0fc6" -Method 'GET'
+		$MethodsRequired = Invoke-MultiMicrosoftAPI -Url 'https://main.iam.ad.ext.azure.com/api/AuthenticationMethods/PasswordPolicy' -Resource "74658136-14ec-4630-ad9b-26e160ff0fc6" -Method 'GET'
 		# Validation
 		if ($MethodsRequired.enforceCustomBannedPasswords -eq $false)
 		{

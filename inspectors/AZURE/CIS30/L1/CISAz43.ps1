@@ -54,14 +54,6 @@ function Audit-CISAz43
 				$violation += $account.StorageAccountName
 			}
 		}
-		Write-Output $accountName ->
-		Write-Output "Expiration Reminder set to: 
-		$($account.KeyPolicy.KeyExpirationPeriodInDays) Days"
-		Write-Output "Key1 Last Rotated: 
-		$($account.KeyCreationTime.Key1.ToShortDateString())"
-		Write-Output "Key2 Last Rotated: 
-		$($account.KeyCreationTime.Key2.ToShortDateString())"
-
 
 		if ($violation.Count -igt 0){
 			$finalobject = Build-CISAz43($violation)

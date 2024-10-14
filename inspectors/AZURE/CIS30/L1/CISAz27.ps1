@@ -41,7 +41,7 @@ function Audit-CISAz27
 	try
 	{
 		# Actual Script
-		$MethodsRequired = Invoke-MultiMicrosoftAPI -Url "https://main.iam.ad.ext.azure.com/api/AuthenticationMethods/PasswordPolicy" -Resource "74658136-14ec-4630-ad9b-27e160ff0fc6" -Method 'GET'
+		$MethodsRequired = Invoke-MultiMicrosoftAPI -Url "https://main.iam.ad.ext.azure.com/api/AuthenticationMethods/PasswordPolicy" -Resource "74658136-14ec-4630-ad9b-26e160ff0fc6" -Method 'GET'
 		# Validation
 		if ($MethodsRequired.lockoutDurationInSeconds -ilt 60)
 		{
