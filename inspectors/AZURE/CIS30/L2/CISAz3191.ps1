@@ -11,12 +11,12 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISAz3181($findings)
+function Build-CISAz3191($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
-		ID			     = "CISAz3181"
-		FindingName	     = "CIS Az 3.1.8.1 - Microsoft Defender for Resource Manager is Set to 'Off'"
+		ID			     = "CISAz3191"
+		FindingName	     = "CIS Az 3.1.9.1 - Microsoft Defender for Resource Manager is Set to 'Off'"
 		ProductFamily    = "Microsoft Azure"
 		RiskScore	     = "2"
 		Description	     = "Scanning resource requests lets you be alerted every time there is suspicious activity in order to prevent a security threat from being introduced."
@@ -38,7 +38,7 @@ function Build-CISAz3181($findings)
 	return $inspectorobject
 }
 
-function Audit-CISAz3181
+function Audit-CISAz3191
 {
 	try
 	{
@@ -48,7 +48,7 @@ function Audit-CISAz3181
 		# Validation
 		if ($AzSecuritySetting.PricingTier -ne 'Standard')
 		{
-			$finalobject = Build-CISAz3181($AzSecuritySetting.PricingTier)
+			$finalobject = Build-CISAz3191($AzSecuritySetting.PricingTier)
 			return $finalobject
 		}
 		return $null
@@ -59,4 +59,4 @@ function Audit-CISAz3181
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISAz3181
+return Audit-CISAz3191
