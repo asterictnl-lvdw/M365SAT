@@ -31,7 +31,7 @@ function Invoke-MicrosoftSharepointPnPCredentials{
 		}
 		$ClientId = Register-PnPEntraIDAppForInteractiveLogin -ApplicationName "PnP Rocks" -Tenant $TenantName.onmicrosoft.com -Credential $Credential
 		$ClientId = $ClientId.'AzureAppId/ClientId'
-		if ([string]::IsNullOrEmpty($ClientId){
+		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-AzADApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
 		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$org_name-admin.sharepoint.com" -Credential $Credential -ClientId $ClientId
@@ -85,7 +85,7 @@ function Invoke-MicrosoftSharepointPnPUsername{
 		}
 		$ClientId = Register-PnPEntraIDAppForInteractiveLogin -ApplicationName "PnP Rocks" -Tenant $TenantName.onmicrosoft.com -Interactive
 		$ClientId = $ClientId.'AzureAppId/ClientId'
-		if ([string]::IsNullOrEmpty($ClientId){
+		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-AzADApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
 		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$org_name-admin.sharepoint.com" -Interactive -ClientId $($ClientID.'AzureAppId/ClientId')
@@ -139,7 +139,7 @@ function Invoke-MicrosoftSharepointPnPLite{
 		}
 		$ClientId = Register-PnPEntraIDAppForInteractiveLogin -ApplicationName "PnP Rocks" -Tenant $TenantName.onmicrosoft.com -Interactive
 		$ClientId = $ClientId.'AzureAppId/ClientId'
-		if ([string]::IsNullOrEmpty($ClientId){
+		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-AzADApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
 		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$org_name-admin.sharepoint.com" -Interactive -ClientId $($ClientID.'AzureAppId/ClientId')
