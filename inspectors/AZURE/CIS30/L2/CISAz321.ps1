@@ -49,7 +49,7 @@ function Audit-CISAz321
 		
 		if ([string]::IsNullOrEmpty($Settings.value))
 		{
-			$finalobject = Build-CISAz31013("No Microsoft Defender for IoT Hub available!")
+			$finalobject = Build-CISAz321("No Microsoft Defender for IoT Hub available!")
 			return $finalobject
 		}
 		return $null

@@ -39,7 +39,7 @@ function Build-CISAz2021($findings)
 	return $inspectorobject
 }
 
-function Audit-CISAz120
+function Audit-CISAz2021
 {
 	try
 	{

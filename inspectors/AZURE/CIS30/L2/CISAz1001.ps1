@@ -53,7 +53,7 @@ function Audit-CISAz1001
 		#Resouces Based
 		$AzResources = Get-AzResource | Select-Object ResourceGroupName,ResourceId,ResourceName,ResourceType -Unique
 		foreach ($Resource in $AzResources){
-			$ResourceLock = Get-AzResourceLock -ResourceName $Resource.ResourceName -ResourceGroupName $Resource.ResourceGroupName $Resource.ResourceType  | Select-Object -Unique
+			$ResourceLock = Get-AzResourceLock -ResourceName $Resource.ResourceName -ResourceGroupName $Resource.ResourceGroupName -ResourceType $Resource.ResourceType  | Select-Object -Unique
 			if ([String]::IsNullOrEmpty($ResourceLock)){
 				$Violation += $Resource.ResourceGroupName
 			}

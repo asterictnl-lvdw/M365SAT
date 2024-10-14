@@ -57,7 +57,7 @@ function Audit-CISAz213
 		if ($affectedusers.count -gt 0)
 		{
 			$affectedusers | Format-Table -AutoSize | Out-File "$path\CISAz113UsersNonMFA.txt"
-			$finalobject = Build-CISAz113($affectedusers.Count)
+			$finalobject = Build-CISAz213($affectedusers.Count)
 			return $finalobject
 		}
 		return $null

@@ -46,7 +46,7 @@ function Audit-CISAz31015
 		
 		if ([string]::IsNullOrEmpty($Settings.value))
 		{
-			$finalobject = Build-CISAz31013("No EASM Workspace available")
+			$finalobject = Build-CISAz31015("No EASM Workspace available")
 			return $finalobject
 		}
 		return $null
