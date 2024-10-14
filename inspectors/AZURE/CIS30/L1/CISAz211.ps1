@@ -48,7 +48,7 @@ function Audit-CISAz211
 		# Validation
 		if ($SecureDefaultsState.isEnabled -eq $false)
 		{
-			$finalobject = Build-CISAz111($SecureDefaultsState.isEnabled)
+			$finalobject = Build-CISAz211($SecureDefaultsState.isEnabled)
 			return $finalobject
 		}
 		return $null
