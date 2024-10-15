@@ -8,6 +8,8 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
+# Determine OutPath
+$path = @($OutPath)
 function Build-CISMSp7210($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
@@ -37,25 +39,51 @@ function Audit-CISMSp7210
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-Table  EmailAttestationRequired, EmailAttestationReAuthDays
-		if ($SharepointSetting.EmailAttestationRequired -ne $True)
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "EmailAttestationRequired: False"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-Table  EmailAttestationRequired, EmailAttestationReAuthDays
+			if ($SharepointSetting.EmailAttestationRequired -ne $True)
+			{
+				$AffectedOptions += "EmailAttestationRequired: False"
+			}
+			if ($SharepointSetting.EmailAttestationReAuthDays -igt 15)
+			{
+				$AffectedOptions += "EmailAttestationReAuthDays: $($SharepointSetting.EmailAttestationReAuthDays)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp7210-SPOTenant.txt"
+				$finalobject = Build-CISMSp7210($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		if ($SharepointSetting.EmailAttestationReAuthDays -igt 15)
+		else
 		{
-			$AffectedOptions += "EmailAttestationReAuthDays: $($SharepointSetting.EmailAttestationReAuthDays)"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-Table  EmailAttestationRequired, EmailAttestationReAuthDays
+			if ($SharepointSetting.EmailAttestationRequired -ne $True)
+			{
+				$AffectedOptions += "EmailAttestationRequired: False"
+			}
+			if ($SharepointSetting.EmailAttestationReAuthDays -igt 15)
+			{
+				$AffectedOptions += "EmailAttestationReAuthDays: $($SharepointSetting.EmailAttestationReAuthDays)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp7210-SPOTenant.txt"
+				$finalobject = Build-CISMSp7210($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
-		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp7210-SPOTenant.txt"
-			$finalobject = Build-CISMSp7210($AffectedOptions)
-			return $finalobject
-		}
-		return $null
 	}
 	catch
 	{

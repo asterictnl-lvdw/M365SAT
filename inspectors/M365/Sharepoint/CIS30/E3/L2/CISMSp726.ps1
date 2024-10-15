@@ -16,7 +16,7 @@ function Build-CISMSp726($findings)
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
 		ID			     = "CISMSp726"
-		FindingName	     = "CIS MSp 6.1 - SharePoint external sharing is not managed through domain whitelist/blacklists"
+		FindingName	     = "CIS MSp 7.2.6 - SharePoint external sharing is not managed through domain whitelist/blacklists"
 		ProductFamily    = "Microsoft SharePoint"
 		RiskScore	     = "5"
 		Description	     = "Attackers will often attempt to expose sensitive information to external entities through sharing, and restricting the domains that users can share documents with will reduce that surface area."
@@ -38,18 +38,32 @@ function Audit-CISMSp726
 {
 	Try
 	{
-		
-		$ShareSettings = (Get-SPOTenant).SharingDomainRestrictionMode
-		If ($ShareSettings -ne "AllowList")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
-			$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
-			$endobject = Build-CISMSp726($message)
-			return $endobject
+			$ShareSettings = (Get-PnPTenant).SharingDomainRestrictionMode
+			If ($ShareSettings -ne "AllowList")
+			{
+				$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
+				$endobject = Build-CISMSp726($message)
+				return $endobject
+			}
+			return $null
 		}
-		
-		return $null
-		
+		else
+		{
+			$ShareSettings = (Get-SPOTenant).SharingDomainRestrictionMode
+			If ($ShareSettings -ne "AllowList")
+			{
+				$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
+				$endobject = Build-CISMSp726($message)
+				return $endobject
+			}
+			
+			return $null
+		}
 	}
 	catch
 	{

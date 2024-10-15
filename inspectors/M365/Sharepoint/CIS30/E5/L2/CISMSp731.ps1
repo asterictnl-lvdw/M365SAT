@@ -38,14 +38,29 @@ function Audit-CISMSp731
 {
 	try
 	{
-		$DNAIFSP = Get-SPOTenant | Select-Object DisallowInfectedFileDownload
-		if ($DNAIFSP.DisallowInfectedFileDownload -match 'False')
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$DNAIFSP | Format-Table -AutoSize | Out-File "$path\CISMSp732-SPOTenant.txt"
-			$endobject = Build-CISMSp731("DisallowInfectedFileDownload: $($DNAIFSP.DisallowInfectedFileDownload)")
-			return $endobject
+			$DNAIFSP = Get-PnPTenant | Select-Object DisallowInfectedFileDownload
+			if ($DNAIFSP.DisallowInfectedFileDownload -match 'False')
+			{
+				$DNAIFSP | Format-Table -AutoSize | Out-File "$path\CISMSp732-PnPTenant.txt"
+				$endobject = Build-CISMSp731("DisallowInfectedFileDownload: $($DNAIFSP.DisallowInfectedFileDownload)")
+				return $endobject
+			}
+			return $null
 		}
-		return $null
+		else
+		{
+			$DNAIFSP = Get-SPOTenant | Select-Object DisallowInfectedFileDownload
+			if ($DNAIFSP.DisallowInfectedFileDownload -match 'False')
+			{
+				$DNAIFSP | Format-Table -AutoSize | Out-File "$path\CISMSp732-SPOTenant.txt"
+				$endobject = Build-CISMSp731("DisallowInfectedFileDownload: $($DNAIFSP.DisallowInfectedFileDownload)")
+				return $endobject
+			}
+			return $null
+		}
 	}
 	catch
 	{

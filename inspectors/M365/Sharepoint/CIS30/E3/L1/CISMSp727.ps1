@@ -8,6 +8,9 @@
 # New Error Handler Will be Called here
 Import-Module PoShLog
 
+# Determine OutPath
+$path = @($OutPath)
+
 function Build-CISMSp727($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
@@ -35,21 +38,44 @@ function Audit-CISMSp727
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
-		if ($SharepointSetting.DefaultSharingLinkType -eq "Internal")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "DefaultSharingLinkType: $($SharepointSetting.DefaultSharingLinkType)"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
+			if ($SharepointSetting.DefaultSharingLinkType -eq "Internal")
+			{
+				$AffectedOptions += "DefaultSharingLinkType: $($SharepointSetting.DefaultSharingLinkType)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp727-SPOTenant.txt"
+				$finalobject = Build-CISMSp727($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
+		else
 		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp727-SPOTenant.txt"
-			$finalobject = Build-CISMSp727($AffectedOptions)
-			return $finalobject
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
+			if ($SharepointSetting.DefaultSharingLinkType -eq "Internal")
+			{
+				$AffectedOptions += "DefaultSharingLinkType: $($SharepointSetting.DefaultSharingLinkType)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp727-SPOTenant.txt"
+				$finalobject = Build-CISMSp727($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		return $null
+
 	}
 	catch
 	{
