@@ -38,21 +38,44 @@ function Audit-CISMSp723
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-List SharingCapability
-		if ($SharepointSetting.SharingCapability -eq "ExternalUserAndGuestSharing")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "SharingCapability: $($SharepointSetting.SharingCapability)"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-List SharingCapability
+			if ($SharepointSetting.SharingCapability -eq "ExternalUserAndGuestSharing")
+			{
+				$AffectedOptions += "SharingCapability: $($SharepointSetting.SharingCapability)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp723-SPOTenant.txt"
+				$finalobject = Build-CISMSp723($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
+		else
 		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp723-SPOTenant.txt"
-			$finalobject = Build-CISMSp723($AffectedOptions)
-			return $finalobject
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-List SharingCapability
+			if ($SharepointSetting.SharingCapability -eq "ExternalUserAndGuestSharing")
+			{
+				$AffectedOptions += "SharingCapability: $($SharepointSetting.SharingCapability)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp723-SPOTenant.txt"
+				$finalobject = Build-CISMSp723($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		return $null
+
 	}
 	catch
 	{

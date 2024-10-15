@@ -38,21 +38,43 @@ function Audit-CISMSp724
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-List OneDriveSharingCapability
-		if ($SharepointSetting.OneDriveSharingCapability -eq "ExternalUserAndGuestSharing")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "SharingCapability: $($SharepointSetting.OneDriveSharingCapability)"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-List OneDriveSharingCapability
+			if ($SharepointSetting.OneDriveSharingCapability -eq "ExternalUserAndGuestSharing")
+			{
+				$AffectedOptions += "SharingCapability: $($SharepointSetting.OneDriveSharingCapability)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp724-SPOTenant.txt"
+				$finalobject = Build-CISMSp724($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
+		else
 		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp724-SPOTenant.txt"
-			$finalobject = Build-CISMSp724($AffectedOptions)
-			return $finalobject
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-List OneDriveSharingCapability
+			if ($SharepointSetting.OneDriveSharingCapability -eq "ExternalUserAndGuestSharing")
+			{
+				$AffectedOptions += "SharingCapability: $($SharepointSetting.OneDriveSharingCapability)"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp724-SPOTenant.txt"
+				$finalobject = Build-CISMSp724($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		return $null
 	}
 	catch
 	{

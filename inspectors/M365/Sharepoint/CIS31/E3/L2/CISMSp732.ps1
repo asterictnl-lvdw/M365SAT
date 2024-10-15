@@ -39,18 +39,31 @@ function Audit-CISMSp732
 {
 	Try
 	{
-		
-		$ShareSettings = (Get-SPOTenant).ConditionalAccessPolicy
-		If ($ShareSettings -ne "AllowLimitedAccess")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$message = "ConditionalAccessPolicy is set to $($ShareSettings)."
-			$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp732-SPOTenant.txt"
-			$endobject = Build-CISMSp732($message)
-			return $endobject
+			$ShareSettings = (Get-PnPTenant).ConditionalAccessPolicy
+			If ($ShareSettings -ne "AllowLimitedAccess")
+			{
+				$message = "ConditionalAccessPolicy is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp732-SPOTenant.txt"
+				$endobject = Build-CISMSp732($message)
+				return $endobject
+			}
+			return $null
 		}
-		
-		return $null
-		
+		else
+		{
+			$ShareSettings = (Get-SPOTenant).ConditionalAccessPolicy
+			If ($ShareSettings -ne "AllowLimitedAccess")
+			{
+				$message = "ConditionalAccessPolicy is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp732-SPOTenant.txt"
+				$endobject = Build-CISMSp732($message)
+				return $endobject
+			}
+			return $null
+		}
 	}
 	catch
 	{

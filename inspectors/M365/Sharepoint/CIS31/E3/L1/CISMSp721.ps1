@@ -38,25 +38,51 @@ function Audit-CISMSp721
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
-		if ($SharepointSetting.LegacyAuthProtocolsEnabled -ne $False)
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "LegacyAuthProtocolsEnabled: True"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
+			if ($SharepointSetting.LegacyAuthProtocolsEnabled -ne $False)
+			{
+				$AffectedOptions += "LegacyAuthProtocolsEnabled: True"
+			}
+			if ($SharepointSetting.LegacyBrowserAuthProtocolsEnabled -ne $false)
+			{
+				$AffectedOptions += "LegacyBrowserAuthProtocolsEnabled: True"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp721-SPOTenant.txt"
+				$finalobject = Build-CISMSp721($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		if ($SharepointSetting.LegacyBrowserAuthProtocolsEnabled -ne $false)
+		else
 		{
-			$AffectedOptions += "LegacyBrowserAuthProtocolsEnabled: True"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-Table LegacyAuthProtocolsEnabled, LegacyBrowserAuthProtocolsEnabled
+			if ($SharepointSetting.LegacyAuthProtocolsEnabled -ne $False)
+			{
+				$AffectedOptions += "LegacyAuthProtocolsEnabled: True"
+			}
+			if ($SharepointSetting.LegacyBrowserAuthProtocolsEnabled -ne $false)
+			{
+				$AffectedOptions += "LegacyBrowserAuthProtocolsEnabled: True"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp721-SPOTenant.txt"
+				$finalobject = Build-CISMSp721($AffectedOptions)
+				return $finalobject
+			}
+			return $null
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
-		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp721-SPOTenant.txt"
-			$finalobject = Build-CISMSp721($AffectedOptions)
-			return $finalobject
-		}
-		return $null
 	}
 	catch
 	{

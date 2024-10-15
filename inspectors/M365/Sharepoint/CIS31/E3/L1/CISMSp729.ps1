@@ -39,25 +39,51 @@ function Audit-CISMSp729
 {
 	try
 	{
-		# Actual Script
-		$AffectedOptions = @()
-		$SharepointSetting = Get-SPOTenant | Format-Table ExternalUserExpirationRequired, ExternalUserExpireInDays
-		if ($SharepointSetting.ExternalUserExpireInDays -igt 30)
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$AffectedOptions += "ExternalUserExpireInDays: $($SharepointSetting.ExternalUserExpireInDays)"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-PnPTenant | Format-Table ExternalUserExpirationRequired, ExternalUserExpireInDays
+			if ($SharepointSetting.ExternalUserExpireInDays -igt 30)
+			{
+				$AffectedOptions += "ExternalUserExpireInDays: $($SharepointSetting.ExternalUserExpireInDays)"
+			}
+			if ($SharepointSetting.ExternalUserExpirationRequired -ne $True)
+			{
+				$AffectedOptions += "ExternalUserExpirationRequired: False"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp729-SPOTenant.txt"
+				$finalobject = Build-CISMSp729($AffectedOptions)
+				return $finalobject
+			}
+			return $null			
 		}
-		if ($SharepointSetting.ExternalUserExpirationRequired -ne $True)
+		else
 		{
-			$AffectedOptions += "ExternalUserExpirationRequired: False"
+			# Actual Script
+			$AffectedOptions = @()
+			$SharepointSetting = Get-SPOTenant | Format-Table ExternalUserExpirationRequired, ExternalUserExpireInDays
+			if ($SharepointSetting.ExternalUserExpireInDays -igt 30)
+			{
+				$AffectedOptions += "ExternalUserExpireInDays: $($SharepointSetting.ExternalUserExpireInDays)"
+			}
+			if ($SharepointSetting.ExternalUserExpirationRequired -ne $True)
+			{
+				$AffectedOptions += "ExternalUserExpirationRequired: False"
+			}
+			# Validation
+			if ($AffectedOptions.Count -ne 0)
+			{
+				$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp729-SPOTenant.txt"
+				$finalobject = Build-CISMSp729($AffectedOptions)
+				return $finalobject
+			}
+			return $null			
 		}
-		# Validation
-		if ($AffectedOptions.Count -ne 0)
-		{
-			$SharepointSetting | Format-Table -AutoSize | Out-File "$path\CISMSp729-SPOTenant.txt"
-			$finalobject = Build-CISMSp729($AffectedOptions)
-			return $finalobject
-		}
-		return $null
 	}
 	catch
 	{

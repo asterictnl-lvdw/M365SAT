@@ -38,23 +38,45 @@ function Audit-CISMSp725
 {
 	Try
 	{
-		$SharingCapability = (Get-SPOTenant).SharingCapability
-		$PreventExternalUsers = (Get-SPOTenant).PreventExternalUsersFromResharing
-		If ($SharingCapability -ne "Disabled")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			If ($PreventExternalUsers -eq $False)
+			$SharingCapability = (Get-PnPTenant).SharingCapability
+			$PreventExternalUsers = (Get-PnPTenant).PreventExternalUsersFromResharing
+			If ($SharingCapability -ne "Disabled")
 			{
-				$SharingCapability | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt"
-				$PreventExternalUsers | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt" -Append
-				$endobject = Build-CISMSp725("PreventExternalUsersFromResharing: $($PreventExternalUsers)")
-				return $endobject
-			}
-			Else
-			{
-				return $null
+				If ($PreventExternalUsers -eq $False)
+				{
+					$SharingCapability | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt"
+					$PreventExternalUsers | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt" -Append
+					$endobject = Build-CISMSp725("PreventExternalUsersFromResharing: $($PreventExternalUsers)")
+					return $endobject
+				}
+				Else
+				{
+					return $null
+				}
 			}
 		}
-		
+		else
+		{
+			$SharingCapability = (Get-SPOTenant).SharingCapability
+			$PreventExternalUsers = (Get-SPOTenant).PreventExternalUsersFromResharing
+			If ($SharingCapability -ne "Disabled")
+			{
+				If ($PreventExternalUsers -eq $False)
+				{
+					$SharingCapability | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt"
+					$PreventExternalUsers | Format-Table -AutoSize | Out-File "$path\CISMSp725-SPOTenant.txt" -Append
+					$endobject = Build-CISMSp725("PreventExternalUsersFromResharing: $($PreventExternalUsers)")
+					return $endobject
+				}
+				Else
+				{
+					return $null
+				}
+			}
+		}
 	}
 	catch
 	{

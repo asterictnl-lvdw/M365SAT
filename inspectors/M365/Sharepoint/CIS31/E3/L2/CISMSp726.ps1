@@ -38,18 +38,32 @@ function Audit-CISMSp726
 {
 	Try
 	{
-		
-		$ShareSettings = (Get-SPOTenant).SharingDomainRestrictionMode
-		If ($ShareSettings -ne "AllowList")
+		$Module = Get-Module PnP.PowerShell -ListAvailable
+		if([string]::IsNullOrEmpty($Module))
 		{
-			$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
-			$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
-			$endobject = Build-CISMSp726($message)
-			return $endobject
+			$ShareSettings = (Get-PnPTenant).SharingDomainRestrictionMode
+			If ($ShareSettings -ne "AllowList")
+			{
+				$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
+				$endobject = Build-CISMSp726($message)
+				return $endobject
+			}
+			return $null
 		}
-		
-		return $null
-		
+		else
+		{
+			$ShareSettings = (Get-SPOTenant).SharingDomainRestrictionMode
+			If ($ShareSettings -ne "AllowList")
+			{
+				$message = "SharingDomainRestrictionMode is set to $($ShareSettings)."
+				$ShareSettings | Format-Table -AutoSize | Out-File "$path\CISMSp726-SPOTenant.txt"
+				$endobject = Build-CISMSp726($message)
+				return $endobject
+			}
+			
+			return $null
+		}
 	}
 	catch
 	{
