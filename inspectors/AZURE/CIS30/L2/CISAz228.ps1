@@ -66,7 +66,7 @@ function Audit-CISAz228
 		# Validation
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz228($Violation)
+			$finalobject = Build-CISAz228($Violation)
 			return $finalobject
 		}
 		return $null

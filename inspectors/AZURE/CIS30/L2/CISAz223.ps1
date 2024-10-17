@@ -12,7 +12,7 @@ Import-Module PoShLog
 $path = @($OutPath)
 
 
-function Build-CISMAz223($findings)
+function Build-CISAz223($findings)
 {
 	#Actual Inspector Object that will be returned. All object values are required to be filled in.
 	$inspectorobject = New-Object PSObject -Property @{
@@ -38,7 +38,7 @@ function Build-CISMAz223($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz223
+function Audit-CISAz223
 {
 	try
 	{
@@ -67,7 +67,7 @@ function Audit-CISMAz223
 
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz223($Violation)
+			$finalobject = Build-CISAz223($Violation)
 			return $finalobject
 		}
 		return $null
@@ -78,4 +78,4 @@ function Audit-CISMAz223
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz223
+return Audit-CISAz223

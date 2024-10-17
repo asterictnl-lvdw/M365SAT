@@ -38,7 +38,7 @@ function Build-CISAz225($findings)
 	return $inspectorobject
 }
 
-function Audit-CISMAz225
+function Audit-CISAz225
 {
 	try
 	{
@@ -67,7 +67,7 @@ function Audit-CISMAz225
 
 		if ($Violation.Count -ne 0)
 		{
-			$finalobject = Build-CISMAz225($Violation)
+			$finalobject = Build-CISAz225($Violation)
 			return $finalobject
 		}
 		return $null
@@ -78,4 +78,4 @@ function Audit-CISMAz225
 		Write-ErrorLog 'An error occured on line {line} char {char} : {error}' -ErrorRecord $_ -PropertyValues $_.InvocationInfo.ScriptLineNumber, $_.InvocationInfo.OffsetInLine, $_.InvocationInfo.Line
 	}
 }
-return Audit-CISMAz225
+return Audit-CISAz225

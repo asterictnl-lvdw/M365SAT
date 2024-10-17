@@ -92,7 +92,7 @@ function Audit-CISAz224
 		if ($Violation.Count -ne 0)
 		{
 			$Violation | Format-Table -AutoSize | Out-File -Append "$path\CISAz224MFAPolicies.txt"
-			$finalobject = Build-CISMAz224($Violation)
+			$finalobject = Build-CISAz224($Violation)
 			return $finalobject
 		}
 		return $null
