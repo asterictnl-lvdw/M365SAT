@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v3.0.0
+# Benchmark: CIS Microsoft 365 v3.1.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Ensure reauthentication with verification code is restricted
 # Author: Leonardo van de Weteringh
@@ -40,7 +40,7 @@ function Audit-CISMSp7210
 	try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			# Actual Script
 			$AffectedOptions = @()

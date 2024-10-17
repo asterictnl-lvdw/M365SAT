@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v3.0.0
+# Benchmark: CIS Microsoft 365 v3.1.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Checks if Sharepoint Guest Users cannot reshare items
 # Author: Leonardo van de Weteringh
@@ -39,7 +39,7 @@ function Audit-CISMSp725
 	Try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			$SharingCapability = (Get-PnPTenant).SharingCapability
 			$PreventExternalUsers = (Get-PnPTenant).PreventExternalUsersFromResharing

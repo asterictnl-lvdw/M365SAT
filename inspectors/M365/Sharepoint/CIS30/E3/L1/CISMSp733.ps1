@@ -1,6 +1,6 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v3.0.0
+# Benchmark: CIS Microsoft 365 v3.1.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Ensure custom script execution is restricted on personal sites
 # Author: Leonardo van de Weteringh

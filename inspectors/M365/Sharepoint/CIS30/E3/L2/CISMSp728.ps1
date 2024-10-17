@@ -1,12 +1,15 @@
 # Date: 25-1-2023
 # Version: 1.0
-# Benchmark: CIS Microsoft 365 v3.0.0
+# Benchmark: CIS Microsoft 365 v3.1.0
 # Product Family: Microsoft Sharepoint
 # Purpose: Ensure external sharing is restricted by security group
 # Author: Leonardo van de Weteringh
 
 # New Error Handler Will be Called here
 Import-Module PoShLog
+
+# Determine OutPath
+$path = @($OutPath)
 
 function Build-CISMSp728($findings)
 {
