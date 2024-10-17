@@ -188,7 +188,7 @@ function Connect-M365SAT
 						$GraphAuth = $true
 					}
 				}
-				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
+				$TenantName = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
 				$Module = Get-Module PnP.PowerShell -ListAvailable
 				if ([string]::IsNullOrEmpty($Module)){
 					$SharepointConnection = Invoke-MicrosoftSharepointCredentials -TenantName $TenantName -Credential $Credential -Environment $Environment
@@ -220,7 +220,7 @@ function Connect-M365SAT
 						$GraphAuth = $true
 					}
 				}
-				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
+				$TenantName = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
 				$Module = Get-Module PnP.PowerShell -ListAvailable
 				if ([string]::IsNullOrEmpty($Module)){
 					$SharepointConnection = Invoke-MicrosoftSharepointUsername -TenantName $TenantName -Credential $Credential -Environment $Environment

@@ -34,7 +34,7 @@ function Invoke-MicrosoftSharepointPnPCredentials{
 		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-MgApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
-		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Credential $Credential -ClientId $ClientId
+		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName.sharepoint.com" -Credential $Credential -ClientId $ClientId
 		if ((Get-PnPTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft PnP Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -88,7 +88,7 @@ function Invoke-MicrosoftSharepointPnPUsername{
 		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-MgApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
-		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $ClientID
+		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName.sharepoint.com" -Interactive -ClientId $ClientID
 		if ((Get-PnPTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft PnP Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -142,7 +142,7 @@ function Invoke-MicrosoftSharepointPnPLite{
 		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-MgApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
-		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $ClientID
+		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName.sharepoint.com" -Interactive -ClientId $ClientID
 		if ((Get-PnPTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft PnP Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -195,7 +195,7 @@ function Invoke-MicrosoftSharepointCredentials
 		}
 
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -Credential $Credential -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName-admin.sharepoint.com" -Region $SpEnvironment -Credential $Credential -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -248,7 +248,7 @@ function Invoke-MicrosoftSharepointUsername
 		}
 
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName-admin.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -301,7 +301,7 @@ function Invoke-MicrosoftSharepointLite
 		}
 
 		Write-Host "Connecting to Microsoft Sharepoint Powershell..."
-		Connect-SPOService -Url "https://$TenantName.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
+		Connect-SPOService -Url "https://$TenantName-admin.sharepoint.com" -Region $SpEnvironment -ErrorAction Stop
 		if ((Get-SPOTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft Sharepoint Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
