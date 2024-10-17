@@ -189,13 +189,27 @@ function Connect-M365SAT
 					}
 				}
 				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
-				$SharepointConnection = Invoke-MicrosoftSharepointCredentials -TenantName $TenantName -Credential $Credential -Environment $Environment
-				if (!$SharepointConnection)
-				{
-					break
-				}else{
-					$SharepointAuth = $true
+				$Module = Get-Module PnP.PowerShell -ListAvailable
+				if ([string]::IsNullOrEmpty($Module)){
+					$SharepointConnection = Invoke-MicrosoftSharepointCredentials -TenantName $TenantName -Credential $Credential -Environment $Environment
+					if (!$SharepointConnection)
+					{
+						break
+					}else{
+						$SharepointAuth = $true
+					}
 				}
+				else
+				{
+					$SharepointConnection = Invoke-MicrosoftSharepointPnPCredentials -TenantName $TenantName -Credential $Credential -Environment $Environment
+					if (!$SharepointConnection)
+					{
+						break
+					}else{
+						$SharepointAuth = $true
+					}
+				}
+				
 			}else{
 				if ($GraphAuth -ne $true){
 					$GraphOrgName = Invoke-MicrosoftGraphCredentials -Environment $Environment
@@ -207,12 +221,25 @@ function Connect-M365SAT
 					}
 				}
 				$tenantname = (((Get-MgOrganization).VerifiedDomains |  Where-Object { ($_.Name -like "*.onmicrosoft.com") -and ($_.Name -notlike "*mail.onmicrosoft.com") }).Name -split '.onmicrosoft.com')[0]
-				$SharepointConnection = Invoke-MicrosoftSharepointUsername -TenantName $TenantName -Environment $Environment
-				if (!$SharepointConnection)
+				$Module = Get-Module PnP.PowerShell -ListAvailable
+				if ([string]::IsNullOrEmpty($Module)){
+					$SharepointConnection = Invoke-MicrosoftSharepointUsername -TenantName $TenantName -Credential $Credential -Environment $Environment
+					if (!$SharepointConnection)
+					{
+						break
+					}else{
+						$SharepointAuth = $true
+					}
+				}
+				else
 				{
-					break
-				}else{
-					$SharepointAuth = $true
+					$SharepointConnection = Invoke-MicrosoftSharepointPnPUsername -TenantName $TenantName -Environment $Environment
+					if (!$SharepointConnection)
+					{
+						break
+					}else{
+						$SharepointAuth = $true
+					}
 				}
 			}
 		}
