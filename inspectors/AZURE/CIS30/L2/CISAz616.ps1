@@ -41,7 +41,7 @@ function Audit-CISAz616
 	try
 	{
 		$Violation = @()
-		$WebApps = Get-AzWebApp
+		$WebApps = Get-AzWebApp -WarningAction SilentlyContinue -ProgressAction SilentlyContinue
 		ForEach ($WebApp in $WebApps){
 			if ($WebApp.Id.Contains('Microsoft.Web') -and $WebApp.Kind -ne 'functionapp'){
 				$Settings = ((Invoke-AzRestMethod "https://management.azure.com/$($WebApp.Id)/providers/Microsoft.Insights/diagnosticSettings?api-version=2021-05-01-preview").Content | ConvertFrom-Json).value.properties.logs
