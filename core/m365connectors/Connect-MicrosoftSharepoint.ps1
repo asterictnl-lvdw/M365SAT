@@ -88,7 +88,7 @@ function Invoke-MicrosoftSharepointPnPUsername{
 		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-MgApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
-		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $($ClientID.'AzureAppId/ClientId')
+		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $ClientID
 		if ((Get-PnPTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft PnP Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -142,7 +142,7 @@ function Invoke-MicrosoftSharepointPnPLite{
 		if ([string]::IsNullOrEmpty($ClientId)){
 			$ClientId =  (Get-MgApplication | Where-Object {$_.DisplayName -eq 'PnP Rocks'}).AppId
 		}
-		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $($ClientID.'AzureAppId/ClientId')
+		$Connection = Connect-PnPOnline -AzureEnvironment $Environment -Url "https://$TenantName-admin.sharepoint.com" -Interactive -ClientId $ClientID
 		if ((Get-PnPTenant) -ne $null)
 		{
 			Write-Host "Connected to Microsoft PnP Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
