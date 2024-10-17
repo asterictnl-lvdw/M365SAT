@@ -18,7 +18,7 @@ function Get-M365SATHTMLReport
 	
     if ($Modules.Contains("All"))
 	{
-		[List]$ProductFamilies = @("Microsoft Teams", "Microsoft Exchange", "Microsoft Azure", "Microsoft Sharepoint", "Microsoft Office 365")
+		$ProductFamilies = @("Microsoft Teams", "Microsoft Exchange", "Microsoft Azure", "Microsoft Sharepoint", "Microsoft Office 365")
 	}
     else
     {
