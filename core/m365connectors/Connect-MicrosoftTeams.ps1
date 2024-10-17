@@ -31,7 +31,7 @@ function Invoke-MicrosoftTeamsCredentials
 		}
 
 		Write-Host "Connecting to Microsoft Teams Powershell..."
-		$Team = Invoke-Expression $TeamsEnvironment
+		$Team = Invoke-Expression $TmsEnvironment
 		if (-not [string]::IsNullOrEmpty($Team))
 		{
 			Write-Host "Connected to Microsoft Teams Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -84,7 +84,7 @@ function Invoke-MicrosoftTeamsUsername
 		}
 
 		Write-Host "Connecting to Microsoft Teams Powershell..."
-		$Team = Invoke-Expression $TeamsEnvironment
+		$Team = Invoke-Expression $TmsEnvironment
 		if (-not [string]::IsNullOrEmpty($Team))
 		{
 			Write-Host "Connected to Microsoft Teams Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black
@@ -136,7 +136,7 @@ function Invoke-MicrosoftTeamsLite
 		}
 
 		Write-Host "Connecting to Microsoft Teams Powershell..."
-		$Team = Invoke-Expression $TeamsEnvironment
+		$Team = Invoke-Expression $TmsEnvironment
 		if (-not [string]::IsNullOrEmpty($Team))
 		{
 			Write-Host "Connected to Microsoft Teams Powershell!" -ForegroundColor DarkYellow -BackgroundColor Black

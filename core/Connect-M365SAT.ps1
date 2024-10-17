@@ -263,7 +263,7 @@ function Connect-M365SAT
 				}
 			}else{
 				if($GraphAuth -ne $true){
-					$GraphOrgName = Invoke-MicrosoftGraphCredentials -Environment $Environment #Microsoft Teams does not output the original default domainname, thus we invoke Graph for this as well
+					$GraphOrgName = Invoke-MicrosoftGraphUsername -Environment $Environment #Microsoft Teams does not output the original default domainname, thus we invoke Graph for this as well
 					if ([string]::IsNullOrEmpty($GraphOrgName))
 					{
 						break
