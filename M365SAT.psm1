@@ -159,6 +159,12 @@ function Get-M365SATReport
 	. $PSScriptRoot\core\Update-M365SATModules.ps1
 	. $PSScriptRoot\core\Check-M365SATUpdates.ps1
 	
+	# Check if directory is created where logs are being stored
+	If(!(Test-Path -PathType Container $OutPath))
+	{
+      New-Item -ItemType Directory -Force -Path $OutPath
+	}
+
 	# Import the PoShLog Module
 	Import-Module PoShLog
 	
@@ -252,4 +258,3 @@ function Get-M365SATReport
 	Invoke-M365SATCleanup
 	Close-Logger
 }
-
