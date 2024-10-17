@@ -40,7 +40,7 @@ function Audit-CISMSp732
 	Try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			$ShareSettings = (Get-PnPTenant).ConditionalAccessPolicy
 			If ($ShareSettings -ne "AllowLimitedAccess")

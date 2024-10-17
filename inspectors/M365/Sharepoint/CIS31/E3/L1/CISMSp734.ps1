@@ -39,7 +39,7 @@ function Audit-CISMSp734
 	try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			$SiteViolation = @()
 			$Sites = Get-PnPSite | Select-Object Title, Url, DenyAddAndCustomizePages | Where-Object {$_.DenyAddAndCustomizePages -eq "Disabled"}

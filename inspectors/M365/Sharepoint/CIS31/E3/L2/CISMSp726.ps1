@@ -39,7 +39,7 @@ function Audit-CISMSp726
 	Try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			$ShareSettings = (Get-PnPTenant).SharingDomainRestrictionMode
 			If ($ShareSettings -ne "AllowList")

@@ -39,7 +39,7 @@ function Audit-CISMSp725
 	Try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			$SharingCapability = (Get-PnPTenant).SharingCapability
 			$PreventExternalUsers = (Get-PnPTenant).PreventExternalUsersFromResharing

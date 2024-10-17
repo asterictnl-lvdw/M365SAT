@@ -40,7 +40,7 @@ function Audit-CISMSp729
 	try
 	{
 		$Module = Get-Module PnP.PowerShell -ListAvailable
-		if([string]::IsNullOrEmpty($Module))
+		if(-not [string]::IsNullOrEmpty($Module))
 		{
 			# Actual Script
 			$AffectedOptions = @()
