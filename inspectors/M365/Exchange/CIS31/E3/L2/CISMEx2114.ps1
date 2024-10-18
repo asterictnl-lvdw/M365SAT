@@ -63,51 +63,65 @@ function Inspect-CISMEx2114
 		"xlt", "xltm", "xlw", "xml", "xnk", "xps", "xsl", "xz", "z"
 		)
 
-		$MissingCount = 0
+		# Initialize counters
+		$Violation = @()
 		$ExtensionReport = @()
-		$MalwarePolicy = Get-MalwareFilterPolicy
-		$FilterRules = Get-MalwareFilterRule
+		$MissingCount = 0
 
-		$FoundRule = $FilterRules | Where-Object { $_.MalwareFilterPolicy -eq $MalwarePolicy.Id }
-		# Check if the FileFilter is enabled
-		if ($MalwarePolicy.EnableFileFilter -eq $false) {
-		Write-Warning "WARNING: Common attachments filter is disabled."
-		$Violation += "Common Attachments Filter is disabled"
-		}
-		if ($FoundRule.State -eq 'Disabled' -or $null -eq $FoundRule) {
-		Write-Warning "WARNING: The Anti-malware rule is disabled."
-		$Violation += "Anti-Malware Rule is disabled"
-		}
-		$ExtensionPolicies = Get-MalwareFilterPolicy | Where-Object {$_.FileTypes.Count -gt 120 }
-		if (!$ExtensionPolicies){
-			if ($ExtensionPolicies.FileTypes.Count -eq 0){
-				Write-Warning "Policy does not have any filetypes filtered!"
-				$Violation += "Amount of Extensions in policy: $(($MalwarePolicy.FileTypes).Count)"
-			}else{
-				Write-Warning "Policy does not contain the minimum amount of extensions $(($ExtensionPolicies.FileTypes).Count)"
-				$Violation += "Amount of Extensions in policy: $(($MalwarePolicy.FileTypes).Count)"
+		#MalwarePolicy
+		$MalwarePolicies = Get-MalwareFilterPolicy
+		foreach ($MalwarePolicy in $MalwarePolicies){
+			if ($MalwarePolicy.EnableFileFilter -eq $false) {
+				Write-Warning "$($MalwarePolicy.Identity): Common Attachments Filter is disabled"
+				$Violation += "$($MalwarePolicy.Identity): Common Attachments Filter is disabled"
 			}
 		}
-
-		foreach ($Policy in $MalwarePolicy) {
-			$MissingExtensions = $L2Extensions | Where-Object { $extension = $_; -not $Policy.FileTypes.Contains($extension) }
-			if ($MissingExtensions.Count -igt 0){
-				$MissingCount++
- 				$ExtensionReport += @{
- 				Identity = $policy.Identity 
-				MissingExtensions = $MissingExtensions -join ', '
+		#FilterRules
+		$FilterRules = Get-MalwareFilterRule
+		foreach ($FilterRule in $FilterRules){
+			if ($FoundRule.State -eq 'Disabled' -or $null) {
+				Write-Warning "WARNING: The Anti-malware rule is disabled."
+				$Violation += "Anti-Malware Rule is disabled"
+			}
+		}
+		#ExtensionPolicy
+		$ExtensionPolicies = Get-MalwareFilterPolicy | Where-Object {$_.FileTypes.Count -ilt 120}
+		foreach($ExtensionPolicy in $ExtensionPolicies){
+			if ($ExtensionPolicies.FileTypes.Count -eq 0){
+				Write-Warning "$($ExtensionPolicy.Identity) does not have any filetypes filtered!"
+				$Violation += "Amount of Extensions in $($ExtensionPolicy.Identity): $(($MalwarePolicy.FileTypes).Count)"
+				$MissingExtensions = $L2Extensions | Where-Object { $extension = $_; -not $ExtensionPolicy.FileTypes.Contains($extension) }
+				if ($MissingExtensions.Count -igt 0){
+					$MissingCount++
+					 $ExtensionReport += @{
+					 Identity = $policy.Identity 
+					MissingExtensions = $MissingExtensions -join ', '
+					}
+				}
+			}else{
+				Write-Warning "$($ExtensionPolicy.Identity) does contain only $(($ExtensionPolicies.FileTypes).Count) extensions!"
+				$Violation += "Amount of Extensions in $($ExtensionPolicy.Identity): $(($MalwarePolicy.FileTypes).Count)"
+				$MissingExtensions = $L2Extensions | Where-Object { $extension = $_; -not $ExtensionPolicy.FileTypes.Contains($extension) }
+				if ($MissingExtensions.Count -igt 0){
+					$MissingCount++
+					 $ExtensionReport += @{
+					 Identity = $ExtensionPolicy.Identity 
+					 MissingExtensions = $MissingExtensions -join ', '
+					}
 				}
 			}
 		}
-		
-		if ($MissingCount -gt 0) {
+
+		#Wrapup report
+		if ($MissingCount -igt 0) {
 			foreach ($fpolicy in $ExtensionReport) {
 				$MissingExtensions = $fpolicy.MissingExtensions.Split(",")
 				$Violation += "$($fpolicy.Identity) is missing the following extension filters: $($fpolicy.MissingExtensions) \n"
 			}
 		}
-		
-		if (-not [string]::IsNullOrEmpty($Violation))
+
+		#Final check
+		if ($Violation.Count -igt 0)
 		{
 			$Violation | Format-Table -AutoSize | Out-File "$path\CISMEx2114-MalwareFilterRule.txt"
 			$finalobject = Build-CISMEx2114("file://$path\CISMEx2114-MalwareFilterRule.txt")
