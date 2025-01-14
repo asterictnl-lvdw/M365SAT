@@ -30,7 +30,7 @@ function Connect-M365SAT
 
 	if ($PSVersionTable.PSVersion.Major -igt 5)
 		{
-			Import-Module Microsoft.Online.SharePoint.PowerShell -UseWindowsPowershell
+			Import-Module Microsoft.Online.SharePoint.PowerShell -UseWindowsPowershell -Force
 		}
 
 	if ($Modules.Contains("All"))
