@@ -42,9 +42,9 @@ Our solution surpasses conventional security measures by meticulously analyzing 
 M365SAT also examines your Microsoft 365 cloud settings, identifying deviations from the recommended CIS Benchmark configurations. This allows your organization to swiftly address potential security vulnerabilities and adhere to industry best practices. Beyond simply identifying issues, our solution provides remediation guidance through PowerShell scripts, simplifying the process and saving your IT team valuable time and effort.
 
 ## 2. About M365SAT
-M365SAT is the evolution of its predecessor, 365Inspect+, which was released in 2022. The goal of M365SAT is to enable Security and Compliance Administrators to easily measure their environment's security posture.
+M365SAT is the evolution of its predecessor, 365Inspect+, which was released in 2022. The goal of M365SAT is to enable Security and Compliance Administrators to easily measure their environment's security posture. In 2025 the tool got commercialized by CompliantSec which is owned by the same person.
 
-Our tool is completely free and open-source, utilizing PowerShell to assess Microsoft 365 and Azure security configurations. With approximately 300 inspection points, it helps administrators reduce risky configurations and enhance security.
+Our tool itself is completely free. The inspector scripts will require an additional charge to assess Microsoft 365 and Azure security configurations. CompliantSec can audit more than 200 inspection points on both Microsoft 365 and Azure environments, which helps administrators reduce risky configurations and enhance security.
 
 The core features of M365SAT include:
 
@@ -74,10 +74,12 @@ The following modules need to be installed in order to make M365SAT work:
 
 #### 3.1.1 Installation PowerShell 7.x.x (Windows)
 Note: *There were several reports that Microsoft Exchange was not working properly at the latest version due to Web Account Manager (WAM). A workaround is to install ExchangeOnlineManagement version 3.7.2 has fixed the WAM bug on Windows 11 devices which support WAM, thus you can update it again!*
+
+Note 2: *I have replaced the SharePoint PowerShell module with PnP for better compatibility.*
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement
-Install-Module -Name Microsoft.Online.SharePoint.PowerShell
+Install-Module -Name PnP.PowerShell
 Install-Module -Name Microsoft.Graph -AllowClobber -Force
 Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
 Install-Module -Name MicrosoftTeams
@@ -85,7 +87,7 @@ Install-Module -Name PoShLog
 ```
 
 #### 3.1.2 Installation PowerShell 5.1 (Windows)
-Note: *The following issues are represent: Az.Accounts not working properly with latest versions of Microsoft.Graph.(Beta)*
+Note: *The following issues are represent: Az.Accounts not working properly with latest versions of Microsoft.Graph.(Beta). This is under investigation and a fix will be implemented once the investigation is done*
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
@@ -95,19 +97,22 @@ Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
 Install-Module -Name MicrosoftTeams
 Install-Module -Name PoShLog
 ```
-Please remove the latest version folder and replace the Az.Accounts with the older 2.19.0 version:
-1. Remove from here the latest version folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
-2. Run `Install-Module -Name Az.Accounts -RequiredVersion 2.19.0` to install the working PowerShell 5.1 version.
-3. Try to run the M365SAT-Tester.ps1 to check if everything is working properly.
 
-#### 3.1.3 Installation PowerShell 7.x.x (Linux)
-*Note: This only works starting from v3.0!!!*
-PowerShell 7 works with Linux, the only module that is not working straightforward is Microsoft Sharepoint. Thus will be replaced with PnP when using a Linux environment. For Linux you must follow the instructions below:
+In order to make the Az PowerShell module work you must do the following:
+1. Close all PowerShell sessions
+2. Remove from here the latest version folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
+3. Open a new Administrative PowerShell 5 session.
+4. Run `Install-Module -Name Az.Accounts -RequiredVersion 2.19.0` to install the working PowerShell 5.1 version.
+5. Try to run the M365SAT-Tester.ps1 to check if everything is working properly.
+
+#### 3.1.3 Installation PowerShell 7.x.x (Linux/Unix)
+PowerShell 7 works with Linux and MacOSX, For Linux or MacOSX must follow the instructions below:
 1. Run `sudo pwsh`
 2. In the PowerShell SuperUser session run: `Install-Module -Name PSWSMan`
 3. After installation run the command: `Install-WSMan`
 4. You will be prompted to restart the PowerShell Session. Close the SuperUser session
 5. Install all the modules down below:
+
 ```
 Install-Module -Name Az
 Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
@@ -119,14 +124,11 @@ Install-Module -Name PoShLog
 ```
 Linux has been fully tested and reported working with the latest modules available as stated March 7th 2025.
 
-### 3.2 Method 1: Install-Module
-This method is coming in the next major release
-
 ## 4. How-To-Use
-M365SAT is very easy to use. There are two main ways of executing M365SAT:
+M365SAT can be run the following ways
 
-1. Using the M365SATTester.ps1 script
-2. Executing Get-M365SATReport after importing the M365SAT modules
+1. M365SATTester.ps1 (Recommended)
+2. Get-M365SATReport (Not-Recommended)
 
 ### 4.1 Necessary Privileges to Run
 M365SAT requires fewer permissions compared to its predecessor, 365Inspect+. The following permissions are sufficient to run a successful audit:
@@ -143,13 +145,13 @@ While it is no longer necessary to use a Global Administrator account, we recomm
 Why do we need SharePoint Administrator permissions instead of lesser permissions?
 Some settings can only be accessed when you have Administrator privileges. For more information, refer to the [Microsoft documentation on permissions](https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#global-reader).
 
-### 4.1 Method 2: Running M365SATTester.ps1 (Recommended)
-Make sure you RUN PowerShell as Administrator.
-1. Clone the github repository or download the latest release at the releases section.
-2. Edit the M365SATTester.ps1 and replace -Username value with the username containing at least Global Reader and SharePoint Admin permissions.
+### 4.1 Method 1: Running M365SATTester.ps1 (Recommended)
+*This process is fully automated as you only need to change the within the M365SATTester.ps1*
+1. Clone the GitHub repository by `git clone https://github.com/CompliantSec/M365SAT`
+2. Edit the M365SATTester.ps1 and replace the *$ScriptConfig* values to your own preference.
 3. Run M365SATTester.ps1 with Administrative privileges in PowerShell.
 
-### 4.2 Method 3: Import-Module M365SAT.psd1
+### 4.2 Method 2: Import-Module M365SAT.psd1 (Not Recommended)
 *Note: This method has reported some issues as it is recommended to use the M365SATTester.ps1 and change the values there on what you wish to audit*
 1. Clone the github repository or download the latest release at the releases section
 2. Import-Module .\M365SAT.psd1.
