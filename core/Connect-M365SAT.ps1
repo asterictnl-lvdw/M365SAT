@@ -52,11 +52,11 @@ function Connect-M365SAT {
 
     if ($Modules -contains 'Office365') {
         # Remove all instances of Office365
-        $Modules = $Modules | Where-Object { $_ -ne 'Office365' }
+        $Modules = @($Modules | Where-Object { $_ -ne 'Office365' }) 
         # Add Azure and Graph in the correct order
-        $Modules += 'Azure', 'Graph'
+        $Modules += @('Azure', 'Graph')
         # Remove duplicates while preserving order
-        $Modules = $Modules | Select-Object -Unique
+        $Modules = @($Modules | Select-Object -Unique)
     }
 
     # Authentication flow: Teams -> Azure -> Graph -> Exchange -> SecurityCompliance -> Sharepoint
