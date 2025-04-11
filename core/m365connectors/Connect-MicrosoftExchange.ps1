@@ -5,7 +5,7 @@ function Invoke-MicrosoftExchangeConnection {
         [Parameter(Mandatory = $false)]
         [string]$Username,
         [Parameter(Mandatory = $false)]
-        [string]$Environment = "default"
+        [string]$Us
     )
 
     # Map environment names to Exchange environment values
@@ -32,17 +32,18 @@ function Invoke-MicrosoftExchangeConnection {
 
             # Determine the method of connection based on provided parameters
             if ($Credential) {
-                Connect-ExchangeOnline -DisableWAM -ExchangeEnvironmentName $ExEnvironment -Credential $Credential -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-ExchangeOnline -ExchangeEnvironmentName $ExEnvironment -Credential $Credential -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
             elseif ($Username) {
-                Connect-ExchangeOnline -DisableWAM -ExchangeEnvironmentName $ExEnvironment -UserPrincipalName $Username -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-ExchangeOnline -ExchangeEnvironmentName $ExEnvironment -UserPrincipalName $Username -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
             else {
-                Connect-ExchangeOnline -DisableWAM -ExchangeEnvironmentName $ExEnvironment -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-ExchangeOnline -ExchangeEnvironmentName $ExEnvironment -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
 
             # Verify the connection
-            if (-not [string]::IsNullOrEmpty((Get-ConnectionInformation))) {
+            $Validation = Get-ConnectionInformation | Where-Object {$_.Name -match "ExchangeOnline"} -ErrorAction SilentlyContinue
+            if (-not [string]::IsNullOrEmpty(($Validation))) {
                 $OrgName = ((Get-AcceptedDomain | Where-Object { $_.DomainName -like "*.onmicrosoft.com" -and $_.DomainName -notlike "*mail.onmicrosoft.com" }).DomainName -split '.onmicrosoft.com')[0]
                 Write-Host "Connected to Microsoft Exchange!" -ForegroundColor DarkYellow -BackgroundColor Black
                 return $OrgName

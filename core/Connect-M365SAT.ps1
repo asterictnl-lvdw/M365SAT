@@ -26,8 +26,8 @@ function Connect-M365SAT {
     $OrgName = $null
     $Credential = $null
 
-    # Disable WAM and LoginExperienceV2 for Azure module compatibility
-    Update-AzConfig -EnableLoginByWam $false -LoginExperienceV2 'Off'
+    # Disable WAM for Azure module compatibility
+    Update-AzConfig -EnableLoginByWam $false
 
     # Import SharePoint module in PowerShell 7 (fallback for PnP.PowerShell)
     if ($PSVersionTable.PSVersion.Major -ge 7) {
@@ -64,12 +64,6 @@ function Connect-M365SAT {
         switch ($module) {
             "Teams" {
                 # Authenticate Teams (requires Graph for organization name)
-                if (-not $OrgName) {
-                    $OrgName = Invoke-MicrosoftGraphConnection -Credential $Credential -Environment $Environment
-                    if ([string]::IsNullOrEmpty($OrgName)) {
-                        throw "Failed to authenticate Microsoft Graph, which is required for Teams."
-                    }
-                }
                 $teamsAuth = Invoke-MicrosoftTeamsConnection -Username $Username -Credential $Credential -Environment $Environment
                 if (-not $teamsAuth) {
                     throw "Failed to authenticate Microsoft Teams."
@@ -96,12 +90,6 @@ function Connect-M365SAT {
 
             "Exchange" {
                 # Authenticate Exchange (requires Graph for organization name)
-                if ([string]::IsNullOrEmpty($OrgName)) {
-                    $OrgName = Invoke-MicrosoftGraphConnection -Credential $Credential -Environment $Environment
-                    if ([string]::IsNullOrEmpty($OrgName)) {
-                        throw "Failed to authenticate Microsoft Graph, which is required for Exchange."
-                    }
-                }
                 $exchangeAuth = Invoke-MicrosoftExchangeConnection -Username $Username -Credential $Credential -Environment $Environment
                 if (-not $exchangeAuth) {
                     throw "Failed to authenticate Microsoft Exchange."
@@ -110,12 +98,6 @@ function Connect-M365SAT {
 
             "SecurityCompliance" {
                 # Authenticate Security & Compliance (requires Graph for organization name)
-                if ([string]::IsNullOrEmpty($OrgName)) {
-                    $OrgName = Invoke-MicrosoftGraphConnection -Credential $Credential -Environment $Environment
-                    if ([string]::IsNullOrEmpty($OrgName)) {
-                        throw "Failed to authenticate Microsoft Graph, which is required for Security & Compliance."
-                    }
-                }
                 $securityComplianceAuth = Invoke-MicrosoftSecurityComplianceConnection -Username $Username -Credential $Credential -Environment $Environment
                 if (-not $securityComplianceAuth) {
                     throw "Failed to authenticate Microsoft Security & Compliance."
@@ -146,9 +128,12 @@ function Connect-M365SAT {
         }
     }
 
-    # Ensure at least one valid OrgName is returned (from Graph or Exchange)
     if ([string]::IsNullOrEmpty($OrgName)) {
-        throw "Failed to retrieve a valid organization name from any module."
+        $OrgName = Invoke-MicrosoftGraphConnection -Credential $Credential -Environment $Environment
+        if ([string]::IsNullOrEmpty($OrgName)) {
+            throw "Failed to retrieve a valid organization name from any module."
+        }
+        
     }
 
     return $OrgName

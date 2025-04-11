@@ -72,38 +72,32 @@ The following modules need to be installed in order to make M365SAT work:
 -	MicrosoftTeams
 -	PoShLog
 
-#### 3.1.1 Installation PowerShell 7.x.x (Windows)
-Note: *There were several reports that Microsoft Exchange was not working properly at the latest version due to Web Account Manager (WAM). A workaround is to install ExchangeOnlineManagement version 3.7.2 has fixed the WAM bug on Windows 11 devices which support WAM, thus you can update it again!*
+#### 3.1.1 Installation Windows (PowerShell 5/7)
+Note 1: *It is required to replace the Az.Account module with version 2.19.0 in order to make ExchangeOnlineManagement work with Az PowerShell modules. Versions 2.19.0 or later do not work together and generate errors!*
+Note 2: *Windows PowerShell 7 does not work properly with the latest ExchangeOnlineManagement cmdlet as it generate errors when authenticating. On PowerShell 5 it works fine, but on PowerShell 7 it returns that a module cannot be loaded, thus it is recommended to use version 3.6.0 until further notice.*
 
-Note 2: *I have replaced the SharePoint PowerShell module with PnP for better compatibility.*
 ```
 Install-Module -Name Az
-Install-Module -Name ExchangeOnlineManagement
-Install-Module -Name PnP.PowerShell
+Get-InstalledModule -Name Az.Accounts | Uninstall-Module
+Install-Module -Name Az.Accounts -RequiredVersion 2.19.0
+Install-Module -Name ExchangeOnlineManagement -RequiredVersion 3.6.0
+Install-Module -Name PnP.PowerShell #PowerShell 7 Only
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell #PowerShell 5 Only
 Install-Module -Name Microsoft.Graph -AllowClobber -Force
 Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
 Install-Module -Name MicrosoftTeams
 Install-Module -Name PoShLog
 ```
 
-#### 3.1.2 Installation PowerShell 5.1 (Windows)
-Note: *The following issues are represent: Az.Accounts not working properly with latest versions of Microsoft.Graph.(Beta). This is under investigation and a fix will be implemented once the investigation is done*
-```
-Install-Module -Name Az
-Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
-Install-Module -Name Microsoft.Online.SharePoint.PowerShell
-Install-Module -Name Microsoft.Graph -AllowClobber -Force
-Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force
-Install-Module -Name MicrosoftTeams
-Install-Module -Name PoShLog
-```
+If you are using Microsoft PowerShell 5 you can replace `Install-Module -Name PnP.PowerShell` with `Install-Module -Name Microsoft.Online.SharePoint.PowerShell`
 
-In order to make the Az PowerShell module work you must do the following:
+If you are not able to remove Az.Account due warnings or errors you can 
 1. Close all PowerShell sessions
-2. Remove from here the latest version folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
+2. Remove the latest version from the folder `C:\Program Files\WindowsPowerShell\Modules\Az.Accounts`
 3. Open a new Administrative PowerShell 5 session.
 4. Run `Install-Module -Name Az.Accounts -RequiredVersion 2.19.0` to install the working PowerShell 5.1 version.
 5. Try to run the M365SAT-Tester.ps1 to check if everything is working properly.
+
 
 #### 3.1.3 Installation PowerShell 7.x.x (Linux/Unix)
 PowerShell 7 works with Linux and MacOSX, For Linux or MacOSX must follow the instructions below:
@@ -115,7 +109,7 @@ PowerShell 7 works with Linux and MacOSX, For Linux or MacOSX must follow the in
 
 ```
 Install-Module -Name Az
-Install-Module -Name ExchangeOnlineManagement -AllowClobber -Force
+Install-Module -Name ExchangeOnlineManagement
 Install-Module -Name PnP.PowerShell
 Install-Module -Name Microsoft.Graph -AllowClobber -Force
 Install-Module -Name Microsoft.Graph.Beta -AllowClobber -Force

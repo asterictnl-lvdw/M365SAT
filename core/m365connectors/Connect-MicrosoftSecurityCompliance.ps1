@@ -50,17 +50,17 @@ function Invoke-MicrosoftSecurityComplianceConnection {
 
             # Determine the method of connection based on provided parameters
             if ($Credential) {
-                Connect-IPPSSession -DisableWAM -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -Credential $Credential -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-IPPSSession -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -Credential $Credential -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
             elseif ($Username) {
-                Connect-IPPSSession -DisableWAM -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -UserPrincipalName $Username -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-IPPSSession -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -UserPrincipalName $Username -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
             else {
-                Connect-IPPSSession -DisableWAM -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -ShowBanner:$false -ErrorAction Stop | Out-Null
+                Connect-IPPSSession -ConnectionUri $IPPSEnvironment -AzureADAuthorizationEndpointUri $AADUri -ShowBanner:$false -ErrorAction Stop | Out-Null
             }
 
             # Verify the connection
-            $Connection = Get-ConnectionInformation | Where-Object {$_.Name -match "Protection"}
+            $Connection = Get-ConnectionInformation | Where-Object {$_.Name -match "ExchangeOnlineProtection"}
             if (-not [string]::IsNullOrEmpty($Connection)) {
                 Write-Host "Connected to Microsoft Security & Compliance!" -ForegroundColor DarkYellow -BackgroundColor Black
                 return $true
