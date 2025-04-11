@@ -74,6 +74,7 @@ The following modules need to be installed in order to make M365SAT work:
 
 #### 3.1.1 Installation Windows (PowerShell 5/7)
 Note 1: *It is required to replace the Az.Account module with version 2.19.0 in order to make ExchangeOnlineManagement work with Az PowerShell modules. Versions 2.19.0 or later do not work together and generate errors!*
+
 Note 2: *Windows PowerShell 7 does not work properly with the latest ExchangeOnlineManagement cmdlet as it generate errors when authenticating. On PowerShell 5 it works fine, but on PowerShell 7 it returns that a module cannot be loaded, thus it is recommended to use version 3.6.0 until further notice.*
 
 ```
