@@ -5,7 +5,7 @@ function Invoke-MicrosoftExchangeConnection {
         [Parameter(Mandatory = $false)]
         [string]$Username,
         [Parameter(Mandatory = $false)]
-        [string]$Us
+        [string]$Environment = "default"
     )
 
     # Map environment names to Exchange environment values

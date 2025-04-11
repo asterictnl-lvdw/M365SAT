@@ -100,7 +100,7 @@ If you are not able to remove Az.Account due warnings or errors you can
 5. Try to run the M365SAT-Tester.ps1 to check if everything is working properly.
 
 
-#### 3.1.3 Installation PowerShell 7.x.x (Linux/Unix)
+#### 3.1.2 Installation PowerShell 7.x.x (Linux/Unix)
 PowerShell 7 works with Linux and MacOSX, For Linux or MacOSX must follow the instructions below:
 1. Run `sudo pwsh`
 2. In the PowerShell SuperUser session run: `Install-Module -Name PSWSMan`
