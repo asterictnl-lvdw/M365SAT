@@ -101,13 +101,13 @@ function Get-M365SATHTMLReport
         <!-- Required meta tags -->
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css' crossorigin='anonymous'>
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css' crossorigin='anonymous'>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js' crossorigin='anonymous'></script>
-        <script src='https://code.jquery.com/jquery-3.7.1.slim.js' integrity='sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=' crossorigin='anonymous'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.js'></script>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/fontawesome.min.css' crossorigin='anonymous'>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css' crossorigin='anonymous'>
+        <script src='https://cdn.jsdelivr.net/npm/@popperjs/core/dist/umd/popper.min.js' crossorigin='anonymous'></script>
+        <script src='https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js' crossorigin='anonymous'></script>
+        <script src='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js'></script>
         <!-- To be fixed:-->
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js' crossorigin='anonymous'></script>
+        <script src='https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous'></script>
         <script src='https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js'></script>
 
         <style>
@@ -129,7 +129,8 @@ function Get-M365SATHTMLReport
             right: 37px;
         }
 
-        @media (min-width: 576px)
+        @media (min-width: 576px){}
+
         .col-sm-4 {
             flex: 0 0 auto;
         }
@@ -1058,13 +1059,16 @@ function Get-M365SATHTMLReport
             });
             </script>
 
-            <script>
-                function expand() {
-                `$('.collapse').collapse('show');
-                }
-                function collapse() {
-                `$('.collapse').collapse('hide');
-                }   
+             <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.getElementById('expandAll').addEventListener('click', function () {
+                        `$('.collapse').collapse('show');
+                    });
+                
+                    document.getElementById('collapseAll').addEventListener('click', function () {
+                        `$('.collapse').collapse('hide');
+                    });
+                });
             </script>
 
             <script>
