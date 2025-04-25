@@ -1041,8 +1041,8 @@ function Get-M365SATHTMLReport
 	
 	$Output += "
             <div class='collapsebuttons'>
-                <button class='btn btn-primary' onClick='expand();'>Expand All</button>
-                <button class='btn btn-primary' onClick='collapse();'>Collapse All</button>
+                <button class='btn btn-primary' id='expandAll'>Expand All</button>
+                <button class='btn btn-primary' id='collapseAll'>Collapse All</button>
             </div> 
             </main>
             <center>Found a bug? Report it! <a href='https://github.com/Karmakstylez/M365SAT'>GitHub</a></center>
