@@ -108,7 +108,7 @@ function Get-M365SATHTMLReport
         <script src='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js'></script>
         <!-- To be fixed:-->
         <script src='https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous'></script>
-        <script src='https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js'></script>
 
         <style>
         html, body {
